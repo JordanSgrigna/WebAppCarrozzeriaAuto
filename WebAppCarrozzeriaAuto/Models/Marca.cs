@@ -4,6 +4,7 @@ namespace WebAppCarrozzeriaAuto.Models
 {
     public class Marca
     {
+        //ATTRIBUTI
         [Key]
         public int Id { get; set; }
 
@@ -15,9 +16,11 @@ namespace WebAppCarrozzeriaAuto.Models
         [StringLength(100, ErrorMessage = "Il campo può contenere al massimo 100 caratteri")]
         public string PaeseOrigine { get; set; }
 
+        //RELAZIONI
         public List<Modello> Modelli { get; set; }
         public List<Auto> Auto { get; set; }
 
+        //COSTRUTTORI
         public Marca()
         {
 

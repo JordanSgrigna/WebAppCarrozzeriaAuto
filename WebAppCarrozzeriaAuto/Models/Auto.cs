@@ -6,6 +6,7 @@ namespace WebAppCarrozzeriaAuto.Models
 {
     public class Auto
     {
+        //ATTRIBUTI
         [Key]
         public int Id { get; set; }
 
@@ -42,10 +43,11 @@ namespace WebAppCarrozzeriaAuto.Models
         public int NumeroLikeUtenti { get; set; }
 
 
-
+        //RELAZIONI
         public int IdMarca { get; set; }
         public Marca MarcaAuto { get; set; }
 
+        //COSTRUTTORI
         public Auto()
         {
 

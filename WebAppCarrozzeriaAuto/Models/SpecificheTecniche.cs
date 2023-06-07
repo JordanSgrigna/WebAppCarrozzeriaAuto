@@ -5,6 +5,7 @@ namespace WebAppCarrozzeriaAuto.Models
 {
     public class SpecificheTecniche
     {
+        //ATTRIBUTI
         public int Id { get; set; }
 
         [Column(TypeName = "smallint")]
@@ -43,11 +44,13 @@ namespace WebAppCarrozzeriaAuto.Models
 
         [Column(TypeName = "DECIMAL(6,2)")]
         public float? ConsumoMisto { get; set; }
-            
+        
+        //RELAZIONI
         [ForeignKey("Auto")]
         public int AutoId { get; set; }
         public Auto Auto { get; set; }
 
+        //COSTRUTTORI
         public SpecificheTecniche()
         {
 

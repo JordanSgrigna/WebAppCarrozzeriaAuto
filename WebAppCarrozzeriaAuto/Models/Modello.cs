@@ -5,6 +5,7 @@ namespace WebAppCarrozzeriaAuto.Models
 {
     public class Modello
     {
+        //ATTRIBUTI
         [Key]
         public int Id { get; set; }
 
@@ -20,6 +21,7 @@ namespace WebAppCarrozzeriaAuto.Models
         [RegularExpression(@"^(\d{4})$", ErrorMessage = "Il campo deve avere quattro cifre")]
         public int? AnnoFineProduzione { get; set; }
 
+        //RELAZIONI
         [ForeignKey("Tipo")]
         public int IdTipoMacchina { get; set; }
         public Tipo TipoMacchina { get; set; }
@@ -27,6 +29,7 @@ namespace WebAppCarrozzeriaAuto.Models
         public int IdMarca { get; set; }
         public Marca Marca { get; set; }
 
+        //COSTRUTTORI
         public Modello()
         {
 
