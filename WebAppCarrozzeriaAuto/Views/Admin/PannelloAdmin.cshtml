@@ -18,7 +18,9 @@
         <a href="@Url.Action("placeholder3","Admin")" class="btn btn-primary my-2 mx-2 col-3 me-2"> Aggiungi un tipo </a>
 
 
-        <a href="@Url.Action("AcquisisciMacchina","Admin")" class="btn btn-primary my-2 mx-2 col-3 me-2"> Acquisisci macchine </a>
+            <button class="btn btn-primary my-2 mx-2 col-3 me-2" data-bs-toggle="modal" data-bs-target="#dbModal">
+                Acquisisci macchine
+            </button>
         </div>
         <div class="col-12 d-flex justify-content-center">
 
@@ -29,6 +31,24 @@
         </div>
         <div class="col-12 d-flex justify-content-center">
             <a href="@Url.Action("Delete","Admin")" class="btn btn-danger my-2 mx-2 col-3 me-2"> Rimuovi una macchina </a>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-dialog modal-dialog-centered" id="dbModal" tabindex="-1" aria-labelledby="dbModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="dbModalLabel">Attenzione!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    L'auto è già presente nel database?
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary" href="@Url.Action("CreateAuto","Admin")">No</a>
+                <a type="button" class="btn btn-primary" href="@Url.Action("AcquisisciMacchina","Admin")">Sì</a>
+            </div>
         </div>
     </div>
 </div>
