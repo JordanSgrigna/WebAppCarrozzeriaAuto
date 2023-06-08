@@ -22,10 +22,8 @@ namespace WebAppCarrozzeriaAuto.Models
         public int? AnnoFineProduzione { get; set; }
 
         //RELAZIONI
-        [ForeignKey("Tipo")]
         public int IdTipoMacchina { get; set; }
         public Tipo TipoMacchina { get; set; }
-        [ForeignKey("Marca")]
         public int IdMarca { get; set; }
         public Marca Marca { get; set; }
 
