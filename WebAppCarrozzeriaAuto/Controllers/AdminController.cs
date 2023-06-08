@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebAppCarrozzeriaAuto.Database;
 using WebAppCarrozzeriaAuto.Models;
 using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
@@ -120,6 +121,28 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     db.SaveChanges();
                     return RedirectToAction("CreateAuto", "Admin");
                 }
+            }
+        }
+
+        [HttpGet]
+        public IActionResult AcquisisciMacchina()
+        {
+            using(ConcessionarioContext db = new ConcessionarioContext())
+            {
+                List<Auto> auto = db.Auto.ToList();
+                List<Tipo> tipi = db.Tipi.ToList();
+                List<Marca> marche = db.Marche.ToList();
+                List<Modello> modelli = db.Modelli.ToList();
+
+                ModelloAcquisizioneAuto modelloAcquisizioneAuto = new ModelloAcquisizioneAuto();
+
+                modelloAcquisizioneAuto.Auto = auto;
+                modelloAcquisizioneAuto.Marca = marche;
+                modelloAcquisizioneAuto.Modello = modelli;
+                modelloAcquisizioneAuto.Tipo = tipi;
+                modelloAcquisizioneAuto.AcquisizioneAuto = new AcquisizioneAuto();
+
+                return View(modelloAcquisizioneAuto);
             }
         }
 
