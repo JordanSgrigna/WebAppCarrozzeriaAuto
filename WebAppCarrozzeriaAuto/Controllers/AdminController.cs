@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebAppCarrozzeriaAuto.Database;
 using WebAppCarrozzeriaAuto.Models;
 using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
@@ -18,7 +17,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         [Authorize(Roles = "ADMIN")]
         public IActionResult CreateAuto()
         {
-            using (ConcessionarioContext db  = new ConcessionarioContext())
+            using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 List<Tipo> tipi = db.Tipi.ToList();
                 List<Marca> marche = db.Marche.ToList();
@@ -41,7 +40,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         {
             if (!ModelState.IsValid)
             {
-                using(ConcessionarioContext db =new ConcessionarioContext())
+                using (ConcessionarioContext db = new ConcessionarioContext())
                 {
                     List<Tipo> tipi = db.Tipi.ToList();
                     List<Marca> marche = db.Marche.ToList();
@@ -85,7 +84,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateModello (Modello modello)
+        public IActionResult CreateModello(Modello modello)
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
@@ -107,7 +106,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateMarca (Marca marca)
+        public IActionResult CreateMarca(Marca marca)
         {
             if (!ModelState.IsValid)
             {
@@ -127,7 +126,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         [HttpGet]
         public IActionResult AcquisisciMacchina()
         {
-            using(ConcessionarioContext db = new ConcessionarioContext())
+            using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 List<Auto> auto = db.Auto.ToList();
                 List<Tipo> tipi = db.Tipi.ToList();
@@ -144,6 +143,45 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
                 return View(modelloAcquisizioneAuto);
             }
+        }
+
+
+        [HttpPost]
+        public IActionResult AcquisisciMacchina(AcquisizioneAuto data)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    db.AcquisizioniAuto.Add(data);
+                    db.SaveChanges();
+                }
+            }
+            return View(data);
+
+        }
+
+
+
+
+
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Auto? autoDaEliminare = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+                if (autoDaEliminare != null)
+                {
+                    db.Auto.Remove(autoDaEliminare);
+                    db.SaveChanges();
+                    return RedirectToAction("PannelloAdmin");
+
+                }
+                else return NotFound();
+            }
+
         }
 
     }
