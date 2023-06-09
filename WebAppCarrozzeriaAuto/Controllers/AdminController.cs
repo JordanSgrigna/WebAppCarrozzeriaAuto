@@ -157,7 +157,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     return View("Update", autoToModify);
                 } else
                 {
-                    return NotFound("L'auto che desideri modificare non è stata trovata");
+                    return NotFound("L'auto che desideri modificare non è stata trovata.");
                 }
             }
         }
@@ -173,9 +173,31 @@ namespace WebAppCarrozzeriaAuto.Controllers
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 Auto? autoToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+
+                if(autoToModify != null)
+                {
+                    autoToModify.Descrizione = modifiedAuto.Descrizione;
+                    autoToModify.AnnoImmatricolazione = modifiedAuto.AnnoImmatricolazione;
+                    autoToModify.Colore = modifiedAuto.Colore;
+                    autoToModify.UrlImmagine = modifiedAuto.UrlImmagine;
+                    autoToModify.NumeroAutoNelConcessionario = modifiedAuto.NumeroAutoNelConcessionario;
+                    autoToModify.NumeroLikeUtenti = modifiedAuto.NumeroLikeUtenti;
+                    autoToModify.Prezzo = modifiedAuto.Prezzo;
+                    autoToModify.AnnoProduzione = modifiedAuto.AnnoProduzione;
+                    autoToModify.Usata = modifiedAuto.Usata;
+
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                } else
+                {
+                    return NotFound("L'auto che desideri modificare non è stata trovata.");
+                }
             }
 
         }
+
+
 
     }
 }
