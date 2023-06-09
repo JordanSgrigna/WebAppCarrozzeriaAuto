@@ -220,7 +220,7 @@ namespace WebAppCarrozzeriaAuto.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.AcquisizioneAuto", b =>
+            modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.AcquistoAuto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -290,16 +290,7 @@ namespace WebAppCarrozzeriaAuto.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdMarca")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdModello")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdSpecificaTecnica")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdTipo")
                         .HasColumnType("int");
 
                     b.Property<int>("MarcaAutoId")
@@ -548,7 +539,7 @@ namespace WebAppCarrozzeriaAuto.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.AcquisizioneAuto", b =>
+            modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.AcquistoAuto", b =>
                 {
                     b.HasOne("WebAppCarrozzeriaAuto.Models.Auto", "AutoDaAcquisire")
                         .WithMany()

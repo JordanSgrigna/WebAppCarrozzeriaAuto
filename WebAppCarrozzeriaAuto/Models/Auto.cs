@@ -48,16 +48,15 @@ namespace WebAppCarrozzeriaAuto.Models
 
 
         //RELAZIONI
-        public int IdMarca { get; set; }
         public Marca MarcaAuto { get; set; }
 
         public int IdSpecificaTecnica { get; set;}
         public SpecificheTecniche Specifiche { get; set; }
 
-        public int IdModello { get; set; }
+
         public Modello ModelloAuto { get; set; }
 
-        public int IdTipo { get; set; }
+
         public Tipo TipoAuto { get; set; }
 
         //COSTRUTTORI

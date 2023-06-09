@@ -19,7 +19,7 @@ namespace WebAppCarrozzeriaAuto.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=Concessionario;" +
+            optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=DBAutoConcessionario;" +
             "Integrated Security=True;TrustServerCertificate=True");
         }
     }
