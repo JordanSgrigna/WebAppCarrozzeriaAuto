@@ -367,18 +367,18 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                Tipo? tipoToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.Id == id).FirstOrDefault();
+                Tipo? tipoToModify = db.Tipi.Where(tipo => tipo.Id == id).FirstOrDefault();
 
                 if (tipoToModify != null)
                 {
-                    
+                    tipoToModify.Nome = modifiedTipo.Nome;
 
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    return NotFound("Le specifiche tecniche che desideri modificare non sono state trovate.");
+                    return NotFound("Il tipo che desideri modificare non è stato trovato.");
                 }
             }
 
