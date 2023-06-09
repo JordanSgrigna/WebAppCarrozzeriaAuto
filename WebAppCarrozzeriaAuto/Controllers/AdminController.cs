@@ -209,13 +209,13 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 }
                 else
                 {
-                    return NotFound("L'marca che desideri modificare non è stata trovata.");
+                    return NotFound("La marca che desideri modificare non è stata trovata.");
                 }
             }
         }
 
         [HttpPost]
-        public IActionResult ModifyMarca(int id, Auto modifiedMarca)
+        public IActionResult ModifyMarca(int id, Marca modifiedMarca)
         {
             if (ModelState.IsValid)
             {
@@ -224,12 +224,12 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                Auto? marcaToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+                Marca? marcaToModify = db.Marche.Where(marca => marca.Id == id).FirstOrDefault();
 
                 if (marcaToModify != null)
                 {
-                    
-
+                    marcaToModify.Nome = modifiedMarca.Nome;
+                    marcaToModify.PaeseOrigine = modifiedMarca.PaeseOrigine;
 
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -237,6 +237,50 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 else
                 {
                     return NotFound("La marca che desideri modificare non è stata trovata.");
+                }
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult ModifyModello(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Modello? modelloToModify = db.Modelli.Where(modello => modello.Id == id).FirstOrDefault();
+                if (modelloToModify != null)
+                {
+                    return View("Update", modelloToModify);
+                }
+                else
+                {
+                    return NotFound("Il modello che desideri modificare non è stata trovata.");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ModifyModello(int id, Modello modifiedModello)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("Update", modifiedModello);
+            }
+
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Marca? modelloToModify = db.Marche.Where(marca => marca.Id == id).FirstOrDefault();
+
+                if (modelloToModify != null)
+                {
+                   
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound("Il modello che desideri modificare non è stata trovata.");
                 }
             }
 
