@@ -146,7 +146,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
             }
         }
 
-<<<<<<< HEAD
         [HttpPost]
         public IActionResult AcquisisciMacchina(ModelloAcquisizioneAuto data)
         {
@@ -169,28 +168,8 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     return RedirectToAction("Index");
                 }
             }
-=======
-
-        [HttpPost]
-        public IActionResult AcquisisciMacchina(AcquisizioneAuto data)
-        {
-            if (ModelState.IsValid)
-            {
-                using (ConcessionarioContext db = new ConcessionarioContext())
-                {
-                    db.AcquisizioniAuto.Add(data);
-                    db.SaveChanges();
-                }
-            }
-            return View(data);
 
         }
-
-
-
-
-
-
         [HttpPost]
         public IActionResult Delete(int id)
         {
@@ -206,8 +185,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 }
                 else return NotFound();
             }
-
->>>>>>> ControllerAdmin
         }
 
     }
