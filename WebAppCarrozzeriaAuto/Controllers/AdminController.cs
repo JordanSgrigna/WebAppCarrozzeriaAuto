@@ -334,7 +334,51 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 }
                 else
                 {
-                    return NotFound("Il modello che desideri modificare non è stata trovata.");
+                    return NotFound("Le specifiche tecniche che desideri modificare non sono state trovate.");
+                }
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult ModifyTipo(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Tipo? tipoToModify = db.Tipi.Where(tipo => tipo.Id == id).FirstOrDefault();
+                if (tipoToModify != null)
+                {
+                    return View("Update", tipoToModify);
+                }
+                else
+                {
+                    return NotFound("Il tipo che desideri modificare non è stato trovato.");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ModifyTipo(int id, Tipo modifiedTipo)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("Update", modifiedTipo);
+            }
+
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Tipo? tipoToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.Id == id).FirstOrDefault();
+
+                if (tipoToModify != null)
+                {
+                    
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound("Le specifiche tecniche che desideri modificare non sono state trovate.");
                 }
             }
 
