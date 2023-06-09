@@ -7,6 +7,7 @@ using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
 
 namespace WebAppCarrozzeriaAuto.Controllers
 {
+    [Authorize(Roles = "ADMIN")]
     public class AdminController : Controller
     {
         public IActionResult PannelloAdmin()
@@ -143,6 +144,30 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 modelloAcquisizioneAuto.AcquisizioneAuto = new AcquisizioneAuto();
 
                 return View(modelloAcquisizioneAuto);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AcquisisciMacchina(ModelloAcquisizioneAuto data)
+        {
+            if(!ModelState.IsValid)
+            {
+                using(ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    List<Auto> listaAuto = db.Auto.ToList();
+                    data.Auto = listaAuto;
+                    return View(data);
+                }
+            }
+            else
+            {
+                using(ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    db.AcquisizioniAuto.Add(data.AcquisizioneAuto);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
             }
         }
 
