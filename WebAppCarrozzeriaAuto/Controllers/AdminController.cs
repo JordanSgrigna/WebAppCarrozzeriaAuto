@@ -225,5 +225,245 @@ namespace WebAppCarrozzeriaAuto.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult ModifyAuto(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Auto? autoToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+                if (autoToModify != null)
+                {
+                    return View("Update", autoToModify);
+                }
+                else
+                {
+                    return NotFound("L'auto che desideri modificare non è stata trovata.");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ModifyAuto(int id, Auto modifiedAuto)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("Update", modifiedAuto);
+            }
+
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Auto? autoToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+
+                if (autoToModify != null)
+                {
+                    autoToModify.Descrizione = modifiedAuto.Descrizione;
+                    autoToModify.AnnoImmatricolazione = modifiedAuto.AnnoImmatricolazione;
+                    autoToModify.Colore = modifiedAuto.Colore;
+                    autoToModify.UrlImmagine = modifiedAuto.UrlImmagine;
+                    autoToModify.NumeroAutoNelConcessionario = modifiedAuto.NumeroAutoNelConcessionario;
+                    autoToModify.NumeroLikeUtenti = modifiedAuto.NumeroLikeUtenti;
+                    autoToModify.Prezzo = modifiedAuto.Prezzo;
+                    autoToModify.AnnoProduzione = modifiedAuto.AnnoProduzione;
+                    autoToModify.Usata = modifiedAuto.Usata;
+
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound("L'auto che desideri modificare non è stata trovata.");
+                }
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult ModifyMarca(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Marca? marcaToModify = db.Marche.Where(marca => marca.Id == id).FirstOrDefault();
+                if (marcaToModify != null)
+                {
+                    return View("Update", marcaToModify);
+                }
+                else
+                {
+                    return NotFound("La marca che desideri modificare non è stata trovata.");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ModifyMarca(int id, Marca modifiedMarca)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("Update", modifiedMarca);
+            }
+
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Marca? marcaToModify = db.Marche.Where(marca => marca.Id == id).FirstOrDefault();
+
+                if (marcaToModify != null)
+                {
+                    marcaToModify.Nome = modifiedMarca.Nome;
+                    marcaToModify.PaeseOrigine = modifiedMarca.PaeseOrigine;
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound("La marca che desideri modificare non è stata trovata.");
+                }
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult ModifyModello(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Modello? modelloToModify = db.Modelli.Where(modello => modello.Id == id).FirstOrDefault();
+                if (modelloToModify != null)
+                {
+                    return View("Update", modelloToModify);
+                }
+                else
+                {
+                    return NotFound("Il modello che desideri modificare non è stata trovata.");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ModifyModello(int id, Modello modifiedModello)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("Update", modifiedModello);
+            }
+
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Modello? modelloToModify = db.Modelli.Where(modello => modello.Id == id).FirstOrDefault();
+
+                if (modelloToModify != null)
+                {
+                    modelloToModify.Nome = modifiedModello.Nome;
+                    modelloToModify.AnnoInizioProduzione = modifiedModello.AnnoInizioProduzione;
+                    modelloToModify.AnnoFineProduzione = modifiedModello.AnnoFineProduzione;
+                    modelloToModify.Allestimento = modifiedModello.Allestimento;
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound("Il modello che desideri modificare non è stata trovata.");
+                }
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult ModifySpecificheTecniche(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                SpecificheTecniche? specificheTecnicheToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.Id == id).FirstOrDefault();
+                if (specificheTecnicheToModify != null)
+                {
+                    return View("Update", specificheTecnicheToModify);
+                }
+                else
+                {
+                    return NotFound("Le specifiche tecniche che desideri modificare non sono state trovate.");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ModifySpecificheTecniche(int id, SpecificheTecniche modifiedSpecificheTecniche)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("Update", modifiedSpecificheTecniche);
+            }
+
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                SpecificheTecniche? specificheTecnicheToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.Id == id).FirstOrDefault();
+
+                if (specificheTecnicheToModify != null)
+                {
+                    specificheTecnicheToModify.Alimentazione = modifiedSpecificheTecniche.Alimentazione;
+                    specificheTecnicheToModify.Potenza = modifiedSpecificheTecniche.Potenza;
+                    specificheTecnicheToModify.Cambio = modifiedSpecificheTecniche.Cambio;
+                    specificheTecnicheToModify.Trazione = modifiedSpecificheTecniche.Trazione;
+                    specificheTecnicheToModify.ClasseEmissioni = modifiedSpecificheTecniche.ClasseEmissioni;
+                    specificheTecnicheToModify.ConsumoUrbano = modifiedSpecificheTecniche.ConsumoUrbano;
+                    specificheTecnicheToModify.ConsumoExtraUrbano = modifiedSpecificheTecniche.ConsumoUrbano;
+                    specificheTecnicheToModify.ConsumoMisto = modifiedSpecificheTecniche.ConsumoMisto;
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound("Le specifiche tecniche che desideri modificare non sono state trovate.");
+                }
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult ModifyTipo(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Tipo? tipoToModify = db.Tipi.Where(tipo => tipo.Id == id).FirstOrDefault();
+                if (tipoToModify != null)
+                {
+                    return View("Update", tipoToModify);
+                }
+                else
+                {
+                    return NotFound("Il tipo che desideri modificare non è stato trovato.");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ModifyTipo(int id, Tipo modifiedTipo)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("Update", modifiedTipo);
+            }
+
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Tipo? tipoToModify = db.Tipi.Where(tipo => tipo.Id == id).FirstOrDefault();
+
+                if (tipoToModify != null)
+                {
+                    tipoToModify.Nome = modifiedTipo.Nome;
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound("Il tipo che desideri modificare non è stato trovato.");
+                }
+            }
+
+        }
+
     }
 }
