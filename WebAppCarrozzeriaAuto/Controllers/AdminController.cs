@@ -157,9 +157,24 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     return View("Update", autoToModify);
                 } else
                 {
-                    return NotFound("
+                    return NotFound("L'auto che desideri modificare non è stata trovata");
                 }
             }
+        }
+
+        [HttpPost]
+        public IActionResult ModifyAuto(int id,Auto modifiedAuto)
+        {
+            if(ModelState.IsValid)
+            {
+                return View("Update", modifiedAuto);
+            }
+
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Auto? autoToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+            }
+
         }
 
     }
