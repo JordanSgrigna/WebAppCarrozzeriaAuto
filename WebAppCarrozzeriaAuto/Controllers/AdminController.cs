@@ -197,7 +197,50 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult ModifyMarca(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Marca? marcaToModify = db.Marche.Where(marca => marca.Id == id).FirstOrDefault();
+                if (marcaToModify != null)
+                {
+                    return View("Update", marcaToModify);
+                }
+                else
+                {
+                    return NotFound("L'marca che desideri modificare non è stata trovata.");
+                }
+            }
+        }
 
+        [HttpPost]
+        public IActionResult ModifyMarca(int id, Auto modifiedMarca)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("Update", modifiedMarca);
+            }
+
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Auto? marcaToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+
+                if (marcaToModify != null)
+                {
+                    
+
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound("La marca che desideri modificare non è stata trovata.");
+                }
+            }
+
+        }
 
     }
 }
