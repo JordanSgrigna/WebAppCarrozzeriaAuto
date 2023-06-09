@@ -9,6 +9,8 @@ namespace WebAppCarrozzeriaAuto.Controllers
 {
     public class AdminController : Controller
     {
+        //GET
+        [HttpGet]
         public IActionResult PannelloAdmin()
         {
             return View();
@@ -49,6 +51,53 @@ namespace WebAppCarrozzeriaAuto.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult CreateModello()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult CreateMarca()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult CreateTipo()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult AcquistaMacchina(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Auto? autoDaAcquistare = db.Auto
+                            .Where(auto => auto.Id == id)
+                            .Include(auto => auto.MarcaAuto)
+                            .Include(auto => auto.ModelloAuto)
+                            .Include(auto => auto.TipoAuto)
+                            .FirstOrDefault();
+
+                if (autoDaAcquistare != null)
+                {
+                    ModelloAcquisizioneAuto modelloAcquisizioneAuto = new ModelloAcquisizioneAuto();
+
+                    modelloAcquisizioneAuto.Auto = autoDaAcquistare;
+                    modelloAcquisizioneAuto.AcquistoAuto = new AcquistoAuto();
+
+                    return View(modelloAcquisizioneAuto);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        //POST
         [HttpPost]
         public IActionResult CreateAuto(ModelloMacchinaComplesso data)
         {
@@ -84,7 +133,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("CreateAuto", tipo);
+                return View("CreateTipo", tipo);
             }
             else
             {
@@ -92,7 +141,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 {
                     db.Tipi.Add(tipo);
                     db.SaveChanges();
-                    return RedirectToAction("CreateAuto", "Admin");
+                    return RedirectToAction("PannelloAdmin", "Admin");
                 }
             }
         }
@@ -110,7 +159,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 {
                     db.Modelli.Add(modello);
                     db.SaveChanges();
-                    return RedirectToAction("CreateAuto", "Admin");
+                    return RedirectToAction("PannelloAdmin", "Admin");
 
                 }
             }
@@ -129,35 +178,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 {
                     db.Marche.Add(marca);
                     db.SaveChanges();
-                    return RedirectToAction("CreateAuto", "Admin");
-                }
-            }
-        }
-
-        [HttpGet]
-        public IActionResult AcquistaMacchina(int id)
-        {
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                Auto? autoDaAcquistare = db.Auto
-                            .Where(auto => auto.Id == id)
-                            .Include(auto => auto.MarcaAuto)
-                            .Include(auto => auto.ModelloAuto)
-                            .Include(auto => auto.TipoAuto)
-                            .FirstOrDefault();
-
-                if (autoDaAcquistare != null)
-                {
-                    ModelloAcquisizioneAuto modelloAcquisizioneAuto = new ModelloAcquisizioneAuto();
-
-                    modelloAcquisizioneAuto.Auto = autoDaAcquistare;
-                    modelloAcquisizioneAuto.AcquistoAuto = new AcquistoAuto();
-
-                    return View(modelloAcquisizioneAuto);
-                }
-                else
-                {
-                    return NotFound();
+                    return RedirectToAction("PannelloAdmin", "Admin");
                 }
             }
         }
