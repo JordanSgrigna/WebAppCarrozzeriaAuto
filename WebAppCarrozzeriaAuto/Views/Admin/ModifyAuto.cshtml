@@ -1,5 +1,48 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
+@model ModelloMacchinaComplesso
+
+<div class="container text-bg-light mt-5">
+    <form asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Auto.Id" method="post" class="p-5">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label asp-for="@Model.Auto.Id" class="form-label">Id Articolo</label>
+            <input asp-for="@Model.Auto.Id" type="text" class="form-control" readonly>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Auto.Usata" class="form-label">Titolo</label>
+            <input asp-for="@Model.Auto.Usata" type="text" class="form-control" required>
+            <span asp-validation-for="@Model.Auto.Usata" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Auto.UrlImmagine" class="form-label">Descrizione</label>
+            <input asp-for="@Model.Auto.UrlImmagine" rows="10" class="form-control" required></input>
+            <span asp-validation-for="@Model.Auto.UrlImmagine" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Auto.Descrizione" class="form-label">URL Immagine</label>
+            <input asp-for="@Model.Auto.Descrizione" type="text" class="form-control" required>
+            <span asp-validation-for="@Model.Auto.Descrizione" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Auto.Colore" class="form-label">Prezzo</label>
+            <input asp-for="@Model.Auto.Colore" type="text" class="form-control" required>
+            <span asp-validation-for="@Model.Auto.Colore" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Auto.Prezzo" class="form-label">Prezzo</label>
+            <input asp-for="@Model.Auto.Prezzo" type="text" class="form-control" required>
+            <span asp-validation-for="@Model.Auto.Prezzo" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Auto.AnnoProduzione" class="form-label">Prezzo</label>
+            <input asp-for="@Model.Auto.AnnoProduzione" type="text" class="form-control" required>
+            <span asp-validation-for="@Model.Auto.AnnoProduzione" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Auto.AnnoProduzione" class="form-label">Prezzo</label>
+            <input asp-for="@Model.Auto.AnnoProduzione" type="text" class="form-control" required>
+            <span asp-validation-for="@Model.Auto.AnnoProduzione" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success">Salva</button>
+    </form>
+</div>
