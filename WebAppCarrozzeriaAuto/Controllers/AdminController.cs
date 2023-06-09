@@ -269,11 +269,65 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                Marca? modelloToModify = db.Marche.Where(marca => marca.Id == id).FirstOrDefault();
+                Modello? modelloToModify = db.Modelli.Where(modello => modello.Id == id).FirstOrDefault();
 
                 if (modelloToModify != null)
                 {
-                   
+                    modelloToModify.Nome = modifiedModello.Nome;
+                    modelloToModify.AnnoInizioProduzione = modifiedModello.AnnoInizioProduzione;
+                    modelloToModify.AnnoFineProduzione = modifiedModello.AnnoFineProduzione;
+                    modelloToModify.Allestimento = modifiedModello.Allestimento;
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound("Il modello che desideri modificare non è stata trovata.");
+                }
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult ModifySpecificheTecniche(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                SpecificheTecniche? specificheTecnicheToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.Id == id).FirstOrDefault();
+                if (specificheTecnicheToModify != null)
+                {
+                    return View("Update", specificheTecnicheToModify);
+                }
+                else
+                {
+                    return NotFound("Le specifiche tecniche che desideri modificare non sono state trovate.");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ModifySpecificheTecniche(int id, SpecificheTecniche modifiedSpecificheTecniche)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("Update", modifiedSpecificheTecniche);
+            }
+
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                SpecificheTecniche? specificheTecnicheToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.Id == id).FirstOrDefault();
+
+                if (specificheTecnicheToModify != null)
+                {
+                    specificheTecnicheToModify.Alimentazione = modifiedSpecificheTecniche.Alimentazione;
+                    specificheTecnicheToModify.Potenza = modifiedSpecificheTecniche.Potenza;
+                    specificheTecnicheToModify.Cambio = modifiedSpecificheTecniche.Cambio;
+                    specificheTecnicheToModify.Trazione = modifiedSpecificheTecniche.Trazione;
+                    specificheTecnicheToModify.ClasseEmissioni = modifiedSpecificheTecniche.ClasseEmissioni;
+                    specificheTecnicheToModify.ConsumoUrbano = modifiedSpecificheTecniche.ConsumoUrbano;
+                    specificheTecnicheToModify.ConsumoExtraUrbano = modifiedSpecificheTecniche.ConsumoUrbano;
+                    specificheTecnicheToModify.ConsumoMisto = modifiedSpecificheTecniche.ConsumoMisto;
 
                     db.SaveChanges();
                     return RedirectToAction("Index");
