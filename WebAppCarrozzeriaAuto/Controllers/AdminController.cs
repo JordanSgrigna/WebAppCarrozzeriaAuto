@@ -265,6 +265,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     autoToModify.Prezzo = modifiedAuto.Prezzo;
                     autoToModify.AnnoProduzione = modifiedAuto.AnnoProduzione;
                     autoToModify.Usata = modifiedAuto.Usata;
+                    autoToModify.Allestimento = modifiedAuto.Allestimento;
 
 
                     db.SaveChanges();
@@ -357,7 +358,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     modelloToModify.Nome = modifiedModello.Nome;
                     modelloToModify.AnnoInizioProduzione = modifiedModello.AnnoInizioProduzione;
                     modelloToModify.AnnoFineProduzione = modifiedModello.AnnoFineProduzione;
-                    modelloToModify.Allestimento = modifiedModello.Allestimento;
 
                     db.SaveChanges();
                     return RedirectToAction("Index");
