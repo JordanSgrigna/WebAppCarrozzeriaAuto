@@ -14,10 +14,6 @@ namespace WebAppCarrozzeriaAuto.Models
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
-        [StringLength(100, ErrorMessage = "Il campo può contenere al massimo 100 caratteri")]
-        public string Allestimento { get; set; }
-
-        [Required(ErrorMessage = "Il campo è obbligatorio")]
         [Range(1990, 3000, ErrorMessage = "Il campo deve esssere compreso tra il 1990 e 3000")]
         [RegularExpression(@"^(\d{4})$", ErrorMessage = "Il campo deve avere quattro cifre")]
         public int AnnoInizioProduzione { get; set; }
@@ -27,10 +23,7 @@ namespace WebAppCarrozzeriaAuto.Models
         public int? AnnoFineProduzione { get; set; }
 
         //RELAZIONI
-        public int IdTipoMacchina { get; set; }
-        public Tipo TipoMacchina { get; set; }
-        public int IdMarca { get; set; }
-        public Marca Marca { get; set; }
+        public List<Auto> Auto { get; set; }
 
         //COSTRUTTORI
         public Modello()

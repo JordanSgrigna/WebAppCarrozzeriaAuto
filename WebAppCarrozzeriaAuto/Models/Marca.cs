@@ -17,7 +17,6 @@ namespace WebAppCarrozzeriaAuto.Models
         public string PaeseOrigine { get; set; }
 
         //RELAZIONI
-        public List<Modello> Modelli { get; set; }
         public List<Auto> Auto { get; set; }
 
         //COSTRUTTORI
