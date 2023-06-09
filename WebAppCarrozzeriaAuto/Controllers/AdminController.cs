@@ -146,5 +146,21 @@ namespace WebAppCarrozzeriaAuto.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult ModifyAuto(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Auto? autoToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+                if(autoToModify != null)
+                {
+                    return View("Update", autoToModify);
+                } else
+                {
+                    return NotFound("
+                }
+            }
+        }
+
     }
 }
