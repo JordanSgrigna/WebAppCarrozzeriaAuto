@@ -25,7 +25,7 @@
                             <td>@auto.TipoAuto</td>
                             <td>@auto.AnnoProduzione</td>
                             <td>
-                                <a class="btn btn-sm btn-dark rounded-0 ms-auto" style="max-height:30px;" href="@Url.Action("AcquistaMacchina", "Admin", new {id = auto.Id})" role="button">
+                                <a class="btn btn-sm btn-dark rounded-0 ms-auto" data-bs-toggle="modal" data-bs-target="dbModal" style="max-height:30px;" href="@Url.Action("AcquistaMacchina", "Admin", new {id = auto.Id})" role="button">
                                     Acquista Macchina
                                 </a>
                                 <button>
@@ -36,6 +36,23 @@
                     }
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="modal fade modal-dialog modal-dialog-centered" id="dbModal" tabindex="-1" aria-labelledby="dbModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="dbModalLabel">Attenzione!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    L'auto è già presente nel database?
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-primary" href="@Url.Action("CreateAuto","Admin")">No</a>
+                    <a type="button" class="btn btn-primary" href="@Url.Action("AcquisisciMacchina","Admin")">Sì</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

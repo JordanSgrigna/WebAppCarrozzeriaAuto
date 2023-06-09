@@ -7,7 +7,6 @@ using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
 
 namespace WebAppCarrozzeriaAuto.Controllers
 {
-    [Authorize(Roles = "ADMIN")]
     public class AdminController : Controller
     {
         public IActionResult PannelloAdmin()
@@ -30,7 +29,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "ADMIN")]
         public IActionResult CreateAuto()
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
@@ -52,7 +50,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
         public IActionResult CreateAuto(ModelloMacchinaComplesso data)
         {
             if (!ModelState.IsValid)
