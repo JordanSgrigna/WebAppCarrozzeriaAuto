@@ -2,7 +2,136 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<header>
+    <div class="d-flex min-vh-100" lc-helper="background" style="background:url(/Assets/img/stephan-louis-m8mypQp7Sg0-unsplash.jpg)  center / cover no-repeat; background-color:#444; background-blend-mode: overlay;">
+    <div class="align-self-center text-center text-light col-md-8 offset-md-2">
+        <div class="lc-block mb-4" style="margin-top: -100px;">
+            <div editable="rich">
+                <h1 class="display-1 fw-bolder">Valutiamo di più il tuo usato.</h1>
+            </div>
+        </div>
+
+        <div class="lc-block" style="margin-top: 70px;">
+            <div editable="rich">
+                <p class="lead">Più di 30 marchi, con oltre 200 auto tra cui scegliere. In più compriamo il tuo usato con una valutazione veloce ed accurata.</p>
+                <p class="lead">Affidati a Road Runner, l'esperienza che guida il successo.</p>
+            </div>
+        </div>
+
+        <div class="lc-block">
+            <a class="btn btn-outline-light btn-lg" href="@Url.Action("Contattaci", "Home")" role="button">Prenota un appuntamento</a>
+        </div>
+    </div>
 </div>
+</header>
+
+<main>
+    <div class="container-fluid p-0 overflow-hidden">
+      <div class="row g-0">
+          <div lc-helper="background" class="col-lg-6 order-lg-2 " style="min-height: 45vh; background-size: cover; background-position: center; background-image: url('/Assets/img/why-kei-8e2gal_GIE8-unsplash.jpg');">
+
+          </div>
+          <div class="col-lg-6 order-lg-1 my-auto px-5 py-5">
+              <div class="lc-block">
+                  <div editable="rich">
+                      <h1>Il nostro sito, la tua auto.</h1>
+                      <p class="lead">Potrai acquistare la tua auto direttamente sul nostro sito, da qualsiasi device tu desideri. Scegli tra quelle presenti nel nostro listino, ottieni un preventivo e completa l'ordine: la tua nuova auto è già in concessionario.</p>
+                      <a class="btn btn-outline-dark btn-lg" href="@Url.Action("Index", "Auto")" role="button">Auto nuove</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="row g-0">
+          <div lc-helper="background" class="col-lg-6" style="min-height: 45vh; background-size: cover;background-position: center; background-image: url('/Assets/img/Startline-Shutterstock-image.jpg');">
+          </div>
+          <div class="col-lg-6 my-auto px-5 py-5">
+              <div class="lc-block">
+                  <div editable="rich">
+                      <h1>Usato da sogno, prezzo da realtà.</h1>
+                      <p class="lead">Con Road Runner potrai acquistare anche auto usate garantite e controllate, per garantire la migliore qualità anche a prezzi ridotti. Inoltre, puoi anche vendere la tua vecchia auto: un nostro consulente la valuterà nel modo più efficace e rapido sul mercato.</p>
+                      <a class="btn btn-outline-dark btn-lg" href="@Url.Action("Index", "Auto")" role="button">Auto usate</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="container">
+        <div class="row mx-0">
+          <div class="col p-5 text-center align-self-center">
+            <h1>Le auto più vendute</h1> 
+          </div>
+        </div>
+      </div>
+
+      <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-bs-theme="light">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="active" aria-current="true"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active carousel-item-start">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+            <div class="container">
+              <div class="carousel-caption text-center">
+                <h1>Example headline.</h1>
+                <p class="opacity-75">Some representative placeholder content for the first slide of the carousel.</p>
+                <p><a class="btn btn-outline-light btn-lg" href="#">Sign up today</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item carousel-item-next carousel-item-start">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>Another example headline.</h1>
+                <p>Some representative placeholder content for the second slide of the carousel.</p>
+                <p><a class="btn btn-outline-light btn-lg" href="#">Learn more</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+            <div class="container">
+              <div class="carousel-caption text-center">
+                <h1>One more for good measure.</h1>
+                <p>Some representative placeholder content for the third slide of this carousel.</p>
+                <p><a class="btn btn-outline-light btn-lg" href="#">Browse gallery</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+
+      <div class="container">
+        <div class="row mx-0">
+          <div class="col p-5 text-center align-self-center">
+            <h1>I nostri marchi</h1> 
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+        <div class="row mx-0">
+            <img src="/Assets/img/360_F_423583318_xwyGkRzw05fE5hf34IIynGarwjhBJ3q7.jpg" class="img-fluid" alt=""> 
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+</main>
+

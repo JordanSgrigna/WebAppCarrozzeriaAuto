@@ -1,0 +1,25 @@
+﻿<nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3 opacity-50">
+    <div class="container-fluid">
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a href="@Url.Action("Index", "Home")" class="fixed">
+                        <img src="/Assets/img/RoadRunner1.png" style="height: 40px;" />
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Index", "Auto")">Auto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Contattaci", "Home")">Contattaci</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("PannelloAdmin", "Admin")">Pannello Admin</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
