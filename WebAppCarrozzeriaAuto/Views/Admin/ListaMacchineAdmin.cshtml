@@ -1,0 +1,41 @@
+﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
+@model List<Auto>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modello</th>
+                        <th scope="col">Allestimento</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Anno Produzione</th>
+                        <th scope="col">Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(Auto auto in Model)
+                    {
+                        <tr>
+                            <th scope="row">@auto.MarcaAuto.Nome</th>
+                            <td>@auto.ModelloAuto.Nome</td>
+                            <td>@auto.Allestimento</td>
+                            <td>@auto.TipoAuto</td>
+                            <td>@auto.AnnoProduzione</td>
+                            <td>
+                                <a class="btn btn-sm btn-dark rounded-0 ms-auto" style="max-height:30px;" href="@Url.Action("AcquistaMacchina", "Admin", new {id = auto.Id})" role="button">
+                                    Acquista Macchina
+                                </a>
+                                <button>
+                                    Elimina
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

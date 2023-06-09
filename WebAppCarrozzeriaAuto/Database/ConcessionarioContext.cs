@@ -13,7 +13,7 @@ namespace WebAppCarrozzeriaAuto.Database
         public DbSet<Marca> Marche { get; set; }
         public DbSet<Auto> Auto { get; set; }
         public DbSet<SpecificheTecniche> SpecificheTecniche { get; set; }
-        public DbSet<AcquisizioneAuto> AcquisizioniAuto { get; set; }
+        public DbSet<AcquistoAuto> AcquisizioniAuto { get; set; }
         public DbSet<VenditaAutoUtente> VenditeAuto { get; set; }
 
 

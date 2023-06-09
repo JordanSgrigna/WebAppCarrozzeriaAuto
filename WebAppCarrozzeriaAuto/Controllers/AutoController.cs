@@ -20,15 +20,8 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 List<Modello> modelli = db.Modelli.ToList();
                 List<SpecificheTecniche> specifiche = db.SpecificheTecniche.ToList();
 
-                ModelloMacchinaPerUser modelloPerView = new ModelloMacchinaPerUser();
 
-                modelloPerView.Auto = auto;
-                modelloPerView.Tipo = tipi;
-                modelloPerView.Marca = marche;
-                modelloPerView.Modello = modelli;
-                modelloPerView.SpecificheTecniche = specifiche;
-
-                return View(modelloPerView);
+                return View();
             }
         }
 
@@ -65,11 +58,8 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 {
                     VenditaAutoUtente venditaAuto = new VenditaAutoUtente();
 
-                    ModelloVenditaAuto modelForView = new ModelloVenditaAuto();
-                    modelForView.AutoDaVendere = autoDaVendere;
-                    modelForView.VenditaAuto = venditaAuto;
 
-                    return View(modelForView);
+                    return View();
                 }
             }
         }

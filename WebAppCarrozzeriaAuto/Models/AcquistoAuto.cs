@@ -4,7 +4,7 @@ using WebAppCarrozzeriaAuto.Models.ValidazioniCustom;
 
 namespace WebAppCarrozzeriaAuto.Models
 {
-    public class AcquisizioneAuto
+    public class AcquistoAuto
     {
         [Key]
         public int Id { get; set; }
@@ -32,12 +32,12 @@ namespace WebAppCarrozzeriaAuto.Models
         public Auto AutoDaAcquisire { get; set; }
 
 
-        public AcquisizioneAuto()
+        public AcquistoAuto()
         {
             
         }
 
-        public AcquisizioneAuto(string nomeFornitore, float prezzoUnitarioMacchina, float prezzoTotale, int numeroMacchineAcquistate, bool usata = false)
+        public AcquistoAuto(string nomeFornitore, float prezzoUnitarioMacchina, float prezzoTotale, int numeroMacchineAcquistate, bool usata = false)
         {
             NomeFornitore = nomeFornitore;
             PrezzoUnitarioMacchina = prezzoUnitarioMacchina;

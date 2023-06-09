@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebAppCarrozzeriaAuto.Database;
 using WebAppCarrozzeriaAuto.Models;
 using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
@@ -14,6 +15,20 @@ namespace WebAppCarrozzeriaAuto.Controllers
             return View();
         }
 
+        public IActionResult ListaMacchineAdmin()
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                List<Auto> auto = db.Auto
+                            .Include(auto => auto.MarcaAuto)
+                            .Include(auto => auto.ModelloAuto)
+                            .Include(auto => auto.TipoAuto)
+                            .ToList();
+
+                return View(auto);
+            }
+        }
+
         [HttpGet]
         [Authorize(Roles = "ADMIN")]
         public IActionResult CreateAuto()
@@ -26,6 +41,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
                 ModelloMacchinaComplesso modelloPerView = new ModelloMacchinaComplesso();
                 modelloPerView.Auto = new Auto();
+                modelloPerView.Specifiche = new SpecificheTecniche();
                 modelloPerView.Modello = modelli;
                 modelloPerView.Tipo = tipi;
                 modelloPerView.Marca = marche;
@@ -89,9 +105,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                //PRENDO LA LISTA DEI TIPI DA ASSOCIARE AL MODELLO
-                List<Tipo> tipi = db.Tipi.ToList();
-
                 if (!ModelState.IsValid)
                 {
                     return View("CreateAuto", modello);
@@ -125,47 +138,49 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpGet]
-        public IActionResult AcquisisciMacchina()
+        public IActionResult AcquistaMacchina(int id)
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                List<Auto> auto = db.Auto.ToList();
-                List<Tipo> tipi = db.Tipi.ToList();
-                List<Marca> marche = db.Marche.ToList();
-                List<Modello> modelli = db.Modelli.ToList();
+                Auto? autoDaAcquistare = db.Auto
+                            .Where(auto => auto.Id == id)
+                            .Include(auto => auto.MarcaAuto)
+                            .Include(auto => auto.ModelloAuto)
+                            .Include(auto => auto.TipoAuto)
+                            .FirstOrDefault();
 
-                ModelloAcquisizioneAuto modelloAcquisizioneAuto = new ModelloAcquisizioneAuto();
+                if (autoDaAcquistare != null)
+                {
+                    ModelloAcquisizioneAuto modelloAcquisizioneAuto = new ModelloAcquisizioneAuto();
 
-                modelloAcquisizioneAuto.Auto = auto;
-                modelloAcquisizioneAuto.Marca = marche;
-                modelloAcquisizioneAuto.Modello = modelli;
-                modelloAcquisizioneAuto.Tipo = tipi;
-                modelloAcquisizioneAuto.AcquisizioneAuto = new AcquisizioneAuto();
+                    modelloAcquisizioneAuto.Auto = autoDaAcquistare;
+                    modelloAcquisizioneAuto.AcquistoAuto = new AcquistoAuto();
 
-                return View(modelloAcquisizioneAuto);
+                    return View(modelloAcquisizioneAuto);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AcquisisciMacchina(ModelloAcquisizioneAuto data)
         {
             if (!ModelState.IsValid)
             {
-                using (ConcessionarioContext db = new ConcessionarioContext())
-                {
-                    List<Auto> listaAuto = db.Auto.ToList();
-                    data.Auto = listaAuto;
-                    return View(data);
-                }
+                return View(data.AcquistoAuto);
             }
             else
             {
                 using (ConcessionarioContext db = new ConcessionarioContext())
                 {
-                    db.AcquisizioniAuto.Add(data.AcquisizioneAuto);
+                    db.AcquisizioniAuto.Add(data.AcquistoAuto);
                     db.SaveChanges();
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PannelloAdmin");
                 }
             }
 

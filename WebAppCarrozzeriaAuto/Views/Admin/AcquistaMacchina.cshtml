@@ -1,0 +1,65 @@
+﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
+@model ModelloAcquisizioneAuto
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Marca</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Model.Auto.MarcaAuto.Nome">
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Modello</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Model.Auto.ModelloAuto.Nome">
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Allestimento</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Model.Auto.Allestimento">
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Tipo</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Model.Auto.TipoAuto.Nome">
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Anno Produzione</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Model.Auto.AnnoProduzione">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <form>
+            <div class="col">
+                <label for="NomeFornitore" class="form-label">Fornitore</label>
+                <input type="text" class="form-control">
+                <span asp-validation-for="AcquistoAuto.NomeFornitore" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label for="NomeFornitore" class="form-label">Usata</label>
+                <input type="text" class="form-control">
+                <span asp-validation-for="AcquistoAuto.Usata" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label for="NomeFornitore" class="form-label">Prezzo Macchina</label>
+                <input type="text" class="form-control">
+                <span asp-validation-for="AcquistoAuto.PrezzoUnitarioMacchina" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label for="NomeFornitore" class="form-label">Quantità</label>
+                <input type="number" class="form-control">
+                <span asp-validation-for="AcquistoAuto.NumeroMacchineAcquistate" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label for="NomeFornitore" class="form-label">Quantità</label>
+                <input type="number" id="disabledTextInput" class="form-control" placeholder="">
+            </div>
+        </form>
+    </div>
+</div>
