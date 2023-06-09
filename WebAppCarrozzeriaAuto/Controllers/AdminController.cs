@@ -108,12 +108,17 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     List<Tipo> tipi = db.Tipi.ToList();
                     List<Marca> marche = db.Marche.ToList();
                     List<Modello> modelli = db.Modelli.ToList();
+                    SpecificheTecniche? specifiche = db.SpecificheTecniche.FirstOrDefault();
+                    if (specifiche != null)
+                    {
+                        data.Tipo = tipi;
+                        data.Marca = marche;
+                        data.Modello = modelli;
+                        data.Specifiche = specifiche;
 
-                    data.Tipo = tipi;
-                    data.Marca = marche;
-                    data.Modello = modelli;
-
-                    return View(data);
+                        return View(data);
+                    }
+                    else return NotFound();
                 }
             }
             else
