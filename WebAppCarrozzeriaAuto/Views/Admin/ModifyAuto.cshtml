@@ -44,49 +44,6 @@
                 <option value="@Model.Auto.Usata">Nuova</option>
             </select>
         </div>
-
-
-
-        <div class="mb-3">
-            <label asp-for="@Model.Specifiche.Alimentazione" class="form-label">Alimentazione</label>
-            <input asp-for="@Model.Specifiche.Alimentazione" type="text" class="form-control" required>
-            <span asp-validation-for="@Model.Specifiche.Alimentazione" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="@Model.Specifiche.Potenza" class="form-label">Potenza</label>
-            <input asp-for="@Model.Specifiche.Potenza" type="text" class="form-control" required>
-            <span asp-validation-for="@Model.Specifiche.Potenza" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="@Model.Specifiche.Cambio" class="form-label">Cambio</label>
-            <input asp-for="@Model.Specifiche.Cambio" type="text" class="form-control" required>
-            <span asp-validation-for="@Model.Specifiche.Cambio" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="@Model.Specifiche.Trazione" class="form-label">Trazione</label>
-            <input asp-for="@Model.Specifiche.Trazione" type="text" class="form-control" required>
-            <span asp-validation-for="@Model.Specifiche.Trazione" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="@Model.Specifiche.ClasseEmissioni" class="form-label">Classe emissioni</label>
-            <input asp-for="@Model.Specifiche.ClasseEmissioni" type="text" class="form-control" required>
-            <span asp-validation-for="@Model.Specifiche.ClasseEmissioni" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="@Model.Specifiche.ConsumoUrbano" class="form-label">Consumo urbano</label>
-            <input asp-for="@Model.Specifiche.ConsumoUrbano" type="text" class="form-control" required>
-            <span asp-validation-for="@Model.Specifiche.ConsumoUrbano" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="@Model.Specifiche.ConsumoExtraUrbano" class="form-label">Consumo extraUrbano</label>
-            <input asp-for="@Model.Specifiche.ConsumoExtraUrbano" type="text" class="form-control" required>
-            <span asp-validation-for="@Model.Specifiche.ConsumoExtraUrbano" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="@Model.Specifiche.ConsumoMisto" class="form-label">Consumo misto</label>
-            <input asp-for="@Model.Specifiche.ConsumoMisto" type="text" class="form-control" required>
-            <span asp-validation-for="@Model.Specifiche.ConsumoMisto" class="text-danger"></span>
-        </div>
         <button type="submit" class="btn btn-success">Salva</button>
     </form>
 </div>
