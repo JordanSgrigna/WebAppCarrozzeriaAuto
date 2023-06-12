@@ -20,12 +20,8 @@ namespace WebAppCarrozzeriaAuto.Controllers
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                List<Auto> auto = db.Auto
-                            .Include(auto => auto.MarcaAuto)
-                            .Include(auto => auto.TipoAuto)
-                            .ToList();
 
-                return View(auto);
+                return View();
             }
         }
 
