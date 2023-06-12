@@ -1,5 +1,22 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
+@model Tipo
+
+<div class="container text-bg-light mt-5">
+    <form asp-controller="Admin" asp-action="ModifyTipo" asp-route-id="@Model.Id" method="post" class="p-5">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <select asp-for="@Model.Nome" class="form-select" aria-label="Marca">
+                <option value="@Model.Nome" selected>Seleziona...</option>
+                <option value="@Model.Nome">Berlina</option>
+                <option value="@Model.Nome">Cabriolet</option>
+                <option value="@Model.Nome">Citycar</option>
+                <option value="@Model.Nome">Coupé</option>
+                <option value="@Model.Nome">Monovolume</option>
+                <option value="@Model.Nome">Station Wagon</option>
+                <option value="@Model.Nome">SUV</option>
+                <option value="@Model.Nome">Utilitaria</option>
+                <option value="@Model.Nome">Van</option>
+                </select>
+        </div>
+    </form>
+</div>
