@@ -1,7 +1,7 @@
 ﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
 @model Tipo
 
-<div class="container text-bg-light mt-5">
+<div class="container mt-5">
     <form asp-controller="Admin" asp-action="ModifyTipo" asp-route-id="@Model.Id" method="post" class="p-5">
         @Html.AntiForgeryToken()
         <div class="mb-3">

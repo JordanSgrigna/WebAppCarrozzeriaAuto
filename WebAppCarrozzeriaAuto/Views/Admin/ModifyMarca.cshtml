@@ -1,7 +1,7 @@
 ﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
 @model Marca
 
-<div class="container text-bg-light mt-5">
+<div class="container mt-5">
     <form asp-controller="Admin" asp-action="ModifyMarca" asp-route-id="@Model.Id" method="post" class="p-5">
         @Html.AntiForgeryToken()
         <div class="mb-3">
@@ -13,6 +13,7 @@
                 <option value="@Model.Nome">Fiat</option>
                 <option value="@Model.Nome">Jeep</option>
                 <option value="@Model.Nome">Mazda</option>
+                <option value="@Model.Nome">Mercedes</option>
                 <option value="@Model.Nome">Nissan</option>
                 <option value="@Model.Nome">Opel</option>
                 <option value="@Model.Nome">Seat</option>
