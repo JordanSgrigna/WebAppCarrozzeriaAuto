@@ -23,7 +23,7 @@ namespace WebAppCarrozzeriaAuto.Models
         public int? AnnoFineProduzione { get; set; }
 
         //RELAZIONI
-        public List<Auto> Auto { get; set; }
+        public Marca Marca { get; set; }
 
         //COSTRUTTORI
         public Modello()

@@ -22,7 +22,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
             {
                 List<Auto> auto = db.Auto
                             .Include(auto => auto.MarcaAuto)
-                            .Include(auto => auto.ModelloAuto)
+                                .ThenInclude(marca => marca.Modelli)
                             .Include(auto => auto.TipoAuto)
                             .ToList();
 
@@ -36,13 +36,11 @@ namespace WebAppCarrozzeriaAuto.Controllers
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 List<Tipo> tipi = db.Tipi.ToList();
-                List<Marca> marche = db.Marche.ToList();
-                List<Modello> modelli = db.Modelli.ToList();
+                List<Marca> marche = db.Marche.Include(marca => marca.Modelli).ToList();
 
                 ModelloMacchinaComplesso modelloPerView = new ModelloMacchinaComplesso();
                 modelloPerView.Auto = new Auto();
                 modelloPerView.Specifiche = new SpecificheTecniche();
-                modelloPerView.Modello = modelli;
                 modelloPerView.Tipo = tipi;
                 modelloPerView.Marca = marche;
 
@@ -54,7 +52,12 @@ namespace WebAppCarrozzeriaAuto.Controllers
         [HttpGet]
         public IActionResult CreateModello()
         {
-            return View();
+            using(ConcessionarioContext db = new ConcessionarioContext())
+            {
+                List<Marca> marche = db.Marche.ToList();
+                return View(marche);
+            }
+
         }
 
         [HttpGet]
@@ -77,7 +80,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 Auto? autoDaAcquistare = db.Auto
                             .Where(auto => auto.Id == id)
                             .Include(auto => auto.MarcaAuto)
-                            .Include(auto => auto.ModelloAuto)
+                            //.Include(auto => auto.ModelloAuto)
                             .Include(auto => auto.TipoAuto)
                             .FirstOrDefault();
 
@@ -106,14 +109,12 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 using (ConcessionarioContext db = new ConcessionarioContext())
                 {
                     List<Tipo> tipi = db.Tipi.ToList();
-                    List<Marca> marche = db.Marche.ToList();
-                    List<Modello> modelli = db.Modelli.ToList();
+                    List<Marca> marche = db.Marche.Include(marca => marca.Modelli).ToList();
                     SpecificheTecniche? specifiche = db.SpecificheTecniche.FirstOrDefault();
                     if (specifiche != null)
                     {
                         data.Tipo = tipi;
                         data.Marca = marche;
-                        data.Modello = modelli;
                         data.Specifiche = specifiche;
 
                         return View(data);
@@ -152,17 +153,19 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateModello(Modello modello)
+        public IActionResult CreateModello(ModelloPerModelli data)
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 if (!ModelState.IsValid)
                 {
-                    return View("CreateAuto", modello);
+                    List<Marca> marche = db.Marche.ToList();
+                    data.marche = marche;
+                    return View("CreateAuto", data);
                 }
                 else
                 {
-                    db.Modelli.Add(modello);
+                    db.Modelli.Add(data.modello);
                     db.SaveChanges();
                     return RedirectToAction("PannelloAdmin", "Admin");
 
@@ -230,7 +233,11 @@ namespace WebAppCarrozzeriaAuto.Controllers
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                Auto? autoToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+                Auto? autoToModify = db.Auto.Where(auto => auto.Id == id)
+                                    .Include(auto => auto.MarcaAuto)
+                                        .ThenInclude(marca => marca.Modelli)
+                                    .FirstOrDefault();
+
                 if (autoToModify != null)
                 {
                     return View("Update", autoToModify);
@@ -243,29 +250,50 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpPost]
-        public IActionResult ModifyAuto(int id, Auto modifiedAuto)
+        public IActionResult ModifyAuto(int id, ModelloMacchinaComplesso modifiedAuto)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return View("Update", modifiedAuto);
+                using(ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    List<Tipo> tipi = db.Tipi.ToList();
+                    List<Marca> marche = db.Marche.Include(marca => marca.Modelli).ToList();
+                    SpecificheTecniche? specifiche = db.SpecificheTecniche.FirstOrDefault();
+                    if (specifiche != null)
+                    {
+                        modifiedAuto.Tipo = tipi;
+                        modifiedAuto.Marca = marche;
+                        modifiedAuto.Specifiche = specifiche;
+
+                        return View(modifiedAuto);
+                    }
+                    else return NotFound();
+                }
+
             }
 
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                Auto? autoToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+                Auto? autoToModify = db.Auto.Where(auto => auto.Id == id)
+                                        .Include(auto => auto.MarcaAuto)
+                                            .ThenInclude(marca => marca.Modelli)
+                                        .FirstOrDefault();
 
                 if (autoToModify != null)
                 {
-                    autoToModify.Descrizione = modifiedAuto.Descrizione;
-                    autoToModify.AnnoImmatricolazione = modifiedAuto.AnnoImmatricolazione;
-                    autoToModify.Colore = modifiedAuto.Colore;
-                    autoToModify.UrlImmagine = modifiedAuto.UrlImmagine;
-                    autoToModify.NumeroAutoNelConcessionario = modifiedAuto.NumeroAutoNelConcessionario;
-                    autoToModify.NumeroLikeUtenti = modifiedAuto.NumeroLikeUtenti;
-                    autoToModify.Prezzo = modifiedAuto.Prezzo;
-                    autoToModify.AnnoProduzione = modifiedAuto.AnnoProduzione;
-                    autoToModify.Usata = modifiedAuto.Usata;
-                    autoToModify.Allestimento = modifiedAuto.Allestimento;
+                    autoToModify.Allestimento = modifiedAuto.Auto.Allestimento;
+                    autoToModify.Descrizione = modifiedAuto.Auto.Descrizione;
+                    autoToModify.AnnoImmatricolazione = modifiedAuto.Auto.AnnoImmatricolazione;
+                    autoToModify.Colore = modifiedAuto.Auto.Colore;
+                    autoToModify.UrlImmagine = modifiedAuto.Auto.UrlImmagine;
+                    autoToModify.NumeroAutoNelConcessionario = modifiedAuto.Auto.NumeroAutoNelConcessionario;
+                    autoToModify.NumeroLikeUtenti = modifiedAuto.Auto.NumeroLikeUtenti;
+                    autoToModify.Prezzo = modifiedAuto.Auto.Prezzo;
+                    autoToModify.AnnoProduzione = modifiedAuto.Auto.AnnoProduzione;
+                    autoToModify.Usata = modifiedAuto.Auto.Usata;
+                    autoToModify.Allestimento = modifiedAuto.Auto.Allestimento;
+                    autoToModify.MarcaAuto = modifiedAuto.Auto.MarcaAuto;
+                    autoToModify.MarcaAuto.Modelli = modifiedAuto.Auto.MarcaAuto.Modelli;
 
 
                     db.SaveChanges();
