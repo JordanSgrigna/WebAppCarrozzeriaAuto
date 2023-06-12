@@ -5,10 +5,9 @@
     <form asp-controller="Admin" asp-action="ModifyModello" asp-route-id="@Model.Id" method="post" class="p-5">
         @Html.AntiForgeryToken()
         <div class="mb-3">
-            <select asp-for="@Model.Nome" class="form-select" aria-label="Marca">
-                <option value="@Model.Nome" selected>Seleziona...</option>
-                <option value="@Model.Nome"></option>
-                </select>
+            <label asp-for="@Model.Nome" class="form-label">Paese d'origine:</label>
+            <input asp-for="@Model.Nome" type="text" class="form-control" required>
+            <span asp-validation-for="@Model.Nome" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
