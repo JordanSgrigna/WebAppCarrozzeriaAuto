@@ -19,6 +19,7 @@ namespace WebAppCarrozzeriaAuto.Models
         //RELAZIONI
         public List<Auto> Auto { get; set; }
 
+
         //COSTRUTTORI
         public Marca()
         {

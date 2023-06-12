@@ -17,7 +17,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 List<Auto> auto = db.Auto.ToList();
                 List<Tipo> tipi = db.Tipi.ToList();
                 List<Marca> marche = db.Marche.ToList();
-                List<Modello> modelli = db.Modelli.ToList();
                 List<SpecificheTecniche> specifiche = db.SpecificheTecniche.ToList();
 
 

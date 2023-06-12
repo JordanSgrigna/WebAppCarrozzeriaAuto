@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppCarrozzeriaAuto.Database;
 
@@ -11,9 +12,11 @@ using WebAppCarrozzeriaAuto.Database;
 namespace WebAppCarrozzeriaAuto.Migrations
 {
     [DbContext(typeof(ConcessionarioContext))]
-    partial class ConcessionarioContextModelSnapshot : ModelSnapshot
+    [Migration("20230612131605_ModelloMessoSuAuto")]
+    partial class ModelloMessoSuAuto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,6 +238,9 @@ namespace WebAppCarrozzeriaAuto.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IdAuto")
+                        .HasColumnType("int");
+
                     b.Property<string>("NomeFornitore")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -364,9 +370,6 @@ namespace WebAppCarrozzeriaAuto.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<short?>("Cilindrata")
-                        .HasColumnType("smallint");
 
                     b.Property<string>("ClasseEmissioni")
                         .IsRequired()
