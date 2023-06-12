@@ -22,7 +22,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
             {
                 List<Auto> auto = db.Auto
                             .Include(auto => auto.MarcaAuto)
-                                .ThenInclude(marca => marca.Modelli)
                             .Include(auto => auto.TipoAuto)
                             .ToList();
 
@@ -36,7 +35,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 List<Tipo> tipi = db.Tipi.ToList();
-                List<Marca> marche = db.Marche.Include(marca => marca.Modelli).ToList();
+                List<Marca> marche = db.Marche.ToList();
 
                 ModelloMacchinaComplesso modelloPerView = new ModelloMacchinaComplesso();
                 modelloPerView.Auto = new Auto();
@@ -109,7 +108,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 using (ConcessionarioContext db = new ConcessionarioContext())
                 {
                     List<Tipo> tipi = db.Tipi.ToList();
-                    List<Marca> marche = db.Marche.Include(marca => marca.Modelli).ToList();
+                    List<Marca> marche = db.Marche.ToList();
                     SpecificheTecniche? specifiche = db.SpecificheTecniche.FirstOrDefault();
                     if (specifiche != null)
                     {
@@ -152,26 +151,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult CreateModello(ModelloPerModelli data)
-        {
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                if (!ModelState.IsValid)
-                {
-                    List<Marca> marche = db.Marche.ToList();
-                    data.marche = marche;
-                    return View("CreateAuto", data);
-                }
-                else
-                {
-                    db.Modelli.Add(data.modello);
-                    db.SaveChanges();
-                    return RedirectToAction("PannelloAdmin", "Admin");
-
-                }
-            }
-        }
 
         [HttpPost]
         public IActionResult CreateMarca(Marca marca)
@@ -235,7 +214,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
             {
                 Auto? autoToModify = db.Auto.Where(auto => auto.Id == id)
                                     .Include(auto => auto.MarcaAuto)
-                                        .ThenInclude(marca => marca.Modelli)
                                     .FirstOrDefault();
 
                 if (autoToModify != null)
@@ -257,7 +235,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 using(ConcessionarioContext db = new ConcessionarioContext())
                 {
                     List<Tipo> tipi = db.Tipi.ToList();
-                    List<Marca> marche = db.Marche.Include(marca => marca.Modelli).ToList();
+                    List<Marca> marche = db.Marche.ToList();
                     SpecificheTecniche? specifiche = db.SpecificheTecniche.FirstOrDefault();
                     if (specifiche != null)
                     {
@@ -274,14 +252,12 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                Auto? autoToModify = db.Auto.Where(auto => auto.Id == id)
-                                        .Include(auto => auto.MarcaAuto)
-                                            .ThenInclude(marca => marca.Modelli)
+                Auto? autoToModify = db.Auto.Where(auto => auto.Id == id).Include(auto => auto.MarcaAuto)
                                         .FirstOrDefault();
 
                 if (autoToModify != null)
                 {
-                    autoToModify.Allestimento = modifiedAuto.Auto.Allestimento;
+
                     autoToModify.Descrizione = modifiedAuto.Auto.Descrizione;
                     autoToModify.AnnoImmatricolazione = modifiedAuto.Auto.AnnoImmatricolazione;
                     autoToModify.Colore = modifiedAuto.Auto.Colore;
@@ -289,11 +265,11 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     autoToModify.NumeroAutoNelConcessionario = modifiedAuto.Auto.NumeroAutoNelConcessionario;
                     autoToModify.NumeroLikeUtenti = modifiedAuto.Auto.NumeroLikeUtenti;
                     autoToModify.Prezzo = modifiedAuto.Auto.Prezzo;
-                    autoToModify.AnnoProduzione = modifiedAuto.Auto.AnnoProduzione;
+
                     autoToModify.Usata = modifiedAuto.Auto.Usata;
-                    autoToModify.Allestimento = modifiedAuto.Auto.Allestimento;
+
                     autoToModify.MarcaAuto = modifiedAuto.Auto.MarcaAuto;
-                    autoToModify.MarcaAuto.Modelli = modifiedAuto.Auto.MarcaAuto.Modelli;
+
 
 
                     db.SaveChanges();
@@ -347,52 +323,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 else
                 {
                     return NotFound("La marca che desideri modificare non è stata trovata.");
-                }
-            }
-
-        }
-
-        [HttpGet]
-        public IActionResult ModifyModello(int id)
-        {
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                Modello? modelloToModify = db.Modelli.Where(modello => modello.Id == id).FirstOrDefault();
-                if (modelloToModify != null)
-                {
-                    return View("Update", modelloToModify);
-                }
-                else
-                {
-                    return NotFound("Il modello che desideri modificare non è stata trovata.");
-                }
-            }
-        }
-
-        [HttpPost]
-        public IActionResult ModifyModello(int id, Modello modifiedModello)
-        {
-            if (ModelState.IsValid)
-            {
-                return View("Update", modifiedModello);
-            }
-
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                Modello? modelloToModify = db.Modelli.Where(modello => modello.Id == id).FirstOrDefault();
-
-                if (modelloToModify != null)
-                {
-                    modelloToModify.Nome = modifiedModello.Nome;
-                    modelloToModify.AnnoInizioProduzione = modifiedModello.AnnoInizioProduzione;
-                    modelloToModify.AnnoFineProduzione = modifiedModello.AnnoFineProduzione;
-
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return NotFound("Il modello che desideri modificare non è stata trovata.");
                 }
             }
 

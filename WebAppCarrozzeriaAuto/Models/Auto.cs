@@ -11,8 +11,17 @@ namespace WebAppCarrozzeriaAuto.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
-        [StringLength(100, ErrorMessage = "Il campo può contenere al massimo 100 caratteri")]
-        public string Allestimento { get; set; }
+        [StringLength(70, ErrorMessage = "Il campo può contenere al massimo 70 caratteri")]
+        public string NomeModello { get; set; }
+
+        [Required(ErrorMessage = "Il campo è obbligatorio")]
+        [Range(1990, 3000, ErrorMessage = "Il campo deve esssere compreso tra il 1990 e 3000")]
+        [RegularExpression(@"^(\d{4})$", ErrorMessage = "Il campo deve avere quattro cifre")]
+        public int AnnoInizioProduzione { get; set; }
+
+        [Range(1990, 3000, ErrorMessage = "Il campo deve esssere compreso tra 1990 e 3000")]
+        [RegularExpression(@"^(\d{4})$", ErrorMessage = "Il campo deve avere quattro cifre")]
+        public int? AnnoFineProduzione { get; set; }
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
         public bool Usata { get; set; }
@@ -32,11 +41,6 @@ namespace WebAppCarrozzeriaAuto.Models
         [ValidazionePrezzo]
         [Column(TypeName = "DECIMAL(15, 4)")]
         public float Prezzo { get; set; }
-
-        [Required(ErrorMessage = "Il campo è obbligatorio")]
-        [Range(1990, 3000, ErrorMessage = "Il campo deve esssere compreso tra il 1990 e 3000")]
-        [RegularExpression(@"^(\d{4})$", ErrorMessage = "Il campo deve avere quattro cifre")]
-        public int AnnoProduzione { get; set; }
 
         [Range(1990, 3000, ErrorMessage = "Il campo deve esssere compreso tra il 1990 e 3000")]
         [RegularExpression(@"^(\d{4})$", ErrorMessage = "Il campo deve avere quattro cifre")]
@@ -60,15 +64,16 @@ namespace WebAppCarrozzeriaAuto.Models
 
         }
 
-        public Auto(bool usata, string urlImmagine, string allestimento, string descrizione, string colore, float prezzo, int annoProduzione, int annoImmatricolazione, int numeroAutoNelConcessionario, int numeroLikeUtenti)
+        public Auto(bool usata, string urlImmagine, string nomeModello, string descrizione, string colore, float prezzo, int annoInizioProduzione, int annoFineProduzione, int annoImmatricolazione, int numeroAutoNelConcessionario, int numeroLikeUtenti)
         {
             Usata = usata;
             UrlImmagine = urlImmagine;
-            Allestimento = allestimento;
+            NomeModello = nomeModello;
             Descrizione = descrizione;
             Colore = colore;
             Prezzo = prezzo;
-            AnnoProduzione = annoProduzione;
+            AnnoInizioProduzione = annoInizioProduzione;
+            AnnoFineProduzione = annoFineProduzione;
             AnnoImmatricolazione = 0;
             NumeroAutoNelConcessionario = 0;
             NumeroLikeUtenti = 0;
