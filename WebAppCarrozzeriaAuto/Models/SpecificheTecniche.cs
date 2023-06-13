@@ -63,7 +63,6 @@ namespace WebAppCarrozzeriaAuto.Models
         public SpecificheTecniche(int? cilindrata, int? numeroCilindri, string alimentazione, int potenza, string cambio, string trazione, string classeEmissioni, float? consumoUrbano, float? consumoExtraUrbano, float? consumoMisto, int autoId, Auto auto)
         {
             Cilindrata = cilindrata;
-            NumeroCilindri = numeroCilindri;
             Alimentazione = alimentazione;
             Potenza = potenza;
             Cambio = cambio;
