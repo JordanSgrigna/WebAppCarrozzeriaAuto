@@ -45,6 +45,13 @@ namespace WebAppCarrozzeriaAuto.Models
         [Column(TypeName = "DECIMAL(6,2)")]
         public float? ConsumoMisto { get; set; }
 
+        [Column(TypeName = "tinyint")]
+        [Range(2, 10)]
+        public int NumeroPorte { get; set; }
+
+        [Column(TypeName = "tinyint")]
+        public int NumeroPosti { get; set; }
+
         
         //RELAZIONI
         [ForeignKey("Auto")]
