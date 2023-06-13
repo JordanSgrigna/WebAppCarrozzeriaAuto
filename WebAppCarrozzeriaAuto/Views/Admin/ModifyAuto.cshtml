@@ -63,8 +63,8 @@
         </div>
         <div class="mb-3">
             <select asp-for="@Model.Auto.Usata" class="form-select" aria-label="Usata?">
-                <option value="@Model.Auto.Usata" selected>@Model.Auto.Usata</option>
-                <option value="@Model.Auto.Usata">Nuova</option>
+                <option value="true" selected>Usata</option>
+                <option value="false">Nuova</option>
             </select>
         </div>
         <button type="submit" class="btn btn-success">Salva</button>
