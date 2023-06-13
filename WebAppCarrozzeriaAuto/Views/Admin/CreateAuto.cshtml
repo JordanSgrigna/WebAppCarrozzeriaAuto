@@ -62,37 +62,14 @@
                 <select asp-for="@Model.Auto.TipoAuto.Id" aria-label="Tipo" class="form-select">
                     @foreach (Tipo tipo in Model.Tipi ?? new List<Tipo>())
                     {
-                        <option value="@tipo.Id">Berlina</option>
-                        <option value="@tipo.Id">Cabriolet</option>
-                        <option value="@tipo.Id">Citicar</option>
-                        <option value="@tipo.Id">Coupé</option>
-                        <option value="@tipo.Id">Monovolume</option>
-                        <option value="@tipo.Id">Station Wagon</option>
-                        <option value="@tipo.Id">SUV</option>
-                        <option value="@tipo.Id">Utilitaria</option>
-                        <option value="@tipo.Id">Van</option>
+                        <option value="@tipo.Id">@tipo.Nome</option>
                     }
                 </select>
 
                 <select asp-for="@Model.Auto.MarcaAuto.Id" aria-label="Tipo" class="form-select">
                     @foreach (Marca marca in Model.Marche ?? new List<Marca>())
                     {
-                        <option value="@marca.Id">Alfa Romeo</option>
-                        <option value="@marca.Id">Audi</option>
-                        <option value="@marca.Id">BMW</option>
-                        <option value="@marca.Id">Citroën</option>
-                        <option value="@marca.Id">Fiat</option>
-                        <option value="@marca.Id">Jeep</option>
-                        <option value="@marca.Id">Mazda</option>
-                        <option value="@marca.Id">Mercedes</option>
-                        <option value="@marca.Id">Nissan</option>
-                        <option value="@marca.Id">Opel</option>
-                        <option value="@marca.Id">Peugeot</option>
-                        <option value="@marca.Id">Renault</option>
-                        <option value="@marca.Id">Seat</option>
-                        <option value="@marca.Id">Škoda</option>
-                        <option value="@marca.Id">Volkswagen</option>
-                        <option value="@marca.Id">Volvo</option>
+                        <option value="@marca.Id">@marca.Nome</option>
                     }
                 </select>
 
