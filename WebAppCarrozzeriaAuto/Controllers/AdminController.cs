@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.Intrinsics.Arm;
 using WebAppCarrozzeriaAuto.Database;
 using WebAppCarrozzeriaAuto.Models;
 using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
@@ -75,7 +73,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 Auto? autoToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
-                if(autoToModify != null)
+                if (autoToModify != null)
                 {
                     List<Marca> marche = db.Marche.ToList();
                     List<Tipo> tipi = db.Tipi.ToList();
@@ -240,11 +238,12 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateMarca(Marca marca)
         {
             if (!ModelState.IsValid)
             {
-                return View("CreateAuto", marca);
+                return View("CreateMarca", marca);
             }
             else
             {
@@ -301,7 +300,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 using (ConcessionarioContext db = new ConcessionarioContext())
                 {
                     Auto? autoDaModificare = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
-                    if(autoDaModificare != null)
+                    if (autoDaModificare != null)
                     {
                         autoDaModificare.NomeModello = data.Auto.NomeModello;
                         autoDaModificare.Descrizione = data.Auto.Descrizione;
@@ -434,7 +433,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     db.AcquisizioniAuto.Add(data.AcquistoAuto);
 
                     Auto? AutoModificaNumero = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
-                    if(AutoModificaNumero != null)
+                    if (AutoModificaNumero != null)
                     {
                         AutoModificaNumero.NumeroAutoNelConcessionario += data.AcquistoAuto.NumeroMacchineAcquistate;
                         db.SaveChanges();
@@ -444,7 +443,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     else
                     {
                         return NotFound();
-                    }                    
+                    }
                 }
             }
         }

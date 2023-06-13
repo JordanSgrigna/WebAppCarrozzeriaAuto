@@ -11,10 +11,6 @@ namespace WebAppCarrozzeriaAuto.Models
         [Column(TypeName = "smallint")]
         public int? Cilindrata { get; set; }
 
-        [Column(TypeName = "tinyint")]
-        [Range(1, 20, ErrorMessage = "Il campo deve essere compreso tra 1 e 20")]
-        int? NumeroCilindri { get; set; }
-
         [Required(ErrorMessage = "Il campo è obbligatorio")]
         [StringLength(50, ErrorMessage = "Il campo può contenere al massimo 50 caratteri")]
         public string Alimentazione { get; set; }
@@ -52,7 +48,7 @@ namespace WebAppCarrozzeriaAuto.Models
         [Column(TypeName = "tinyint")]
         public int NumeroPosti { get; set; }
 
-        
+
         //RELAZIONI
         [ForeignKey("Auto")]
         public int AutoId { get; set; }
