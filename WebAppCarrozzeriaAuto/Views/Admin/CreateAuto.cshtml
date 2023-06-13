@@ -1,5 +1,103 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
+@model ModelloMacchinaCreateUpdate
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form asp-controller="Admin" asp-action="CreateAuto" asp-route-id="@Model.Auto.Id" method="post" class="p-5">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label asp-for="@Model.Auto.NomeModello" class="form-label">Nome Modello</label>
+                    <input asp-for="@Model.Auto.NomeModello" class="form-control" required>
+                    <span asp-validation-for="@Model.Auto.NomeModello" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Auto.Descrizione" class="form-label">Descrizione</label>
+                    <textarea asp-for="@Model.Auto.Descrizione=" rows="10" class="form-control" required></textarea>
+                    <span asp-validation-for="@Model.Auto.Descrizione=" text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Auto.UrlImmagine" class="form-label">URL Immagine</label>
+                    <input asp-for="@Model.Auto.UrlImmagine" type="text" class="form-control" required>
+                    <span asp-validation-for="@Model.Auto.UrlImmagine" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Auto.Colore" class="form-label">Colore</label>
+                    <input asp-for="@Model.Auto.Colore" type="text" class="form-control" required>
+                    <span asp-validation-for="@Model.Auto.Colore" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Auto.Prezzo" class="form-label">Prezzo</label>
+                    <input asp-for="@Model.Auto.Prezzo" type="number" class="form-control" required>
+                    <span asp-validation-for="@Model.Auto.Prezzo" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Auto.AnnoImmatricolazione" class="form-label">Anno di Immatricolazione</label>
+                    <input asp-for="@Model.Auto.AnnoImmatricolazione" type="number" class="form-control" required>
+                    <span asp-validation-for="@Model.Auto.AnnoImmatricolazione" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Auto.NumeroAutoNelConcessionario" class="form-label">Numero di Auto Disponibili Nel Concessionario</label>
+                    <input asp-for="@Model.Auto.NumeroAutoNelConcessionario" type="number" class="form-control" required>
+                    <span asp-validation-for="@Model.Auto.NumeroAutoNelConcessionario" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Auto.AnnoInizioProduzione" class="form-label">Anno di Inizio Produzione</label>
+                    <input asp-for="@Model.Auto.AnnoInizioProduzione" type="number" class="form-control" required>
+                    <span asp-validation-for="@Model.Auto.AnnoInizioProduzione" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Auto.AnnoFineProduzione" class="form-label">Anno di Fine Produzione</label>
+                    <input asp-for="@Model.Auto.AnnoFineProduzione" type="number" class="form-control" required>
+                    <span asp-validation-for="@Model.Auto.AnnoFineProduzione" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <select asp-for="@Model.Auto.Usata" class="form-select" aria-label="Usata?">
+                        <option value="true" selected>Usata</option>
+                        <option value="false">Nuova</option>
+                    </select>
+                </div>
+
+                <select asp-for="@Model.Auto.TipoAuto.Id" aria-label="Tipo" class="form-select">
+                    @foreach (Tipo tipo in Model.Tipi ?? new List<Tipo>())
+                    {
+                        <option value="@tipo.Id">Berlina</option>
+                        <option value="@tipo.Id">Cabriolet</option>
+                        <option value="@tipo.Id">Citicar</option>
+                        <option value="@tipo.Id">Coupé</option>
+                        <option value="@tipo.Id">Monovolume</option>
+                        <option value="@tipo.Id">Station Wagon</option>
+                        <option value="@tipo.Id">SUV</option>
+                        <option value="@tipo.Id">Utilitaria</option>
+                        <option value="@tipo.Id">Van</option>
+                    }
+                </select>
+
+                <select asp-for="@Model.Auto.MarcaAuto.Id" aria-label="Tipo" class="form-select">
+                    @foreach (Marca marca in Model.Marche ?? new List<Marca>())
+                    {
+                        <option value="@marca.Id">Alfa Romeo</option>
+                        <option value="@marca.Id">Audi</option>
+                        <option value="@marca.Id">BMW</option>
+                        <option value="@marca.Id">Citroën</option>
+                        <option value="@marca.Id">Fiat</option>
+                        <option value="@marca.Id">Jeep</option>
+                        <option value="@marca.Id">Mazda</option>
+                        <option value="@marca.Id">Mercedes</option>
+                        <option value="@marca.Id">Nissan</option>
+                        <option value="@marca.Id">Opel</option>
+                        <option value="@marca.Id">Peugeot</option>
+                        <option value="@marca.Id">Renault</option>
+                        <option value="@marca.Id">Seat</option>
+                        <option value="@marca.Id">Škoda</option>
+                        <option value="@marca.Id">Volkswagen</option>
+                        <option value="@marca.Id">Volvo</option>
+                    }
+                </select>
+
+                <button type="submit" class="btn btn-success">Salva</button>
+            </form>
+        </div>
+    </div>
+</div>
