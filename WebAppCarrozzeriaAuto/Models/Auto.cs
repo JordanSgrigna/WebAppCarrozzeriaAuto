@@ -26,6 +26,9 @@ namespace WebAppCarrozzeriaAuto.Models
         [Required(ErrorMessage = "Il campo è obbligatorio")]
         public bool Usata { get; set; }
 
+
+        public float? Kilometraggio { get; set; }
+
         [Required(ErrorMessage = "Il campo è obbligatorio")]
         [Url(ErrorMessage = "Inserisci un URL valido")]
         public string UrlImmagine { get; set; }
@@ -64,7 +67,7 @@ namespace WebAppCarrozzeriaAuto.Models
 
         }
 
-        public Auto(bool usata, string urlImmagine, string nomeModello, string descrizione, string colore, float prezzo, int annoInizioProduzione, int annoFineProduzione, int annoImmatricolazione, int numeroAutoNelConcessionario, int numeroLikeUtenti)
+        public Auto(bool usata, string urlImmagine, string nomeModello, string descrizione, string colore, float prezzo, int annoInizioProduzione, int annoFineProduzione, int annoImmatricolazione, int numeroAutoNelConcessionario, int numeroLikeUtenti, float? kilometraggio)
         {
             Usata = usata;
             UrlImmagine = urlImmagine;
@@ -77,6 +80,7 @@ namespace WebAppCarrozzeriaAuto.Models
             AnnoImmatricolazione = 0;
             NumeroAutoNelConcessionario = 0;
             NumeroLikeUtenti = 0;
+            Kilometraggio = kilometraggio;
         }
 
 

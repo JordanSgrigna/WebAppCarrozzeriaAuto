@@ -24,6 +24,7 @@ namespace WebAppCarrozzeriaAuto.Models
         public Tipo(string nome)
         {
             Nome = nome;
+            Auto = new List<Auto>();
         }
     }
 }
