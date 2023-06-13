@@ -32,7 +32,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 List<Marca> marche = db.Marche.ToList();
                 List<Tipo> tipi = db.Tipi.ToList();
 
-                ModelloMacchinaComplesso modelloPerView = new ModelloMacchinaComplesso();
+                ModelloListinoMacchine modelloPerView = new ModelloListinoMacchine();
                 modelloPerView.Auto = auto;
                 modelloPerView.Marche = marche;
                 modelloPerView.Tipi = tipi;
@@ -58,9 +58,19 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpGet]
+        public IActionResult CreateSpecificheTecniche(int id)
+        {
+            SpecificheTecniche specificheAuto = new SpecificheTecniche();
+            specificheAuto.AutoId = id;
+
+            return View(specificheAuto);
+        }
+
+
+        [HttpGet]
         public IActionResult CreateMarca()
         {
-            return View();
+            return View("CreateMarca");
         }
 
         [HttpGet]
@@ -221,6 +231,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateTipo(Tipo tipo)
         {
             if (!ModelState.IsValid)
@@ -240,11 +251,12 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateMarca(Marca marca)
         {
             if (!ModelState.IsValid)
             {
-                return View("CreateAuto", marca);
+                return View("CreateMarca", marca);
             }
             else
             {
@@ -259,6 +271,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
@@ -281,6 +294,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ModifyAuto(int id, ModelloMacchinaCreateUpdate data)
         {
             if (!ModelState.IsValid)
@@ -330,6 +344,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ModifyMarca(int id, Marca modifiedMarca)
         {
             if (ModelState.IsValid)
@@ -358,6 +373,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ModifySpecificheTecniche(int id, SpecificheTecniche modifiedSpecificheTecniche)
         {
             if (ModelState.IsValid)
@@ -394,6 +410,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ModifyTipo(int id, Tipo modifiedTipo)
         {
             if (ModelState.IsValid)
@@ -421,6 +438,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AcquistoAutoPresenteNelConcessionario(int id, ModelloAcquisizioneAutoPresente data)
         {
             if (!ModelState.IsValid)
@@ -431,6 +449,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
             {
                 using (ConcessionarioContext db = new ConcessionarioContext())
                 {
+                    data.AcquistoAuto.PrezzoTotale = data.AcquistoAuto.PrezzoUnitarioMacchina * data.AcquistoAuto.NumeroMacchineAcquistate;
                     db.AcquisizioniAuto.Add(data.AcquistoAuto);
 
                     Auto? AutoModificaNumero = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
@@ -450,6 +469,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AcquistoAutoNuova(ModelloAcquisizioneAutoNuova data)
         {
             if (!ModelState.IsValid)

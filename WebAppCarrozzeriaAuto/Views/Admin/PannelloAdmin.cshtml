@@ -16,63 +16,22 @@
                 <thead>
                     <tr>
                         <th scope="col">Aggiungi</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th scope="col">Aggiorna</th>  
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        
-                    </tr>
-                    <tr>
-                       
-                    </tr>
-                    <tr>
                         <td>
-                            <a type="button" class="btn btn-primary col-6" href="@Url.Action(" CreateAuto","Admin")">Auto</a>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>  
-                            <a type="button" class="btn btn-primary col-6" href="@Url.Action(" ModifyAuto","Admin")">Auto</a>
-                        </td>                      
+                            <a type="button" class="btn btn-primary col-6" href="@Url.Action("CreateAuto", "Admin")">Auto</a>
+                        </td>                   
                     </tr>
                     <tr>
                         <td>
-                            <a type="button" class="btn btn-primary col-6" href="@Url.Action(" CreateMarca","Admin")">Marca</a>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a type="button" class="btn btn-primary col-6" href="@Url.Action(" ModifyMarca","Admin")">Marca</a>
+                            <a type="button" class="btn btn-primary col-6" href="@Url.Action("CreateMarca", "Admin")">Marca</a>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <a type="button" class="btn btn-primary col-6" href="@Url.Action(" CreateModello","Admin")">Modello</a>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                        <td>
-                            <a type="button" class="btn btn-primary col-6" href="@Url.Action(" ModifyModello","Admin")">Modello</a>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a type="button" class="btn btn-primary col-6" href="@Url.Action(" CreateTipo","Admin")">Tipo</a>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a type="button" class="btn btn-primary col-6" href="@Url.Action(" ModifyTipo","Admin")">Tipo</a>
+                            <a type="button" class="btn btn-primary col-6" href="@Url.Action("CreateTipo", "Admin")">Tipo</a>
                         </td>
                     </tr>
                
@@ -81,17 +40,15 @@
            
         </div>     
     </div>
-    <div class="row text-center">
-        <div class="col-6">
-            <a type="button" class="btn btn-primary" href="@Url.Action("AcquistoAutoPresenteNelConcessionario","Admin")">Acquista un'auto già presente nel concessionario</a>
-        </div>   
-        <div class="col-6">
-            <a type="button" class="btn btn-primary" href="@Url.Action("AcquistoAutoNuova","Admin")">Acquista un'auto non presente nel concessionario</a>
+    <div class="row">  
+        <div class="col-6 d-flex justify-content-center">
+            <a type="button" class="btn btn-primary" href="@Url.Action("AcquistoAutoNuova", "Admin")">Acquista un'auto non presente nel concessionario</a>
         </div>
     </div>
     <div class="row mt-4">
         <div class="col-12 text-center">
-            <a @Url.Action("ListaMacchineAdmin", "Admin" )" class="btn btn-danger my-2 mx-2 me-2">Rimuovi</a>
+            <p>Per modificare/eliminare o acquistare macchine non presenti nel concessionario, vai alla lista di macchine per admin!</p>
+            <a href="@Url.Action("ListaMacchineAdmin", "Admin")" class="btn btn-danger my-2 mx-2 me-2">Vai alla lista di macchine per admin!</a>
         </div>
     </div>
 </div>

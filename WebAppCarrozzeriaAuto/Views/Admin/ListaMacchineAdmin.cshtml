@@ -4,121 +4,47 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="dropdown">
-                <button class="dropdown-toggle" type="button" id="dropdownMacchine" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    MACCHINE
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMacchine">
-                    <div class="dropdown-item">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Marca</th>
-                                    <th scope="col">Modello</th>
-                                    <th scope="col">Allestimento</th>
-                                    <th scope="col">Tipo</th>
-                                    <th scope="col">Anno Produzione</th>
-                                    <th scope="col">Azioni</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (Auto auto in Model.Auto)
-                                {
-                                    <tr>
-                                        <th scope="row">@auto.Id</th>
-                                        <th>@auto.MarcaAuto.Nome</th>
-                                        <td>@auto.NomeModello</td>
-                                        <td>@auto.TipoAuto</td>
-                                        <td>@auto.AnnoInizioProduzione</td>
-                                        @if(auto.AnnoFineProduzione != null)
-                                        {
-                                            <td>@auto.AnnoFineProduzione</td>
-                                        }
-                                        <td>
-                                            <a class="btn btn-sm btn-dark rounded-0 ms-auto" data-bs-toggle="modal" data-bs-target="dbModal" style="max-height:30px;" href="@Url.Action("AcquistaMacchina", "Admin", new {id = auto.Id})" role="button">
-                                                Acquista Macchina
-                                            </a>
-                                            <button>
-                                                Elimina
-                                            </button>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="dropdown">
-                    <button class="dropdown-toggle" type="button" id="dropdownTipi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        TIPI
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownTipi">
-                        <div class="dropdown-item">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Id</th>
-                                        <th scope="col">Nome</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (Tipo tipo in Model.Tipo)
-                                    {
-                                        <tr>
-                                            <th scope="row">@tipo.Id</th>
-                                            <td>@tipo.Nome</td>
-                                            <td>
-                                                <a class="btn btn-sm btn-dark rounded-0 ms-auto" data-bs-toggle="modal" data-bs-target="dbModal" style="max-height:30px;" href="@Url.Action("ModifyTipo", "Admin", new {id = tipo.Id})" role="button">
-                                                    Modifica
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="dropdown">
-                        <button class="dropdown-toggle" type="button" id="dropdownMarche" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            MARCHE
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMarche">
-                            <div class="dropdown-item">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Id</th>
-                                            <th scope="col">Nome</th>
-                                            <th scope="col">Paese Di Origine</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (Marca marca in Model.Marca)
-                                        {
-                                            <tr>
-                                                <th scope="row">@marca.Id</th>
-                                                <td>@marca.Nome</td>
-                                                <td>@marca.PaeseOrigine</td>
-                                                <td>
-                                                    <a class="btn btn-sm btn-dark rounded-0 ms-auto" data-bs-toggle="modal" data-bs-target="dbModal" style="max-height:30px;" href="@Url.Action("ModifyMarca", "Admin", new {id = marca.Id})" role="button">
-                                                        Modifica
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-    
-
-                    </div>
-                </div>
-            </div>
+            <h4>TIPI</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">NOME</th>
+                        <th scope="col">AZIONI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(Tipo tipi in Model.Tipi)
+                    {
+                        <tr>
+                            <th scope="row">@tipi.Id</th>
+                            <td>@tipi.Nome</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <h4>MARCHE</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">NOME</th>
+                        <th scope="col">PAESE ORIGINE</th>
+                    </tr>
+                </thead>
+                <tody>
+                    @foreach(Marca marche in Model.Marche)
+                    {
+                        <tr>
+                            <th scope="row">@marche.Id</th>
+                            <td>@marche.Nome</td>
+                            <td>@marche.PaeseOrigine</td>
+                        </tr>
+                    }
+                </tody>
+            </table>
+        </div>
+    </div>
+</div>
