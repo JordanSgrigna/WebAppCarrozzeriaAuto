@@ -1,5 +1,35 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
+@model Marca
+
+<div class="container mt-5">
+    <form asp-controller="Admin" asp-action="ModifyMarca" asp-route-id="@Model.Id" method="post" class="p-5">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <select asp-for="@Model.Nome" class="form-select" aria-label="Marca">
+                <option value="@Model.Nome" selected>Seleziona...</option>
+                <option value="@Model.Nome">Alfa Romeo</option>
+                <option value="@Model.Nome">Audi</option>
+                <option value="@Model.Nome">BMW</option>
+                <option value="@Model.Nome">Citroën</option>
+                <option value="@Model.Nome">Fiat</option>
+                <option value="@Model.Nome">Jeep</option>
+                <option value="@Model.Nome">Mazda</option>
+                <option value="@Model.Nome">Mercedes</option>
+                <option value="@Model.Nome">Nissan</option>
+                <option value="@Model.Nome">Opel</option>
+                <option value="@Model.Nome">Peugeot</option>
+                <option value="@Model.Nome">Renault</option>
+                <option value="@Model.Nome">Seat</option>
+                <option value="@Model.Nome">Škoda</option>
+                <option value="@Model.Nome">Volkswagen</option>
+                <option value="@Model.Nome">Volvo</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.PaeseOrigine" class="form-label">Paese d'origine:</label>
+            <input asp-for="@Model.PaeseOrigine" type="text" class="form-control" required>
+            <span asp-validation-for="@Model.PaeseOrigine" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success">Salva</button>
+    </form>
+</div>

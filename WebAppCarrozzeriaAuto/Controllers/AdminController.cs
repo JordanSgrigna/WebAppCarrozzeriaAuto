@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.Intrinsics.Arm;
 using WebAppCarrozzeriaAuto.Database;
 using WebAppCarrozzeriaAuto.Models;
 using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
@@ -16,17 +17,27 @@ namespace WebAppCarrozzeriaAuto.Controllers
             return View();
         }
 
+
+        [HttpGet]
         public IActionResult ListaMacchineAdmin()
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 List<Auto> auto = db.Auto
-                            .Include(auto => auto.MarcaAuto)
-                            .Include(auto => auto.ModelloAuto)
-                            .Include(auto => auto.TipoAuto)
-                            .ToList();
+                                  .Include(auto => auto.MarcaAuto)
+                                  .Include(auto => auto.TipoAuto)
+                                  .Include(auto => auto.Specifiche)
+                                  .ToList();
 
-                return View(auto);
+                List<Marca> marche = db.Marche.ToList();
+                List<Tipo> tipi = db.Tipi.ToList();
+
+                ModelloMacchinaComplesso modelloPerView = new ModelloMacchinaComplesso();
+                modelloPerView.Auto = auto;
+                modelloPerView.Marche = marche;
+                modelloPerView.Tipi = tipi;
+
+                return View(modelloPerView);
             }
         }
 
@@ -35,26 +46,15 @@ namespace WebAppCarrozzeriaAuto.Controllers
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                List<Tipo> tipi = db.Tipi.ToList();
                 List<Marca> marche = db.Marche.ToList();
-                List<Modello> modelli = db.Modelli.ToList();
-
-                ModelloMacchinaComplesso modelloPerView = new ModelloMacchinaComplesso();
+                List<Tipo> tipi = db.Tipi.ToList();
+                ModelloMacchinaCreateUpdate modelloPerView = new ModelloMacchinaCreateUpdate();
                 modelloPerView.Auto = new Auto();
-                modelloPerView.Specifiche = new SpecificheTecniche();
-                modelloPerView.Modello = modelli;
-                modelloPerView.Tipo = tipi;
-                modelloPerView.Marca = marche;
+                modelloPerView.Tipi = tipi;
+                modelloPerView.Marche = marche;
 
                 return View(modelloPerView);
-
             }
-        }
-
-        [HttpGet]
-        public IActionResult CreateModello()
-        {
-            return View();
         }
 
         [HttpGet]
@@ -70,213 +70,28 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpGet]
-        public IActionResult AcquistaMacchina(int id)
-        {
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                Auto? autoDaAcquistare = db.Auto
-                            .Where(auto => auto.Id == id)
-                            .Include(auto => auto.MarcaAuto)
-                            .Include(auto => auto.ModelloAuto)
-                            .Include(auto => auto.TipoAuto)
-                            .FirstOrDefault();
-
-                if (autoDaAcquistare != null)
-                {
-                    ModelloAcquisizioneAuto modelloAcquisizioneAuto = new ModelloAcquisizioneAuto();
-
-                    modelloAcquisizioneAuto.Auto = autoDaAcquistare;
-                    modelloAcquisizioneAuto.AcquistoAuto = new AcquistoAuto();
-
-                    return View(modelloAcquisizioneAuto);
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-        }
-
-        //POST
-        [HttpPost]
-        public IActionResult CreateAuto(ModelloMacchinaComplesso data)
-        {
-            if (!ModelState.IsValid)
-            {
-                using (ConcessionarioContext db = new ConcessionarioContext())
-                {
-                    List<Tipo> tipi = db.Tipi.ToList();
-                    List<Marca> marche = db.Marche.ToList();
-                    List<Modello> modelli = db.Modelli.ToList();
-                    SpecificheTecniche? specifiche = db.SpecificheTecniche.FirstOrDefault();
-                    if (specifiche != null)
-                    {
-                        data.Tipo = tipi;
-                        data.Marca = marche;
-                        data.Modello = modelli;
-                        data.Specifiche = specifiche;
-
-                        return View(data);
-                    }
-                    else return NotFound();
-                }
-            }
-            else
-            {
-                using (ConcessionarioContext db = new ConcessionarioContext())
-                {
-                    db.Auto.Add(data.Auto);
-                    db.SaveChanges();
-
-                    return RedirectToAction("Index", "Auto");
-                }
-            }
-        }
-
-        [HttpPost]
-        public IActionResult CreateTipo(Tipo tipo)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("CreateTipo", tipo);
-            }
-            else
-            {
-                using (ConcessionarioContext db = new ConcessionarioContext())
-                {
-                    db.Tipi.Add(tipo);
-                    db.SaveChanges();
-                    return RedirectToAction("PannelloAdmin", "Admin");
-                }
-            }
-        }
-
-        [HttpPost]
-        public IActionResult CreateModello(Modello modello)
-        {
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                if (!ModelState.IsValid)
-                {
-                    return View("CreateAuto", modello);
-                }
-                else
-                {
-                    db.Modelli.Add(modello);
-                    db.SaveChanges();
-                    return RedirectToAction("PannelloAdmin", "Admin");
-
-                }
-            }
-        }
-
-        [HttpPost]
-        public IActionResult CreateMarca(Marca marca)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("CreateAuto", marca);
-            }
-            else
-            {
-                using (ConcessionarioContext db = new ConcessionarioContext())
-                {
-                    db.Marche.Add(marca);
-                    db.SaveChanges();
-                    return RedirectToAction("PannelloAdmin", "Admin");
-                }
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult AcquisisciMacchina(ModelloAcquisizioneAuto data)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(data.AcquistoAuto);
-            }
-            else
-            {
-                using (ConcessionarioContext db = new ConcessionarioContext())
-                {
-                    db.AcquisizioniAuto.Add(data.AcquistoAuto);
-                    db.SaveChanges();
-
-                    return RedirectToAction("PannelloAdmin");
-                }
-            }
-
-        }
-        [HttpPost]
-        public IActionResult Delete(int id)
-        {
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                Auto? autoDaEliminare = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
-                if (autoDaEliminare != null)
-                {
-                    db.Auto.Remove(autoDaEliminare);
-                    db.SaveChanges();
-                    return RedirectToAction("PannelloAdmin");
-
-                }
-                else return NotFound();
-            }
-        }
-
-        [HttpGet]
         public IActionResult ModifyAuto(int id)
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 Auto? autoToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
-                if (autoToModify != null)
+                if(autoToModify != null)
                 {
-                    return View("Update", autoToModify);
+                    List<Marca> marche = db.Marche.ToList();
+                    List<Tipo> tipi = db.Tipi.ToList();
+
+                    ModelloMacchinaCreateUpdate modelView = new ModelloMacchinaCreateUpdate();
+                    modelView.Tipi = tipi;
+                    modelView.Marche = marche;
+
+                    return View(modelView);
+
                 }
                 else
                 {
-                    return NotFound("L'auto che desideri modificare non è stata trovata.");
+                    return NotFound($"La macchina con id {id} non è stata trovata");
                 }
             }
-        }
-
-        [HttpPost]
-        public IActionResult ModifyAuto(int id, Auto modifiedAuto)
-        {
-            if (ModelState.IsValid)
-            {
-                return View("Update", modifiedAuto);
-            }
-
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                Auto? autoToModify = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
-
-                if (autoToModify != null)
-                {
-                    autoToModify.Descrizione = modifiedAuto.Descrizione;
-                    autoToModify.AnnoImmatricolazione = modifiedAuto.AnnoImmatricolazione;
-                    autoToModify.Colore = modifiedAuto.Colore;
-                    autoToModify.UrlImmagine = modifiedAuto.UrlImmagine;
-                    autoToModify.NumeroAutoNelConcessionario = modifiedAuto.NumeroAutoNelConcessionario;
-                    autoToModify.NumeroLikeUtenti = modifiedAuto.NumeroLikeUtenti;
-                    autoToModify.Prezzo = modifiedAuto.Prezzo;
-                    autoToModify.AnnoProduzione = modifiedAuto.AnnoProduzione;
-                    autoToModify.Usata = modifiedAuto.Usata;
-                    autoToModify.Allestimento = modifiedAuto.Allestimento;
-
-
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return NotFound("L'auto che desideri modificare non è stata trovata.");
-                }
-            }
-
         }
 
         [HttpGet]
@@ -295,6 +110,224 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 }
             }
         }
+
+        [HttpGet]
+        public IActionResult ModifySpecificheTecniche(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                SpecificheTecniche? specificheTecnicheToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.AutoId == id).FirstOrDefault();
+                if (specificheTecnicheToModify != null)
+                {
+                    return View("Update", specificheTecnicheToModify);
+                }
+                else
+                {
+                    return NotFound("Le specifiche tecniche che desideri modificare non sono state trovate.");
+                }
+            }
+        }
+
+        [HttpGet]
+        public IActionResult ModifyTipo(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Tipo? tipoToModify = db.Tipi.Where(tipo => tipo.Id == id).FirstOrDefault();
+                if (tipoToModify != null)
+                {
+                    return View("Update", tipoToModify);
+                }
+                else
+                {
+                    return NotFound("Il tipo che desideri modificare non è stato trovato.");
+                }
+            }
+        }
+
+        [HttpGet]
+        public IActionResult AcquistoAutoPresenteNelConcessionario(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Auto? autoDaAcquistare = db.Auto.Where(auto => auto.Id == id)
+                                                .Include(auto => auto.MarcaAuto)
+                                                .Include(auto => auto.TipoAuto)
+                                                .FirstOrDefault();
+
+                if (autoDaAcquistare != null)
+                {
+                    ModelloAcquisizioneAutoPresente modelPerView = new ModelloAcquisizioneAutoPresente();
+                    modelPerView.Auto = autoDaAcquistare;
+                    modelPerView.AcquistoAuto = new AcquistoAuto();
+
+                    return View(modelPerView);
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+            }
+        }
+
+        [HttpGet]
+        public IActionResult AcquistoAutoNuova()
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                List<Marca> marche = db.Marche.ToList();
+                List<Tipo> tipi = db.Tipi.ToList();
+
+                ModelloAcquisizioneAutoNuova modelPerView = new ModelloAcquisizioneAutoNuova();
+                modelPerView.Auto = new Auto();
+                modelPerView.AcquistoAuto = new AcquistoAuto();
+                modelPerView.Marche = marche;
+                modelPerView.Tipi = tipi;
+
+                return View(modelPerView);
+            }
+
+        }
+
+
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateAuto(ModelloMacchinaCreateUpdate data)
+        {
+            if (!ModelState.IsValid)
+            {
+                using (ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    List<Marca> marche = db.Marche.ToList();
+                    List<Tipo> tipi = db.Tipi.ToList();
+
+                    data.Tipi = tipi;
+                    data.Marche = marche;
+
+                    return View(data);
+                }
+            }
+            else
+            {
+                using (ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    db.Auto.Add(data.Auto);
+                    db.SaveChanges();
+                    return RedirectToAction("ListaMacchineAdmin", "Admin");
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult CreateTipo(Tipo tipo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("CreateTipo", tipo);
+            }
+            else
+            {
+                using (ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    db.Tipi.Add(tipo);
+                    db.SaveChanges();
+                    return RedirectToAction("ListaMacchineAdmin", "Admin");
+                }
+            }
+        }
+
+
+        [HttpPost]
+        public IActionResult CreateMarca(Marca marca)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("CreateAuto", marca);
+            }
+            else
+            {
+                using (ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    db.Marche.Add(marca);
+                    db.SaveChanges();
+                    return RedirectToAction("ListaMacchineAdmin", "Admin");
+                }
+            }
+        }
+
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                Auto? autoDaEliminare = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+                SpecificheTecniche? specificheTecnicheDaEliminare = db.SpecificheTecniche.Where(specifiche => specifiche.AutoId == id).FirstOrDefault();
+
+                if (autoDaEliminare != null && specificheTecnicheDaEliminare != null)
+                {
+                    db.Auto.Remove(autoDaEliminare);
+                    db.SpecificheTecniche.Remove(specificheTecnicheDaEliminare);
+                    db.SaveChanges();
+                    return RedirectToAction("ListaMacchineAdmin", "Admin");
+
+                }
+                else return NotFound();
+            }
+        }
+
+
+
+        [HttpPost]
+        public IActionResult ModifyAuto(int id, ModelloMacchinaCreateUpdate data)
+        {
+            if (!ModelState.IsValid)
+            {
+                using (ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    List<Marca> marche = db.Marche.ToList();
+                    List<Tipo> tipi = db.Tipi.ToList();
+
+                    data.Marche = marche;
+                    data.Tipi = tipi;
+
+                    return View(data);
+                }
+            }
+            else
+            {
+                using (ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    Auto? autoDaModificare = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+                    if(autoDaModificare != null)
+                    {
+                        autoDaModificare.NomeModello = data.Auto.NomeModello;
+                        autoDaModificare.Descrizione = data.Auto.Descrizione;
+                        autoDaModificare.Usata = data.Auto.Usata;
+                        autoDaModificare.UrlImmagine = data.Auto.UrlImmagine;
+                        autoDaModificare.Colore = data.Auto.Colore;
+                        autoDaModificare.AnnoInizioProduzione = data.Auto.AnnoInizioProduzione;
+                        autoDaModificare.AnnoFineProduzione = data.Auto.AnnoFineProduzione;
+                        autoDaModificare.AnnoImmatricolazione = data.Auto.AnnoImmatricolazione;
+                        autoDaModificare.NumeroAutoNelConcessionario = data.Auto.NumeroAutoNelConcessionario;
+                        autoDaModificare.MarcaAuto.Id = data.Auto.MarcaAuto.Id;
+                        autoDaModificare.TipoAuto.Id = data.Auto.TipoAuto.Id;
+
+                        db.SaveChanges();
+                        return RedirectToAction("ListaMacchineAdmin", "Admin");
+
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+            }
+
+        }
+
 
         [HttpPost]
         public IActionResult ModifyMarca(int id, Marca modifiedMarca)
@@ -324,69 +357,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
         }
 
-        [HttpGet]
-        public IActionResult ModifyModello(int id)
-        {
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                Modello? modelloToModify = db.Modelli.Where(modello => modello.Id == id).FirstOrDefault();
-                if (modelloToModify != null)
-                {
-                    return View("Update", modelloToModify);
-                }
-                else
-                {
-                    return NotFound("Il modello che desideri modificare non è stata trovata.");
-                }
-            }
-        }
-
-        [HttpPost]
-        public IActionResult ModifyModello(int id, Modello modifiedModello)
-        {
-            if (ModelState.IsValid)
-            {
-                return View("Update", modifiedModello);
-            }
-
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                Modello? modelloToModify = db.Modelli.Where(modello => modello.Id == id).FirstOrDefault();
-
-                if (modelloToModify != null)
-                {
-                    modelloToModify.Nome = modifiedModello.Nome;
-                    modelloToModify.AnnoInizioProduzione = modifiedModello.AnnoInizioProduzione;
-                    modelloToModify.AnnoFineProduzione = modifiedModello.AnnoFineProduzione;
-
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return NotFound("Il modello che desideri modificare non è stata trovata.");
-                }
-            }
-
-        }
-
-        [HttpGet]
-        public IActionResult ModifySpecificheTecniche(int id)
-        {
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                SpecificheTecniche? specificheTecnicheToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.Id == id).FirstOrDefault();
-                if (specificheTecnicheToModify != null)
-                {
-                    return View("Update", specificheTecnicheToModify);
-                }
-                else
-                {
-                    return NotFound("Le specifiche tecniche che desideri modificare non sono state trovate.");
-                }
-            }
-        }
-
         [HttpPost]
         public IActionResult ModifySpecificheTecniche(int id, SpecificheTecniche modifiedSpecificheTecniche)
         {
@@ -397,7 +367,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                SpecificheTecniche? specificheTecnicheToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.Id == id).FirstOrDefault();
+                SpecificheTecniche? specificheTecnicheToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.AutoId == id).FirstOrDefault();
 
                 if (specificheTecnicheToModify != null)
                 {
@@ -421,22 +391,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
         }
 
-        [HttpGet]
-        public IActionResult ModifyTipo(int id)
-        {
-            using (ConcessionarioContext db = new ConcessionarioContext())
-            {
-                Tipo? tipoToModify = db.Tipi.Where(tipo => tipo.Id == id).FirstOrDefault();
-                if (tipoToModify != null)
-                {
-                    return View("Update", tipoToModify);
-                }
-                else
-                {
-                    return NotFound("Il tipo che desideri modificare non è stato trovato.");
-                }
-            }
-        }
+
 
         [HttpPost]
         public IActionResult ModifyTipo(int id, Tipo modifiedTipo)
@@ -463,6 +418,65 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 }
             }
 
+        }
+
+        [HttpPost]
+        public IActionResult AcquistoAutoPresenteNelConcessionario(int id, ModelloAcquisizioneAutoPresente data)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(data);
+            }
+            else
+            {
+                using (ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    db.AcquisizioniAuto.Add(data.AcquistoAuto);
+
+                    Auto? AutoModificaNumero = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
+                    if(AutoModificaNumero != null)
+                    {
+                        AutoModificaNumero.NumeroAutoNelConcessionario += data.AcquistoAuto.NumeroMacchineAcquistate;
+                        db.SaveChanges();
+
+                        return RedirectToAction("ListaMacchineAdmin", "Admin");
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }                    
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AcquistoAutoNuova(ModelloAcquisizioneAutoNuova data)
+        {
+            if (!ModelState.IsValid)
+            {
+                using (ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    List<Marca> marche = db.Marche.ToList();
+                    List<Tipo> tipi = db.Tipi.ToList();
+
+                    data.Tipi = tipi;
+                    data.Marche = marche;
+
+                    return View(data);
+                }
+            }
+            else
+            {
+                using (ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    data.Auto.NumeroAutoNelConcessionario = data.AcquistoAuto.NumeroMacchineAcquistate;
+
+                    db.AcquisizioniAuto.Add(data.AcquistoAuto);
+                    db.Auto.Add(data.Auto);
+                    db.SaveChanges();
+                    return RedirectToAction("ListaMacchineAdmin", "Admin");
+                }
+            }
         }
 
     }

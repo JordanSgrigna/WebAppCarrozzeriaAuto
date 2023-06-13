@@ -9,7 +9,7 @@ namespace WebAppCarrozzeriaAuto.Models
         public int Id { get; set; }
 
         [Column(TypeName = "smallint")]
-        int? Cilindrata { get; set; }
+        public int? Cilindrata { get; set; }
 
         [Column(TypeName = "tinyint")]
         [Range(1, 20, ErrorMessage = "Il campo deve essere compreso tra 1 e 20")]
@@ -44,6 +44,14 @@ namespace WebAppCarrozzeriaAuto.Models
 
         [Column(TypeName = "DECIMAL(6,2)")]
         public float? ConsumoMisto { get; set; }
+
+        [Column(TypeName = "tinyint")]
+        [Range(2, 10)]
+        public int NumeroPorte { get; set; }
+
+        [Column(TypeName = "tinyint")]
+        public int NumeroPosti { get; set; }
+
         
         //RELAZIONI
         [ForeignKey("Auto")]

@@ -28,7 +28,6 @@ namespace WebAppCarrozzeriaAuto.Models
         public int NumeroMacchineAcquistate { get; set; }
 
         //RELAZIONI
-        public int IdAuto { get; set; }
         public Auto AutoDaAcquisire { get; set; }
 
 
