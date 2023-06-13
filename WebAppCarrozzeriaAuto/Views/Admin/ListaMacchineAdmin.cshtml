@@ -1,58 +1,50 @@
 ﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
-@model List<Auto>
+@model ModelloListinoMacchine
 
 <div class="container">
     <div class="row">
         <div class="col">
+            <h4>TIPI</h4>
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Modello</th>
-                        <th scope="col">Allestimento</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Anno Produzione</th>
-                        <th scope="col">Azioni</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">NOME</th>
+                        <th scope="col">AZIONI</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(Auto auto in Model)
+                    @foreach(Tipo tipi in Model.Tipi)
                     {
                         <tr>
-                            <th scope="row">@auto.MarcaAuto.Nome</th>
-
-
-                            <td>@auto.TipoAuto</td>
-
-                            <td>
-                                <a class="btn btn-sm btn-dark rounded-0 ms-auto" data-bs-toggle="modal" data-bs-target="dbModal" style="max-height:30px;" href="@Url.Action("AcquistaMacchina", "Admin", new {id = auto.Id})" role="button">
-                                    Acquista Macchina
-                                </a>
-                                <button>
-                                    Elimina
-                                </button>
-                            </td>
+                            <th scope="row">@tipi.Id</th>
+                            <td>@tipi.Nome</td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="modal fade modal-dialog modal-dialog-centered" id="dbModal" tabindex="-1" aria-labelledby="dbModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="dbModalLabel">Attenzione!</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    L'auto è già presente nel database?
-                </div>
-                <div class="modal-footer">
-                    <a type="button" class="btn btn-primary" href="@Url.Action("CreateAuto","Admin")">No</a>
-                    <a type="button" class="btn btn-primary" href="@Url.Action("AcquisisciMacchina","Admin")">Sì</a>
-                </div>
-            </div>
+        <div class="col">
+            <h4>MARCHE</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">NOME</th>
+                        <th scope="col">PAESE ORIGINE</th>
+                    </tr>
+                </thead>
+                <tody>
+                    @foreach(Marca marche in Model.Marche)
+                    {
+                        <tr>
+                            <th scope="row">@marche.Id</th>
+                            <td>@marche.Nome</td>
+                            <td>@marche.PaeseOrigine</td>
+                        </tr>
+                    }
+                </tody>
+            </table>
         </div>
     </div>
 </div>

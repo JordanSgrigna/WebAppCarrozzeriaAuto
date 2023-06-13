@@ -1,56 +1,33 @@
-﻿<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="modal fade modal-dialog modal-dialog-centered" id="AddModal" tabindex="-1" aria-labelledby="dbModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <a type="button" class="btn btn-primary" href="@Url.Action("CreateAuto","Admin")">Auto</a>
-                            <a type="button" class="btn btn-primary" href="@Url.Action("CreateMarca","Admin")">Marca</a>
-                            <a type="button" class="btn btn-primary" href="@Url.Action("CreateModello","Admin")">Modello</a>
-                            <a type="button" class="btn btn-primary" href="@Url.Action("CreateTipo","Admin")">Tipo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade modal-dialog modal-dialog-centered" id="UpdateModal" tabindex="-1" aria-labelledby="dbModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <a type="button" class="btn btn-primary" href="@Url.Action("ModifyAuto","Admin")">Auto</a>
-                            <a type="button" class="btn btn-primary" href="@Url.Action("ModifyMarca","Admin")">Marca</a>
-                            <a type="button" class="btn btn-primary" href="@Url.Action("ModifyModello","Admin")">Modello</a>
-                            <a type="button" class="btn btn-primary" href="@Url.Action("ModifyTipo","Admin")">Tipo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+﻿
 
 <div class="container">
-    <div class="row d-flex justify-content-center">
-        <div class="col-lg-6 col-sm-12">
-            <a data-bs-toggle="modal" data-bs-target="#AddModal" class="btn btn-primary my-2 mx-2 col-3 me-2"> Aggiungi</a>
-        </div>
-        <div class="col-lg-6 col-sm-12">
-            <a data-bs-toggle="modal" data-bs-target="#UpdateModal" class="btn btn-primary my-2 mx-2 col-3 me-2">Modifica</a>
-        </div>
-        <div class="col-lg-6 col-sm-12">
-            <a href="@Url.Action("ListaMacchineAdmin", "Admin")" class="btn btn-success my-2 mx-2 col-3 me-2">Acquista</a>
-        </div>
-        <div class="col-lg-6 col-sm-12">
-            <a @Url.Action("ListaMacchineAdmin", "Admin")" class="btn btn-danger my-2 mx-2 col-3 me-2">Rimuovi</a>
+    <div class="row d-flex">
+        <div class="col-12">
+            <h1 class="mb-5 mt-3 text-center">Benvenuto nel pannello admin!</h1>
+            <p class="text-center">
+                Da qui puoi modificare, aggiungere e rimuovere auto, tipi di auto, marche e modelli.
+                Puoi anche procedere all'acquisto di auto da mettere in inventario o di macchine già presenti.
+            </p>
         </div>
     </div>
+
+    <div class="row d-flex justify-content-center mt-4">
+        <h3 class="text-center mb-3">Aggiungi</h3>
+        <div class="col-12 text-center mb-4">
+            <a type="button" class="btn btn-primary" style="padding-right: 150px; padding-left: 150px;" href="@Url.Action("CreateAuto", "Admin")">Auto</a>
+        </div>
+        <div class="col-12 text-center mb-4">
+            <a type="button" class="btn btn-primary" style="padding-right: 152px; padding-left: 152px;" href="@Url.Action("CreateTipo", "Admin")">Tipo</a>
+        </div>
+        <div class="col-12 text-center mb-5">
+            <a type="button" class="btn btn-primary" style="padding-right: 148px; padding-left: 148px;" href="@Url.Action("CreateMarca", "Admin")">Marca</a>
+        </div>
+        <div class="col-12 text-center">
+            <div class="mt-4">
+                <p class="text-center">Per modificare/eliminare o acquistare macchine presenti nel concessionario, vai alla lista di macchine per admin!</p>
+                <a href="@Url.Action("ListaMacchineAdmin", "Admin")" type="button" class="btn btn-success" style="padding-right: 150px; padding-left: 150px;">Vai alla lista di macchine per admin!</a>
+            </div>
+        </div>
+    </div>
+   
 </div>
-
-

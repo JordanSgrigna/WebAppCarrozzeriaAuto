@@ -30,6 +30,7 @@ namespace WebAppCarrozzeriaAuto.Models
         {
             Nome = name;
             PaeseOrigine = paeseOrigine;
+            Auto = new List<Auto>();
         }
     }
 }

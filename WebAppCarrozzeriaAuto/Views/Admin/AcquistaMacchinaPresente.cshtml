@@ -1,5 +1,5 @@
 ﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
-@model ModelloAcquisizioneAuto
+@model ModelloAcquisizioneAutoPresente
 
 <div class="container">
     <div class="row">
@@ -12,7 +12,7 @@
         <div class="col">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Modello</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Model.Auto">
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="@Model.Auto.NomeModello">
             </div>
         </div>
         <div class="col">
@@ -24,31 +24,32 @@
 
     </div>
     <div class="row">
-        <form>
+        <form asp-controller="Admin" asp-action="AcquistoAutoPresenteNelConcessionario" asp-route-id="@Model.Auto.Id" method="post">
+            @Html.AntiForgeryToken()
             <div class="col">
-                <label for="NomeFornitore" class="form-label">Fornitore</label>
-                <input type="text" class="form-control">
+                <label asp-for="AcquistoAuto.NomeFornitore" for="NomeFornitore" class="form-label">Fornitore</label>
+                <input asp-for="AcquistoAuto.NomeFornitore" type="text" class="form-control">
                 <span asp-validation-for="AcquistoAuto.NomeFornitore" class="text-danger"></span>
             </div>
             <div class="col">
-                <label for="NomeFornitore" class="form-label">Usata</label>
-                <input type="text" class="form-control">
+                <label asp-for="AcquistoAuto.Usata" for="NomeFornitore" class="form-label">Usata</label>
+                <select asp-for="AcquistoAuto.Usata" class="form-select" aria-label="Usata?">
+                    <option value="true" selected>Usata</option>
+                    <option value="false">Nuova</option>
+                </select>
                 <span asp-validation-for="AcquistoAuto.Usata" class="text-danger"></span>
             </div>
             <div class="col">
-                <label for="NomeFornitore" class="form-label">Prezzo Macchina</label>
-                <input type="text" class="form-control">
+                <label asp-for="AcquistoAuto.PrezzoUnitarioMacchina" for="NomeFornitore" class="form-label">Prezzo Macchina</label>
+                <input asp-for="AcquistoAuto.PrezzoUnitarioMacchina" type="text" class="form-control">
                 <span asp-validation-for="AcquistoAuto.PrezzoUnitarioMacchina" class="text-danger"></span>
             </div>
             <div class="col">
-                <label for="NomeFornitore" class="form-label">Quantità</label>
-                <input type="number" class="form-control">
+                <label asp-for="AcquistoAuto.NumeroMacchineAcquistate" for="Quantità" class="form-label">Quantità</label>
+                <input asp-for="AcquistoAuto.NumeroMacchineAcquistate" type="number" class="form-control">
                 <span asp-validation-for="AcquistoAuto.NumeroMacchineAcquistate" class="text-danger"></span>
             </div>
-            <div class="col">
-                <label for="NomeFornitore" class="form-label">Quantità</label>
-                <input type="number" id="disabledTextInput" class="form-control" placeholder="">
-            </div>
+            <button type="submit" class="btn btn-success">Acquista</button>
         </form>
     </div>
 </div>
