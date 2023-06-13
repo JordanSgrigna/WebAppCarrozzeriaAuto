@@ -1,53 +1,59 @@
 ﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
 @model SpecificheTecniche
 
-<div class="mb-3">
-    <form asp-controller="Admin" asp-action="ModifyTipo" asp-route-id="@Model.Id" method="post" class="p-5">
-        <div class="mb-3">
-            <label asp-for="Alimentazione" class="form-label">Alimentazione</label>
-            <input asp-for="Alimentazione" type="text" class="form-control" required>
-            <span asp-validation-for="Alimentazione" class="text-danger"></span>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="mb-3">
+                <form asp-controller="Admin" asp-action="ModifyTipo" asp-route-id="@Model.Id" method="post" class="p-5">
+                    <div class="mb-3">
+                        <label asp-for="Alimentazione" class="form-label">Alimentazione</label>
+                        <input asp-for="Alimentazione" type="text" class="form-control" required>
+                        <span asp-validation-for="Alimentazione" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Potenza" class="form-label">Potenza</label>
+                        <input asp-for="Potenza" type="text" class="form-control" required>
+                        <span asp-validation-for="Potenza" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Cilindrata" class="form-label">Potenza</label>
+                        <input asp-for="Cilindrata" type="text" class="form-control" required>
+                        <span asp-validation-for="Cilindrata" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Cambio" class="form-label">Cambio</label>
+                        <input asp-for="Cambio" type="text" class="form-control" required>
+                        <span asp-validation-for="Cambio" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Trazione" class="form-label">Trazione</label>
+                        <input asp-for="Trazione" type="text" class="form-control" required>
+                        <span asp-validation-for="Trazione" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ClasseEmissioni" class="form-label">Classe emissioni</label>
+                        <input asp-for="ClasseEmissioni" type="text" class="form-control" required>
+                        <span asp-validation-for="ClasseEmissioni" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ConsumoUrbano" class="form-label">Consumo urbano</label>
+                        <input asp-for="ConsumoUrbano" type="text" class="form-control" required>
+                        <span asp-validation-for="ConsumoUrbano" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ConsumoExtraUrbano" class="form-label">Consumo extraUrbano</label>
+                        <input asp-for="ConsumoExtraUrbano" type="text" class="form-control" required>
+                        <span asp-validation-for="ConsumoExtraUrbano" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ConsumoMisto" class="form-label">Consumo misto</label>
+                        <input asp-for="ConsumoMisto" type="text" class="form-control" required>
+                        <span asp-validation-for="ConsumoMisto" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-success">Salva</button>
+                </form>
+            </div>
         </div>
-        <div class="mb-3">
-            <label asp-for="Potenza" class="form-label">Potenza</label>
-            <input asp-for="Potenza" type="text" class="form-control" required>
-            <span asp-validation-for="Potenza" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Cilindrata" class="form-label">Potenza</label>
-            <input asp-for="Cilindrata" type="text" class="form-control" required>
-            <span asp-validation-for="Cilindrata" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Cambio" class="form-label">Cambio</label>
-            <input asp-for="Cambio" type="text" class="form-control" required>
-            <span asp-validation-for="Cambio" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Trazione" class="form-label">Trazione</label>
-            <input asp-for="Trazione" type="text" class="form-control" required>
-            <span asp-validation-for="Trazione" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="ClasseEmissioni" class="form-label">Classe emissioni</label>
-            <input asp-for="ClasseEmissioni" type="text" class="form-control" required>
-            <span asp-validation-for="ClasseEmissioni" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="ConsumoUrbano" class="form-label">Consumo urbano</label>
-            <input asp-for="ConsumoUrbano" type="text" class="form-control" required>
-            <span asp-validation-for="ConsumoUrbano" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="ConsumoExtraUrbano" class="form-label">Consumo extraUrbano</label>
-            <input asp-for="ConsumoExtraUrbano" type="text" class="form-control" required>
-            <span asp-validation-for="ConsumoExtraUrbano" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="ConsumoMisto" class="form-label">Consumo misto</label>
-            <input asp-for="ConsumoMisto" type="text" class="form-control" required>
-            <span asp-validation-for="ConsumoMisto" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-success">Salva</button>
-    </form>
+    </div>
 </div>

@@ -59,20 +59,22 @@
                     </select>
                 </div>
 
-                <select asp-for="@Model.Auto.TipoAuto.Id" aria-label="Tipo" class="form-select">
-                    @foreach (Tipo tipo in Model.Tipi ?? new List<Tipo>())
-                    {
-                        <option value="@tipo.Id">@tipo.Nome</option>
-                    }
-                </select>
-
-                <select asp-for="@Model.Auto.MarcaAuto.Id" aria-label="Tipo" class="form-select">
-                    @foreach (Marca marca in Model.Marche ?? new List<Marca>())
-                    {
-                        <option value="@marca.Id">@marca.Nome</option>
-                    }
-                </select>
-
+                <div class="mb-3">
+                    <select asp-for="@Model.Auto.TipoAuto.Id" aria-label="Tipo" class="form-select">
+                        @foreach (Tipo tipo in Model.Tipi ?? new List<Tipo>())
+                        {
+                            <option value="@tipo.Id">@tipo.Nome</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <select asp-for="@Model.Auto.MarcaAuto.Id" aria-label="Tipo" class="form-select">
+                        @foreach (Marca marca in Model.Marche ?? new List<Marca>())
+                        {
+                            <option value="@marca.Id">@marca.Nome</option>
+                        }
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-success">Salva</button>
             </form>
         </div>
