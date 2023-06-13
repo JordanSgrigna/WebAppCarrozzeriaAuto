@@ -58,6 +58,11 @@
                         <option value="false">Nuova</option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Auto.Kilometraggio" class="form-label">Anno di Inizio Produzione</label>
+                    <input asp-for="@Model.Auto.Kilometraggio" type="number" class="form-control" required>
+                    <span asp-validation-for="@Model.Auto.Kilometraggio" class="text-danger"></span>
+                </div>
 
                 <div class="mb-3">
                     <select asp-for="@Model.Auto.TipoAuto.Id" aria-label="Tipo" class="form-select">

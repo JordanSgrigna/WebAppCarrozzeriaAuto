@@ -57,7 +57,7 @@ namespace WebAppCarrozzeriaAuto.Models
         //RELAZIONI
         public Marca MarcaAuto { get; set; }
 
-        public SpecificheTecniche Specifiche { get; set; }
+        public SpecificheTecniche? Specifiche { get; set; }
 
         public Tipo TipoAuto { get; set; }
 
@@ -80,7 +80,16 @@ namespace WebAppCarrozzeriaAuto.Models
             AnnoImmatricolazione = 0;
             NumeroAutoNelConcessionario = 0;
             NumeroLikeUtenti = 0;
-            Kilometraggio = kilometraggio;
+
+            if (!usata)
+            {
+                Kilometraggio = 0;
+            }
+            else
+            {
+                Kilometraggio = kilometraggio;
+            }
+
         }
 
 

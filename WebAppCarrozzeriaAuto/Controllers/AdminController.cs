@@ -68,7 +68,9 @@ namespace WebAppCarrozzeriaAuto.Controllers
         [HttpGet]
         public IActionResult CreateMarca()
         {
-            return View("CreateMarca");
+            Marca marca = new Marca();
+            marca.Auto = new List<Auto>();
+            return View("CreateMarca", marca);
         }
 
         [HttpGet]
