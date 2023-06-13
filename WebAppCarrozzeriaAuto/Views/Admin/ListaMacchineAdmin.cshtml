@@ -1,58 +1,124 @@
 ﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
-@model List<Auto>
+@model ModelloListinoMacchine
 
 <div class="container">
     <div class="row">
         <div class="col">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Modello</th>
-                        <th scope="col">Allestimento</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Anno Produzione</th>
-                        <th scope="col">Azioni</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach(Auto auto in Model)
-                    {
-                        <tr>
-                            <th scope="row">@auto.MarcaAuto.Nome</th>
-
-
-                            <td>@auto.TipoAuto</td>
-
-                            <td>
-                                <a class="btn btn-sm btn-dark rounded-0 ms-auto" data-bs-toggle="modal" data-bs-target="dbModal" style="max-height:30px;" href="@Url.Action("AcquistaMacchina", "Admin", new {id = auto.Id})" role="button">
-                                    Acquista Macchina
-                                </a>
-                                <button>
-                                    Elimina
-                                </button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="modal fade modal-dialog modal-dialog-centered" id="dbModal" tabindex="-1" aria-labelledby="dbModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="dbModalLabel">Attenzione!</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    L'auto è già presente nel database?
-                </div>
-                <div class="modal-footer">
-                    <a type="button" class="btn btn-primary" href="@Url.Action("CreateAuto","Admin")">No</a>
-                    <a type="button" class="btn btn-primary" href="@Url.Action("AcquisisciMacchina","Admin")">Sì</a>
+            <div class="dropdown">
+                <button class="dropdown-toggle" type="button" id="dropdownMacchine" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    MACCHINE
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMacchine">
+                    <div class="dropdown-item">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Marca</th>
+                                    <th scope="col">Modello</th>
+                                    <th scope="col">Allestimento</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Anno Produzione</th>
+                                    <th scope="col">Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (Auto auto in Model.Auto)
+                                {
+                                    <tr>
+                                        <th scope="row">@auto.Id</th>
+                                        <th>@auto.MarcaAuto.Nome</th>
+                                        <td>@auto.NomeModello</td>
+                                        <td>@auto.TipoAuto</td>
+                                        <td>@auto.AnnoInizioProduzione</td>
+                                        @if(auto.AnnoFineProduzione != null)
+                                        {
+                                            <td>@auto.AnnoFineProduzione</td>
+                                        }
+                                        <td>
+                                            <a class="btn btn-sm btn-dark rounded-0 ms-auto" data-bs-toggle="modal" data-bs-target="dbModal" style="max-height:30px;" href="@Url.Action("AcquistaMacchina", "Admin", new {id = auto.Id})" role="button">
+                                                Acquista Macchina
+                                            </a>
+                                            <button>
+                                                Elimina
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
+            <div class="col">
+                <div class="dropdown">
+                    <button class="dropdown-toggle" type="button" id="dropdownTipi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        TIPI
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownTipi">
+                        <div class="dropdown-item">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Nome</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (Tipo tipo in Model.Tipo)
+                                    {
+                                        <tr>
+                                            <th scope="row">@tipo.Id</th>
+                                            <td>@tipo.Nome</td>
+                                            <td>
+                                                <a class="btn btn-sm btn-dark rounded-0 ms-auto" data-bs-toggle="modal" data-bs-target="dbModal" style="max-height:30px;" href="@Url.Action("ModifyTipo", "Admin", new {id = tipo.Id})" role="button">
+                                                    Modifica
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="dropdown">
+                        <button class="dropdown-toggle" type="button" id="dropdownMarche" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            MARCHE
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMarche">
+                            <div class="dropdown-item">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">Paese Di Origine</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (Marca marca in Model.Marca)
+                                        {
+                                            <tr>
+                                                <th scope="row">@marca.Id</th>
+                                                <td>@marca.Nome</td>
+                                                <td>@marca.PaeseOrigine</td>
+                                                <td>
+                                                    <a class="btn btn-sm btn-dark rounded-0 ms-auto" data-bs-toggle="modal" data-bs-target="dbModal" style="max-height:30px;" href="@Url.Action("ModifyMarca", "Admin", new {id = marca.Id})" role="button">
+                                                        Modifica
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+    
+
+                    </div>
+                </div>
+            </div>
