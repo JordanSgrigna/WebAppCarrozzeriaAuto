@@ -2,12 +2,12 @@
 @model SpecificheTecniche
 
 <div class="container">
-<form asp-controller="Admin" asp-action="CreateSpecificheTecniche" method="post">
-    @Html.AntiForgeryToken()
+    <form asp-controller="Admin" asp-action="CreateSpecificheTecniche" method="post">
+        @Html.AntiForgeryToken()
         <div class="mb-3">
-                <label asp-for="Cilindrata" for="SpecificheTecniche">Cilindrata</label>
-                <input asp-for="Cilindrata" type="number" class="form-control" />
-                <span asp-validation-for="Cilindrata" class="text-danger"></span>
+            <label asp-for="Cilindrata" for="SpecificheTecniche">Cilindrata</label>
+            <input asp-for="Cilindrata" type="number" class="form-control" />
+            <span asp-validation-for="Cilindrata" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label asp-for="Alimentazione" for="SpecificheTecniche">Alimentazione</label>
