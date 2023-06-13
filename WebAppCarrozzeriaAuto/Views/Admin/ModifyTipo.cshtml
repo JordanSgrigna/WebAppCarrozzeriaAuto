@@ -5,18 +5,9 @@
     <form asp-controller="Admin" asp-action="ModifyTipo" asp-route-id="@Model.Id" method="post" class="p-5">
         @Html.AntiForgeryToken()
         <div class="mb-3">
-            <select asp-for="@Model.Nome" class="form-select" aria-label="Marca">
-                <option value="@Model.Nome" selected>Seleziona...</option>
-                <option value="@Model.Nome">Berlina</option>
-                <option value="@Model.Nome">Cabriolet</option>
-                <option value="@Model.Nome">Citycar</option>
-                <option value="@Model.Nome">Coupé</option>
-                <option value="@Model.Nome">Monovolume</option>
-                <option value="@Model.Nome">Station Wagon</option>
-                <option value="@Model.Nome">SUV</option>
-                <option value="@Model.Nome">Utilitaria</option>
-                <option value="@Model.Nome">Van</option>
-            </select>
+            <label asp-for="Nome" for="NomeMarca" class="form-label">Nome:</label>
+            <input asp-for="Nome" type="text" class="form-control">
+            <span asp-validation-for="Nome" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-success">Salva</button>
     </form>
