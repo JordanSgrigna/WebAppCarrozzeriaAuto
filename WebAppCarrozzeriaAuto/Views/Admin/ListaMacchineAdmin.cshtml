@@ -4,7 +4,26 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modello</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">@Model.Id</th>
+                        <td>@Model.MarcaAuto</td>
+                        <td>@Model.NomeModello</td>
+                        <td>@Model.TipoAuto</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
