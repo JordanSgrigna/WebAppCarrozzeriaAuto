@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using WebAppCarrozzeriaAuto.Database;
 using WebAppCarrozzeriaAuto.Models;
+using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
 
 namespace WebAppCarrozzeriaAuto.Controllers
 {
@@ -19,8 +20,13 @@ namespace WebAppCarrozzeriaAuto.Controllers
         {
             using(ConcessionarioContext db = new ConcessionarioContext())
             {
-                List<Auto> autoOrdinatePerLike = db.Auto.OrderByDescending(a => a.NumeroLikeUtenti).ToList();
-                return View(autoOrdinatePerLike);
+                List<Auto> autoOrdinatePerLike = db.Auto.OrderByDescending(a => a.NumeroLikeUtenti).Take(5).ToList();
+                List<Auto> autoOrdinatePerVendita = db.Auto.OrderByDescending(a => a.Vendite.Sum(v => v.QuantitaAuto)).Take(5).ToList();
+
+                ListaMacchinePerHomepage listaMacchine = new ListaMacchinePerHomepage();
+                listaMacchine.AutoVendute = autoOrdinatePerVendita;
+                listaMacchine.AutoLike = autoOrdinatePerLike;
+                return View(listaMacchine);
             }
 
         }

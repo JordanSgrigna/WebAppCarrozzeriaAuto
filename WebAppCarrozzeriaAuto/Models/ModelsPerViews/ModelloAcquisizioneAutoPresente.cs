@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration.UserSecrets;
-using Microsoft.AspNetCore.
 using Microsoft.AspNetCore.Identity;
 
 namespace WebAppCarrozzeriaAuto.Models.ModelsPerViews
