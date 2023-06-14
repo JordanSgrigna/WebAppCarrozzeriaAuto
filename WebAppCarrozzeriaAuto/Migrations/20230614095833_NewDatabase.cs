@@ -51,45 +51,29 @@ namespace WebAppCarrozzeriaAuto.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Marche",
+                name: "Auto",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    PaeseOrigine = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Marche", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Modelli",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    NomeModello = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     AnnoInizioProduzione = table.Column<int>(type: "int", nullable: false),
-                    AnnoFineProduzione = table.Column<int>(type: "int", nullable: true)
+                    AnnoFineProduzione = table.Column<int>(type: "int", nullable: true),
+                    Usata = table.Column<bool>(type: "bit", nullable: false),
+                    TipoAuto = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    MarcaAuto = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Kilometraggio = table.Column<float>(type: "real", nullable: true),
+                    UrlImmagine = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descrizione = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Colore = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Prezzo = table.Column<decimal>(type: "DECIMAL(15,4)", nullable: false),
+                    AnnoImmatricolazione = table.Column<int>(type: "int", nullable: true),
+                    NumeroAutoNelConcessionario = table.Column<int>(type: "int", nullable: false),
+                    NumeroLikeUtenti = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Modelli", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tipi",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tipi", x => x.Id);
+                    table.PrimaryKey("PK_Auto", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -199,50 +183,6 @@ namespace WebAppCarrozzeriaAuto.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Auto",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Allestimento = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Usata = table.Column<bool>(type: "bit", nullable: false),
-                    UrlImmagine = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descrizione = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Colore = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Prezzo = table.Column<decimal>(type: "DECIMAL(15,4)", nullable: false),
-                    AnnoProduzione = table.Column<int>(type: "int", nullable: false),
-                    AnnoImmatricolazione = table.Column<int>(type: "int", nullable: true),
-                    NumeroAutoNelConcessionario = table.Column<int>(type: "int", nullable: false),
-                    NumeroLikeUtenti = table.Column<int>(type: "int", nullable: false),
-                    MarcaAutoId = table.Column<int>(type: "int", nullable: false),
-                    IdSpecificaTecnica = table.Column<int>(type: "int", nullable: false),
-                    ModelloAutoId = table.Column<int>(type: "int", nullable: false),
-                    TipoAutoId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Auto", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Auto_Marche_MarcaAutoId",
-                        column: x => x.MarcaAutoId,
-                        principalTable: "Marche",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Auto_Modelli_ModelloAutoId",
-                        column: x => x.ModelloAutoId,
-                        principalTable: "Modelli",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Auto_Tipi_TipoAutoId",
-                        column: x => x.TipoAutoId,
-                        principalTable: "Tipi",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AcquisizioniAuto",
                 columns: table => new
                 {
@@ -254,15 +194,14 @@ namespace WebAppCarrozzeriaAuto.Migrations
                     PrezzoUnitarioMacchina = table.Column<decimal>(type: "DECIMAL(15,4)", nullable: false),
                     PrezzoTotale = table.Column<decimal>(type: "DECIMAL(15,4)", nullable: false),
                     NumeroMacchineAcquistate = table.Column<byte>(type: "tinyint", nullable: false),
-                    IdAuto = table.Column<int>(type: "int", nullable: false),
-                    AutoDaAcquisireId = table.Column<int>(type: "int", nullable: false)
+                    AutoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AcquisizioniAuto", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AcquisizioniAuto_Auto_AutoDaAcquisireId",
-                        column: x => x.AutoDaAcquisireId,
+                        name: "FK_AcquisizioniAuto_Auto_AutoId",
+                        column: x => x.AutoId,
                         principalTable: "Auto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -274,6 +213,7 @@ namespace WebAppCarrozzeriaAuto.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Cilindrata = table.Column<short>(type: "smallint", nullable: true),
                     Alimentazione = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Potenza = table.Column<short>(type: "smallint", nullable: false),
                     Cambio = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -282,6 +222,8 @@ namespace WebAppCarrozzeriaAuto.Migrations
                     ConsumoUrbano = table.Column<decimal>(type: "DECIMAL(6,2)", nullable: true),
                     ConsumoExtraUrbano = table.Column<decimal>(type: "DECIMAL(6,2)", nullable: true),
                     ConsumoMisto = table.Column<decimal>(type: "DECIMAL(6,2)", nullable: true),
+                    NumeroPorte = table.Column<byte>(type: "tinyint", nullable: false),
+                    NumeroPosti = table.Column<byte>(type: "tinyint", nullable: false),
                     AutoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -321,9 +263,9 @@ namespace WebAppCarrozzeriaAuto.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AcquisizioniAuto_AutoDaAcquisireId",
+                name: "IX_AcquisizioniAuto_AutoId",
                 table: "AcquisizioniAuto",
-                column: "AutoDaAcquisireId");
+                column: "AutoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -363,21 +305,6 @@ namespace WebAppCarrozzeriaAuto.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Auto_MarcaAutoId",
-                table: "Auto",
-                column: "MarcaAutoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Auto_ModelloAutoId",
-                table: "Auto",
-                column: "ModelloAutoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Auto_TipoAutoId",
-                table: "Auto",
-                column: "TipoAutoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SpecificheTecniche_AutoId",
@@ -426,15 +353,6 @@ namespace WebAppCarrozzeriaAuto.Migrations
 
             migrationBuilder.DropTable(
                 name: "Auto");
-
-            migrationBuilder.DropTable(
-                name: "Marche");
-
-            migrationBuilder.DropTable(
-                name: "Modelli");
-
-            migrationBuilder.DropTable(
-                name: "Tipi");
         }
     }
 }
