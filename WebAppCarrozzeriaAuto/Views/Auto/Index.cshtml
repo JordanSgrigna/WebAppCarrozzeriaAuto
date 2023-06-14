@@ -1,41 +1,57 @@
 ﻿@model List<Auto>
 
-<div class="row">
-    @if (User.IsInRole("ADMIN"))
-    {
-        <a class="btn btn-outline-light btn-lg" href="@Url.Action("CreateAuto", "Auto")" role="button">Crea nuova auto</a>
-    }
+
+<div class="container-fluid py-5 mb-4 d-flex justify-content-center" style="  background-image: url('/Assets/img/hans-m-OTnkae1syxk-unsplash.jpg');
+            background-position: center;
+            background-size:cover;
+            background-repeat:no-repeat;
+            background-color:#444;
+            background-blend-mode: overlay;">
+    <div class="p-5 mt-5 lc-block col-xxl-7 col-lg-8 col-12 align-self-center text-center" style="height: 300px;">
+        <div class="lc-block">
+            <div editable="rich">
+                <h2 class="fw-bolder display-3" style="color: white;">Le nostre auto</h2>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
+<div class="container-fluid d-flex justify-content-center">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
 
-<div class="row">
-    @foreach (Auto auto in Model)
-    {
-        <div class="container min-vh-100 d-flex align-items-center ">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="lc-block">
-                        <div class="card shadow-lg p-3 bg-white text-dark">
-                            <img class="card-img-top" src="@auto.UrlImmagine" alt="" loading="lazy">
-                            <div class="card-body text-center">
-                                <h3 class="card-title mb-5" editable="inline">@auto.NomeModello</h3>
-                                <p>@auto.Descrizione</p>
-                                <a class="btn btn-outline-light btn-lg" href="@Url.Action("DettagliMacchina", "Auto", new {id = auto.Id})" role="button">Visualizza</a>
-                                @if (User.IsInRole("ADMIN"))
-                                {
-                                    <a class="btn btn-warning btn-sm mt-2" href="@Url.Action("ModifyAuto", "Auto", new {id = auto.Id})">Modifica</a>
-                                    <form asp-controller="Article" asp-action="Delete" asp-route-id="@auto.Id" method="post">
-                                        @Html.AntiForgeryToken()
-                                        <button type="submit" class="btn btn-danger btn-sm mt-2">Cancella</button>
-                                    </form>
-                                }
-                            </div>
+        @foreach (Auto auto in Model)
+        {
+            <div class="col">
+
+
+                <div class="card border rounded-0">
+                    <img src="@auto.UrlImmagine" class="card-img-top" width="100%">
+                    <div class="card-body pt-0 px-0 mt-3">
+                        <div class="d-flex flex-row justify-content-between mb-0 px-3 mt-3">
+                            <div class="d-flex flex-column"><span class="text-muted">Nome modello</span></div>
+                            <div class="d-flex flex-column"><h5 class="mb-0">@auto.NomeModello</h5></div>
                         </div>
+                        <hr class="mt-2 mx-3">
+                        <div class="d-flex flex-row justify-content-between mb-0 px-3 mt-3">
+                            <span class="text-muted mt-1">Prezzo</span>
+                            <h6>&euro;@auto.Prezzo</h6>
+                        </div>
+                        <hr class="mt-2 mx-3">
+                        <div class="d-flex flex-row justify-content-between px-3 pb-4">
+                            <div class="d-flex flex-column"><span class="text-muted">Tipo auto</span></div>
+                            <div class="d-flex flex-column"><h5 class="mb-0"></h5></div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between p-3 mid">
+                            <div class="d-flex flex-column"><small class="text-muted mb-1">SPECIFICHE</small><div class="d-flex flex-row"><img src="https://imgur.com/iPtsG7I.png" width="35px" height="25px"><div class="d-flex flex-column ml-1 align-self-center"><small class="ghj">@auto.Descrizione</small></div></div></div>
+                            <div class="d-flex flex-column"><small class="text-muted mb-2">COLORE</small><div class="d-flex flex-row"><img src="https://imgur.com/J11mEBq.png"><h6 class="align-self-center ml-1">@auto.Colore</h6></div></div>
+                        </div>
+                        <div class="mx-3 mt-3 mb-2 text-center"><button type="button" class="btn btn-outline-dark"><small>VISUALIZZA</small></button></div>
                     </div>
                 </div>
+
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
