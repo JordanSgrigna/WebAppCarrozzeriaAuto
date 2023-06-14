@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.Intrinsics.Arm;
 using WebAppCarrozzeriaAuto.Database;
 using WebAppCarrozzeriaAuto.Models;
 using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
@@ -13,11 +11,9 @@ namespace WebAppCarrozzeriaAuto.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            using(ConcessionarioContext db = new ConcessionarioContext())
+            using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 List<Auto> auto = db.Auto
-                                  .Include(auto => auto.MarcaAuto)
-                                  .Include(auto => auto.TipoAuto)
                                   .Include(auto => auto.Specifiche)
                                   .ToList();
 
@@ -29,7 +25,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         [HttpGet]
         public IActionResult DettagliMacchina(int id)
         {
-            using(ConcessionarioContext db = new ConcessionarioContext())
+            using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 Auto? autoDettagliata = db.Auto.Where(a => a.Id == id)
                                                .Include(m => m.MarcaAuto)
@@ -37,7 +33,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                                                .Include(t => t.Specifiche)
                                                .FirstOrDefault();
 
-                if(autoDettagliata == null)
+                if (autoDettagliata == null)
                 {
                     return NotFound();
                 }
@@ -58,7 +54,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                                              .Include(a => a.TipoAuto)
                                              .FirstOrDefault();
 
-                if(autoDaVendere == null)
+                if (autoDaVendere == null)
                 {
                     return NotFound();
                 }
@@ -87,7 +83,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
             }
             else
             {
-                using(ConcessionarioContext db = new ConcessionarioContext())
+                using (ConcessionarioContext db = new ConcessionarioContext())
                 {
                     data.Vendita.PrezzoTotale = data.Vendita.QuantitaAuto * data.Auto.Prezzo;
                     db.VenditeAuto.Add(data.Vendita);
