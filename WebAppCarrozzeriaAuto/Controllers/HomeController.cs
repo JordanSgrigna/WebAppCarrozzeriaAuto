@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Linq;
+using WebAppCarrozzeriaAuto.Database;
 using WebAppCarrozzeriaAuto.Models;
 
 namespace WebAppCarrozzeriaAuto.Controllers
@@ -15,7 +17,12 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            using(ConcessionarioContext db = new ConcessionarioContext())
+            {
+                List<Auto> autoOrdinatePerLike = db.Auto.OrderByDescending(a => a.NumeroLikeUtenti).ToList();
+                return View(autoOrdinatePerLike);
+            }
+
         }
 
         public IActionResult Privacy()
