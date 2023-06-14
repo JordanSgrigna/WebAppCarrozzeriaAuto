@@ -10,10 +10,12 @@ namespace WebAppCarrozzeriaAuto.Controllers.API
     [ApiController]
     public class RicercaAuto : ControllerBase
     {
+        [HttpGet]
         public IActionResult TrovaAuto(string marca, string modello, float prezzo, string alimentazione, string tipo ,int annoImmatricolazione, float kilometraggio, bool usata)
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
+
                 var query = db.Auto.Include(a => a.Specifiche).AsQueryable();
 
                 if (!string.IsNullOrEmpty(marca))
@@ -58,6 +60,7 @@ namespace WebAppCarrozzeriaAuto.Controllers.API
 
                 var risultati = query.ToList();
                 return Ok(risultati);
+
             }
 
             
