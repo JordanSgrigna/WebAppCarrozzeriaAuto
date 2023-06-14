@@ -2,7 +2,7 @@
 {
     public class ModelloVenditaAutoUtente
     {
+        public Auto? Auto { get; set; }
         public VenditaAutoUtente Vendita { get; set; }
-        public Auto Auto { get; set; }
     }
 }

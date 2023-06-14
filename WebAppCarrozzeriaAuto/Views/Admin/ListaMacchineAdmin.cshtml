@@ -1,50 +1,10 @@
 ﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
-@model ModelloListinoMacchine
+@model Auto
 
 <div class="container">
     <div class="row">
         <div class="col">
-            <h4>TIPI</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">NOME</th>
-                        <th scope="col">AZIONI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach(Tipo tipi in Model.Tipi)
-                    {
-                        <tr>
-                            <th scope="row">@tipi.Id</th>
-                            <td>@tipi.Nome</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="col">
-            <h4>MARCHE</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">NOME</th>
-                        <th scope="col">PAESE ORIGINE</th>
-                    </tr>
-                </thead>
-                <tody>
-                    @foreach(Marca marche in Model.Marche)
-                    {
-                        <tr>
-                            <th scope="row">@marche.Id</th>
-                            <td>@marche.Nome</td>
-                            <td>@marche.PaeseOrigine</td>
-                        </tr>
-                    }
-                </tody>
-            </table>
+            
         </div>
     </div>
 </div>

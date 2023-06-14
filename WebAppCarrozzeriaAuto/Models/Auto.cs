@@ -26,7 +26,13 @@ namespace WebAppCarrozzeriaAuto.Models
         [Required(ErrorMessage = "Il campo è obbligatorio")]
         public bool Usata { get; set; }
 
+        [Required(ErrorMessage = "Il campo è obbligatorio")]
+        [StringLength(50, ErrorMessage = "Il campo può avere un massimo di 100 caratteri")]
+        public string TipoAuto { get; set; }
 
+        [Required(ErrorMessage = "Il campo è obbligatorio")]
+        [StringLength(100, ErrorMessage = "Il campo può avere un massimo di 100 caratteri")]
+        public string MarcaAuto { get; set; }
         public float? Kilometraggio { get; set; }
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
@@ -51,15 +57,15 @@ namespace WebAppCarrozzeriaAuto.Models
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
         public int NumeroAutoNelConcessionario { get; set; }
-        public int NumeroLikeUtenti { get; set; }
+        public int? NumeroLikeUtenti { get; set; }
 
 
         //RELAZIONI
-        public Marca MarcaAuto { get; set; }
-
+        public List<VenditaAutoUtente>? Vendite { get; set; }
+        public List<AcquistoAuto>? Acquisti { get; set; }
         public SpecificheTecniche? Specifiche { get; set; }
 
-        public Tipo TipoAuto { get; set; }
+
 
         //COSTRUTTORI
         public Auto()
@@ -67,7 +73,7 @@ namespace WebAppCarrozzeriaAuto.Models
 
         }
 
-        public Auto(bool usata, string urlImmagine, string nomeModello, string descrizione, string colore, float prezzo, int annoInizioProduzione, int annoFineProduzione, int annoImmatricolazione, int numeroAutoNelConcessionario, int numeroLikeUtenti, float? kilometraggio)
+        public Auto(bool usata, string urlImmagine, string nomeModello, string descrizione, string colore, float prezzo, int annoInizioProduzione, int annoFineProduzione, int annoImmatricolazione, int numeroAutoNelConcessionario, int numeroLikeUtenti, float? kilometraggio, string tipoAuto, string marcaAuto)
         {
             Usata = usata;
             UrlImmagine = urlImmagine;
@@ -80,15 +86,9 @@ namespace WebAppCarrozzeriaAuto.Models
             AnnoImmatricolazione = 0;
             NumeroAutoNelConcessionario = 0;
             NumeroLikeUtenti = 0;
-
-            if (!usata)
-            {
-                Kilometraggio = 0;
-            }
-            else
-            {
-                Kilometraggio = kilometraggio;
-            }
+            Kilometraggio = kilometraggio;
+            TipoAuto = tipoAuto;
+            MarcaAuto = marcaAuto;
 
         }
 

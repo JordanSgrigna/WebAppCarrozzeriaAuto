@@ -12,8 +12,8 @@ using WebAppCarrozzeriaAuto.Database;
 namespace WebAppCarrozzeriaAuto.Migrations
 {
     [DbContext(typeof(ConcessionarioContext))]
-    [Migration("20230612095904_RelazioniMarcaModelloAuto")]
-    partial class RelazioniMarcaModelloAuto
+    [Migration("20230614095833_NewDatabase")]
+    partial class NewDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -231,15 +231,12 @@ namespace WebAppCarrozzeriaAuto.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AutoDaAcquisireId")
+                    b.Property<int>("AutoId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataAcquisto")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("IdAuto")
-                        .HasColumnType("int");
 
                     b.Property<string>("NomeFornitore")
                         .IsRequired()
@@ -260,7 +257,7 @@ namespace WebAppCarrozzeriaAuto.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AutoDaAcquisireId");
+                    b.HasIndex("AutoId");
 
                     b.ToTable("AcquisizioniAuto");
                 });
@@ -273,15 +270,13 @@ namespace WebAppCarrozzeriaAuto.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Allestimento")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int?>("AnnoFineProduzione")
+                        .HasColumnType("int");
 
                     b.Property<int?>("AnnoImmatricolazione")
                         .HasColumnType("int");
 
-                    b.Property<int>("AnnoProduzione")
+                    b.Property<int>("AnnoInizioProduzione")
                         .HasColumnType("int");
 
                     b.Property<string>("Colore")
@@ -293,20 +288,32 @@ namespace WebAppCarrozzeriaAuto.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MarcaAutoId")
-                        .HasColumnType("int");
+                    b.Property<float?>("Kilometraggio")
+                        .HasColumnType("real");
+
+                    b.Property<string>("MarcaAuto")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("NomeModello")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
                     b.Property<int>("NumeroAutoNelConcessionario")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumeroLikeUtenti")
+                    b.Property<int?>("NumeroLikeUtenti")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Prezzo")
                         .HasColumnType("DECIMAL(15, 4)");
 
-                    b.Property<int>("TipoAutoId")
-                        .HasColumnType("int");
+                    b.Property<string>("TipoAuto")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UrlImmagine")
                         .IsRequired()
@@ -317,63 +324,7 @@ namespace WebAppCarrozzeriaAuto.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MarcaAutoId");
-
-                    b.HasIndex("TipoAutoId");
-
                     b.ToTable("Auto");
-                });
-
-            modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.Marca", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("PaeseOrigine")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Marche");
-                });
-
-            modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.Modello", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AnnoFineProduzione")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AnnoInizioProduzione")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MarcaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MarcaId");
-
-                    b.ToTable("Modelli");
                 });
 
             modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.SpecificheTecniche", b =>
@@ -397,6 +348,9 @@ namespace WebAppCarrozzeriaAuto.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<short?>("Cilindrata")
+                        .HasColumnType("smallint");
+
                     b.Property<string>("ClasseEmissioni")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -410,6 +364,12 @@ namespace WebAppCarrozzeriaAuto.Migrations
 
                     b.Property<decimal?>("ConsumoUrbano")
                         .HasColumnType("DECIMAL(6,2)");
+
+                    b.Property<byte>("NumeroPorte")
+                        .HasColumnType("tinyint");
+
+                    b.Property<byte>("NumeroPosti")
+                        .HasColumnType("tinyint");
 
                     b.Property<short>("Potenza")
                         .HasColumnType("smallint");
@@ -425,24 +385,6 @@ namespace WebAppCarrozzeriaAuto.Migrations
                         .IsUnique();
 
                     b.ToTable("SpecificheTecniche");
-                });
-
-            modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.Tipo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tipi");
                 });
 
             modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.VenditaAutoUtente", b =>
@@ -542,42 +484,12 @@ namespace WebAppCarrozzeriaAuto.Migrations
             modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.AcquistoAuto", b =>
                 {
                     b.HasOne("WebAppCarrozzeriaAuto.Models.Auto", "AutoDaAcquisire")
-                        .WithMany()
-                        .HasForeignKey("AutoDaAcquisireId")
+                        .WithMany("Acquisti")
+                        .HasForeignKey("AutoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AutoDaAcquisire");
-                });
-
-            modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.Auto", b =>
-                {
-                    b.HasOne("WebAppCarrozzeriaAuto.Models.Marca", "MarcaAuto")
-                        .WithMany("Auto")
-                        .HasForeignKey("MarcaAutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebAppCarrozzeriaAuto.Models.Tipo", "TipoAuto")
-                        .WithMany()
-                        .HasForeignKey("TipoAutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MarcaAuto");
-
-                    b.Navigation("TipoAuto");
-                });
-
-            modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.Modello", b =>
-                {
-                    b.HasOne("WebAppCarrozzeriaAuto.Models.Marca", "Marca")
-                        .WithMany("Modelli")
-                        .HasForeignKey("MarcaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Marca");
                 });
 
             modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.SpecificheTecniche", b =>
@@ -594,7 +506,7 @@ namespace WebAppCarrozzeriaAuto.Migrations
             modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.VenditaAutoUtente", b =>
                 {
                     b.HasOne("WebAppCarrozzeriaAuto.Models.Auto", "Auto")
-                        .WithMany()
+                        .WithMany("Vendite")
                         .HasForeignKey("AutoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -604,15 +516,11 @@ namespace WebAppCarrozzeriaAuto.Migrations
 
             modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.Auto", b =>
                 {
-                    b.Navigation("Specifiche")
-                        .IsRequired();
-                });
+                    b.Navigation("Acquisti");
 
-            modelBuilder.Entity("WebAppCarrozzeriaAuto.Models.Marca", b =>
-                {
-                    b.Navigation("Auto");
+                    b.Navigation("Specifiche");
 
-                    b.Navigation("Modelli");
+                    b.Navigation("Vendite");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,92 +1,85 @@
 ﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
-@model ModelloMacchinaCreateUpdate
+@model Auto
 
 
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <form asp-controller="Admin" asp-action="CreateAuto" asp-route-id="@Model.Auto.Id" method="post" class="p-5">
+            <form asp-controller="Admin" asp-action="CreateAuto" asp-route-id="Id" method="post" class="p-5">
                 @Html.AntiForgeryToken()
                 <div class="mb-3">
-                    <label asp-for="@Model.Auto.NomeModello" class="form-label">Nome Modello</label>
-                    <input asp-for="@Model.Auto.NomeModello" class="form-control" required>
-                    <span asp-validation-for="@Model.Auto.NomeModello" class="text-danger"></span>
+                    <label asp-for="MarcaAuto" class="form-label">Marca</label>
+                    <input asp-for="MarcaAuto" class="form-control" />
+                    <span asp-validation-for="Kilometraggio" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="@Model.Auto.Descrizione" class="form-label">Descrizione</label>
-                    <textarea asp-for="@Model.Auto.Descrizione=" rows="10" class="form-control" required></textarea>
-                    <span asp-validation-for="@Model.Auto.Descrizione=" text-danger"></span>
+                    <label asp-for="NomeModello" class="form-label">Nome Modello</label>
+                    <input asp-for="NomeModello" class="form-control" required>
+                    <span asp-validation-for="NomeModello" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="@Model.Auto.UrlImmagine" class="form-label">URL Immagine</label>
-                    <input asp-for="@Model.Auto.UrlImmagine" type="text" class="form-control" required>
-                    <span asp-validation-for="@Model.Auto.UrlImmagine" class="text-danger"></span>
+                    <label asp-for="TipoAuto" class="form-label">Tipo</label>
+                    <input asp-for="TipoAuto" type="text" class="form-control" />
+                    <span asp-validation-for="Kilometraggio" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="@Model.Auto.Colore" class="form-label">Colore</label>
-                    <input asp-for="@Model.Auto.Colore" type="text" class="form-control" required>
-                    <span asp-validation-for="@Model.Auto.Colore" class="text-danger"></span>
+                    <label asp-for="Descrizione">Descrizione</label>
+                    <textarea asp-for="Descrizione" rows="10" class="form-control" required></textarea>
+                    <span asp-validation-for="Descrizione" text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="@Model.Auto.Kilometraggio" class="form-label">Kilometraggio</label>
-                    <input asp-for="@Model.Auto.Kilometraggio" type="number" class="form-control" required>
-                    <span asp-validation-for="@Model.Auto.Kilometraggio" class="text-danger"></span>
+                    <label asp-for="UrlImmagine" class="form-label">URL Immagine</label>
+                    <input asp-for="UrlImmagine" type="text" class="form-control" required>
+                    <span asp-validation-for="UrlImmagine" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="@Model.Auto.Prezzo" class="form-label">Prezzo</label>
-                    <input asp-for="@Model.Auto.Prezzo" type="number" class="form-control" required>
-                    <span asp-validation-for="@Model.Auto.Prezzo" class="text-danger"></span>
+                    <label asp-for="Colore" class="form-label">Colore</label>
+                    <input asp-for="Colore" type="text" class="form-control" required>
+                    <span asp-validation-for="Colore" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="@Model.Auto.AnnoImmatricolazione" class="form-label">Anno di Immatricolazione</label>
-                    <input asp-for="@Model.Auto.AnnoImmatricolazione" type="number" class="form-control" required>
-                    <span asp-validation-for="@Model.Auto.AnnoImmatricolazione" class="text-danger"></span>
+                    <label asp-for="Prezzo" class="form-label">Prezzo</label>
+                    <input asp-for="Prezzo" type="number" class="form-control" required>
+                    <span asp-validation-for="Prezzo" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="@Model.Auto.NumeroAutoNelConcessionario" class="form-label">Numero di Auto Disponibili Nel Concessionario</label>
-                    <input asp-for="@Model.Auto.NumeroAutoNelConcessionario" type="number" class="form-control" required>
-                    <span asp-validation-for="@Model.Auto.NumeroAutoNelConcessionario" class="text-danger"></span>
+                    <label asp-for="AnnoImmatricolazione" class="form-label">Anno di Immatricolazione</label>
+                    <input asp-for="AnnoImmatricolazione" type="number" class="form-control" required>
+                    <span asp-validation-for="AnnoImmatricolazione" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="@Model.Auto.AnnoInizioProduzione" class="form-label">Anno di Inizio Produzione</label>
-                    <input asp-for="@Model.Auto.AnnoInizioProduzione" type="number" class="form-control" required>
-                    <span asp-validation-for="@Model.Auto.AnnoInizioProduzione" class="text-danger"></span>
+                    <label asp-for="NumeroAutoNelConcessionario" class="form-label">Numero di Auto Disponibili Nel Concessionario</label>
+                    <input asp-for="NumeroAutoNelConcessionario" type="number" class="form-control" required>
+                    <span asp-validation-for="NumeroAutoNelConcessionario" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="@Model.Auto.AnnoFineProduzione" class="form-label">Anno di Fine Produzione</label>
-                    <input asp-for="@Model.Auto.AnnoFineProduzione" type="number" class="form-control" required>
-                    <span asp-validation-for="@Model.Auto.AnnoFineProduzione" class="text-danger"></span>
+                    <label asp-for="AnnoInizioProduzione" class="form-label">Anno di Inizio Produzione</label>
+                    <input asp-for="AnnoInizioProduzione" type="number" class="form-control" required>
+                    <span asp-validation-for="AnnoInizioProduzione" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <select asp-for="@Model.Auto.Usata" class="form-select" aria-label="Usata?">
-                        <option value="true" selected>Usata</option>
-                        <option value="false">Nuova</option>
+                    <label asp-for="AnnoFineProduzione" class="form-label">Anno di Fine Produzione</label>
+                    <input asp-for="AnnoFineProduzione" type="number" class="form-control" required>
+                    <span asp-validation-for="AnnoFineProduzione" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Usata" class="form-label">Stato Macchina</label>
+                    <select asp-for="Usata" class="form-select" aria-label="Usata?">
+                        <option value="True" selected>Usata</option>
+                        <option value="False">Nuova</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="@Model.Auto.Kilometraggio" class="form-label">Anno di Inizio Produzione</label>
-                    <input asp-for="@Model.Auto.Kilometraggio" type="number" class="form-control" required>
-                    <span asp-validation-for="@Model.Auto.Kilometraggio" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <select asp-for="@Model.Auto.TipoAuto.Id" aria-label="Tipo" class="form-select">
-                        @foreach (Tipo tipo in Model.Tipi ?? new List<Tipo>())
-                        {
-                            <option value="@tipo.Id">@tipo.Nome</option>
-                        }
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <select asp-for="@Model.Auto.MarcaAuto.Id" aria-label="Marca" class="form-select">
-                        @foreach (Marca marca in Model.Marche ?? new List<Marca>())
-                        {
-                            <option value="@marca.Id">@marca.Nome</option>
-                        }
-                    </select>
+                    <label asp-for="Kilometraggio" class="form-label">Kilometraggio</label>
+                    <input asp-for="Kilometraggio" type="number" class="form-control" required>
+                    <span asp-validation-for="Kilometraggio" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-info">Salva</button>
             </form>
         </div>
     </div>
 </div>
+
+@section Scripts{
+
+}

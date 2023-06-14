@@ -10,33 +10,57 @@ namespace WebAppCarrozzeriaAuto.Controllers.API
     [ApiController]
     public class RicercaAuto : ControllerBase
     {
-        public IActionResult TrovaAuto(string marca, string modello, float prezzo, string alimentazione, int annoImmatricolazione, float kilometraggio, bool usata)
+        public IActionResult TrovaAuto(string marca, string modello, float prezzo, string alimentazione, string tipo ,int annoImmatricolazione, float kilometraggio, bool usata)
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                List<Auto> auto = db.Auto
-                                    .Include(a => a.MarcaAuto)
-                                    .Include(a => a.TipoAuto)
-                                    .Include(a => a.Specifiche)
-                                    .ToList();
+                var query = db.Auto.Include(a => a.Specifiche).AsQueryable();
 
                 if (!string.IsNullOrEmpty(marca))
                 {
-                    auto = auto.Where(a => a.MarcaAuto.Nome == marca).ToList();
+                    query = query.Where(a => a.MarcaAuto == marca);
                 }
 
                 if (!string.IsNullOrEmpty(modello))
                 {
-                    auto = auto.Where(a => a.NomeModello == modello).ToList();
+                    query = query.Where(a => a.NomeModello == modello);
                 }
 
                 if(prezzo > 0)
                 {
-                    auto = auto.Where(a => a.Prezzo == prezzo).ToList();
+                    query = query.Where(a => a.Prezzo <= prezzo);
                 }
+
+                if (!string.IsNullOrEmpty(alimentazione))
+                {
+                    query = query.Where(a => a.Specifiche.Alimentazione == alimentazione);
+                }
+
+                if (!string.IsNullOrEmpty(tipo))
+                {
+                    query = query.Where(a => a.TipoAuto == tipo);
+                }
+
+                if (annoImmatricolazione > 0)
+                {
+                    query = query.Where(a => a.AnnoImmatricolazione == annoImmatricolazione);
+                }
+
+                if (usata)
+                {
+                    query = query.Where(a => a.Usata == true);
+                }
+
+                if (kilometraggio > 0)
+                {
+                    query = query.Where(a => a.Kilometraggio <= kilometraggio);
+                }
+
+                var risultati = query.ToList();
+                return Ok(risultati);
             }
 
-            return Ok();
+            
         }
     }
 }
