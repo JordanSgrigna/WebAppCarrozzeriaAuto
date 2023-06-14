@@ -1,10 +1,55 @@
 ﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
-@model Auto
+@model List<Auto>
 
 <div class="container">
     <div class="row">
-        <div class="col">
-            
+        <div class="col-12">
+            <div class="mt-3 mb-3">
+                <h1>Lista delle Auto:</h1>
+            </div>
+            <div class="mt-3 mb-3">
+                    <a class="btn btn-secondary" href="@Url.Action("CreateAuto", "Admin")">
+                        Aggiungi Nuova Auto
+                    </a>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modello</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Auto auto in Model) {
+                    <tr>
+                        <th scope="row">@auto.Id</th>
+                        <td>@auto.MarcaAuto</td>
+                        <td>@auto.NomeModello</td>
+                        <td>@auto.TipoAuto</td>
+                        <td>
+                            <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("DettagliMacchina", "Auto", new { id = auto.Id })">
+                                Dettagli
+                            </a>
+                                <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("ModifyAuto", "Admin", new { id = auto.Id })">
+                                Modifica Auto
+                            </a>
+                                <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("ModifySpecificheTecniche", "Admin", new { id = auto.Id })">
+                                Specifiche Tecniche
+                            </a>
+                            <form asp-controller="Admin" asp-action="Delete" asp-route-id="@auto.Id" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm mt-2">
+                                    Cancella
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
