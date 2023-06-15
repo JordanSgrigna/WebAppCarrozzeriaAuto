@@ -11,7 +11,7 @@ namespace WebAppCarrozzeriaAuto.Controllers.API
     public class RicercaAuto : ControllerBase
     {
         [HttpGet]
-        public IActionResult TrovaAuto(string marca, string modello, float prezzo, string alimentazione, string tipo ,int annoImmatricolazione, float kilometraggio, bool usata)
+        public IActionResult TrovaAuto(string marca, string modello, string alimentazione, string tipo ,int annoImmatricolazione, float kilometraggio, string usata)
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
@@ -28,11 +28,6 @@ namespace WebAppCarrozzeriaAuto.Controllers.API
                     query = query.Where(a => a.NomeModello == modello);
                 }
 
-                if(prezzo > 0)
-                {
-                    query = query.Where(a => a.Prezzo <= prezzo);
-                }
-
                 if (!string.IsNullOrEmpty(alimentazione))
                 {
                     query = query.Where(a => a.Specifiche.Alimentazione == alimentazione);
@@ -43,17 +38,18 @@ namespace WebAppCarrozzeriaAuto.Controllers.API
                     query = query.Where(a => a.TipoAuto == tipo);
                 }
 
-                if (annoImmatricolazione > 0)
+                if (annoImmatricolazione >= 0)
                 {
                     query = query.Where(a => a.AnnoImmatricolazione == annoImmatricolazione);
                 }
 
-                if (usata)
+                if (!string.IsNullOrEmpty(usata))
                 {
+                    bool isUsata = usata.ToLower() == "true";
                     query = query.Where(a => a.Usata == true);
                 }
 
-                if (kilometraggio > 0)
+                if (kilometraggio >= 0)
                 {
                     query = query.Where(a => a.Kilometraggio <= kilometraggio);
                 }

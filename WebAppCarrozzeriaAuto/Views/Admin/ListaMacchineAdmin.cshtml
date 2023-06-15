@@ -3,7 +3,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12">    
             <div class="mt-3 mb-3">
                 <h1>Lista delle Auto:</h1>
             </div>
@@ -37,7 +37,7 @@
                             <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("ModifyAuto", "Admin", new { id = auto.Id })">
                                 Modifica Auto
                             </a>                            
-                            <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("CreateSpecificheTecniche", "Admin", new { id = auto.Id })">
+                            <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("CreateSpecificheTecniche","Admin" , new { id = auto.Id })">
                                 Crea Specifiche Tecniche
                             </a>                               
                             <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("ModifySpecificheTecniche", "Admin", new { id = auto.Id })">
@@ -45,7 +45,7 @@
                             </a>
                             <form asp-controller="Admin" asp-action="Delete" asp-route-id="@auto.Id" method="post">
                                 @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-danger btn-sm mt-2">
+                                <button type="submit" class="btn btn-danger btn-sm mt-2" style="display:inline">
                                     Cancella
                                 </button>
                             </form>
