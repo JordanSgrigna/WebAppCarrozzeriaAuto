@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAppCarrozzeriaAuto.Database;
 using WebAppCarrozzeriaAuto.Models;
@@ -6,6 +7,7 @@ using WebAppCarrozzeriaAuto.Models.ModelsPerViews;
 
 namespace WebAppCarrozzeriaAuto.Controllers
 {
+    
     public class AdminController : Controller
     {
         //GET

@@ -20,42 +20,45 @@
 
 
 <div class="container-fluid d-flex justify-content-center">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-md-3 g-5">
 
         @foreach (Auto auto in Model)
         {
-            <div class="col-6">
+            <div class="col-lg-3 col-md-6 col-sm-12">
 
 
-                <div class="card border rounded-0 me-2">
+                <div class="card shadow border rounded-0 me-2">
                     <img src="@auto.UrlImmagine" class="card-img-top" width="100%">
                     <div class="card-body pt-0 px-0 mt-3">
                         <div class="d-flex flex-row justify-content-between mb-0 px-3 mt-3 align-text-bottom">
                             <div class="d-flex flex-column col-11"><h6 class="fw-bold">@auto.MarcaAuto<br /></h6><h6>@auto.NomeModello</h6></div>
-                            <!--TASTO MI PIACE-->
-                            <div id="main-content" class="col-1 align-items-center">
-                                <div>
-                                    <input type="checkbox" id="checkbox" />
-                                    <label for="checkbox">
-                                        <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
-                                            <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
-                                                <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2" />
-                                                <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <!--TASTO MI PIACE-->
+                                <div id="main-content" class="col-1 align-items-center">
+                                    <div>
+                                        <input type="checkbox" id="checkbox" />
+                                        <label for="checkbox">
+                                            <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
+                                                    <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2" />
+                                                    <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
 
 
-                                            </g>
-                                        </svg>
-                                    </label>
+                                                </g>
+                                            </svg>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--TASTO MI PIACE-->
+                                <!--TASTO MI PIACE-->
+                            }
                         </div>
                         <div style="background: #ECEDF1" class="d-flex flex-row justify-content-between p-3 mid mt-4">
-                            @*<div class="d-flex flex-column"><small class="text-muted mb-1">CARBURANTE</small><div class="d-flex flex-row"><img src="https://imgur.com/iPtsG7I.png" width="35px" height="25px"><div class="d-flex flex-column ml-1 align-self-center"><small class="ghj">@auto.Specifiche.Alimentazione</small></div></div></div>*@                      
+                            <div class="d-flex flex-column"><small class="text-muted mb-1">CARBURANTE</small><div class="d-flex flex-row"><img src="https://imgur.com/iPtsG7I.png" width="35px" height="25px"><div class="d-flex flex-column ml-1 align-self-center"><small class="ghj">@auto.Specifiche.Alimentazione</small></div></div></div>                     
                             <div class="d-flex flex-column">
                                 <small class="text-muted mb-1">TIPO</small><div class="d-flex flex-row">
                                     <div class="d-flex flex-column ml-1 align-self-center">
-                                        <div class="d-flex flex-column">
+                                        <div class="d-flex flex-column align-items-center">
                                             @if (auto.Usata)
                                             {
                                                 <small class="ghj">USATA</small>
@@ -75,23 +78,6 @@
                         <div class="mx-3 mt-3 mb-2 text-center">
                             <a class="btn btn-outline-dark" href="@Url.Action("DettagliMacchina", "Auto", new { id = auto.Id })" role="button"><small>VISUALIZZA</small></a>
                         </div>
-                        <button class="like-button">
-                            <div class="like-wrapper">
-                                <div class="ripple"></div>
-                                <svg class="heart" width="24" height="24" viewBox="0 0 24 24">
-                                    <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
-                                </svg>
-                                <div class="particles" style="--total-particles: 6">
-                                    <div class="particle" style="--i: 1; --color: #7642F0"></div>
-                                    <div class="particle" style="--i: 2; --color: #AFD27F"></div>
-                                    <div class="particle" style="--i: 3; --color: #DE8F4F"></div>
-                                    <div class="particle" style="--i: 4; --color: #D0516B"></div>
-                                    <div class="particle" style="--i: 5; --color: #5686F2"></div>
-                                    <div class="particle" style="--i: 6; --color: #D53EF3"></div>
-                                </div>
-                            </div>
-                        </button>
-
                     </div>
                 </div>
 

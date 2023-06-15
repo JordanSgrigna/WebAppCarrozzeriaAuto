@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq;
 using WebAppCarrozzeriaAuto.Database;
@@ -20,13 +21,8 @@ namespace WebAppCarrozzeriaAuto.Controllers
         {
             using(ConcessionarioContext db = new ConcessionarioContext())
             {
-                List<Auto> autoOrdinatePerLike = db.Auto.OrderByDescending(a => a.NumeroLikeUtenti).Take(5).ToList();
-                List<Auto> autoOrdinatePerVendita = db.Auto.OrderByDescending(a => a.Vendite.Sum(v => v.QuantitaAuto)).Take(5).ToList();
-
-                ListaMacchinePerHomepage listaMacchine = new ListaMacchinePerHomepage();
-                listaMacchine.AutoVendute = autoOrdinatePerVendita;
-                listaMacchine.AutoLike = autoOrdinatePerLike;
-                return View(listaMacchine);
+                List<Auto> autoOrdinatePerLike = db.Auto.Include(a => a.Specifiche).OrderByDescending(a => a.NumeroLikeUtenti).Take(4).ToList();
+                return View(autoOrdinatePerLike);
             }
 
         }

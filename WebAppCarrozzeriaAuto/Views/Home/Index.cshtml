@@ -2,6 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model List<Auto>
+
 <main>
     <div class="d-flex min-vh-100" lc-helper="background" style="background:url(/Assets/img/stephan-louis-m8mypQp7Sg0-unsplash.jpg)  center / cover no-repeat; background-color:#444; background-blend-mode: overlay;">
         <div class="align-self-center text-center text-light col-md-8 offset-md-2">
@@ -58,58 +60,52 @@
       <div class="container">
         <div class="row mx-0">
           <div class="col p-5 text-center align-self-center">
-            <h1 style="font-weight: bolder;">Le auto più </h1>
+            <h1 style="font-weight: bolder;">Le auto più piaciute</h1>
           </div>
         </div>
       </div>
 
-      <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-bs-theme="light">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="active" aria-current="true"></button>
-          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active carousel-item-start">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
-            <div class="container">
-              <div class="carousel-caption text-center">
-                <h1>Example headline.</h1>
-                <p class="opacity-75">Some representative placeholder content for the first slide of the carousel.</p>
-                <p><a class="btn btn-outline-light btn-lg" href="#">Sign up today</a></p>
-              </div>
+        <div class="container mt-5">
+            <div class="row">
+                @foreach (Auto auto in Model)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card shadow border rounded-0 me-2">
+                            <img src="@auto.UrlImmagine" class="card-img-top" width="100%">
+                            <div class="card-body pt-0 px-0 mt-3">
+                                <div class="d-flex flex-row justify-content-between mb-0 px-3 mt-3 align-text-bottom">
+                                    <div class="d-flex flex-column col-11"><h6 class="fw-bold">@auto.MarcaAuto<br /></h6><h6>@auto.NomeModello</h6></div>
+                                </div>
+                                <div style="background: #ECEDF1" class="d-flex flex-row justify-content-between p-3 mid mt-4">
+                                    <div class="d-flex flex-column"><small class="text-muted mb-1">CARBURANTE</small><div class="d-flex flex-row"><img src="https://imgur.com/iPtsG7I.png" width="35px" height="25px"><div class="d-flex flex-column ml-1 align-self-center"><small class="ghj">@auto.Specifiche.Alimentazione</small></div></div></div>
+                                    <div class="d-flex flex-column">
+                                        <small class="text-muted mb-1">TIPO</small><div class="d-flex flex-row">
+                                            <div class="d-flex flex-column ml-1 align-self-center">
+                                                <div class="d-flex flex-column">
+                                                    @if (auto.Usata)
+                                                    {
+                                                        <small class="ghj">USATA</small>
+                                                    }
+                                                    else
+                                                    {
+                                                        <small class="ghj">NUOVA</small>
+
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column"><small class="text-muted mb-2">POTENZA</small><div class="d-flex flex-row"><img src="https://imgur.com/J11mEBq.png"><small class="align-self-center ml-1">@auto.Specifiche.Potenza CV</small></div></div>
+                                </div>
+                                <h5 class="fw-bold text-center mt-3">€ @auto.Prezzo</h5>
+                                <div class="mx-3 mt-3 mb-2 text-center">
+                                    <a class="btn btn-outline-dark" href="@Url.Action("DettagliMacchina", "Auto", new { id = auto.Id })" role="button"><small>VISUALIZZA</small></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-          </div>
-          <div class="carousel-item carousel-item-next carousel-item-start">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
-            <div class="container">
-              <div class="carousel-caption">
-                <h1>Another example headline.</h1>
-                <p>Some representative placeholder content for the second slide of the carousel.</p>
-                <p><a class="btn btn-outline-light btn-lg" href="#">Learn more</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
-            <div class="container">
-              <div class="carousel-caption text-center">
-                <h1>One more for good measure.</h1>
-                <p>Some representative placeholder content for the third slide of this carousel.</p>
-                <p><a class="btn btn-outline-light btn-lg" href="#">Browse gallery</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
 
 
       <div class="container">
