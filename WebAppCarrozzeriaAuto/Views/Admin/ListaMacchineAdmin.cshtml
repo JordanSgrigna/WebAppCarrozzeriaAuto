@@ -33,11 +33,15 @@
                             <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("DettagliMacchina", "Auto", new { id = auto.Id })">
                                 Dettagli
                             </a>
-                                <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("ModifyAuto", "Admin", new { id = auto.Id })">
+
+                            <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("ModifyAuto", "Admin", new { id = auto.Id })">
                                 Modifica Auto
-                            </a>
-                                <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("ModifySpecificheTecniche", "Admin", new { id = auto.Id })">
-                                Specifiche Tecniche
+                            </a>                            
+                            <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("CreateSpecificheTecniche", "Admin", new { id = auto.Id })">
+                                Crea Specifiche Tecniche
+                            </a>                               
+                            <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("ModifySpecificheTecniche", "Admin", new { id = auto.Id })">
+                                Modifica Specifiche Tecniche
                             </a>
                             <form asp-controller="Admin" asp-action="Delete" asp-route-id="@auto.Id" method="post">
                                 @Html.AntiForgeryToken()

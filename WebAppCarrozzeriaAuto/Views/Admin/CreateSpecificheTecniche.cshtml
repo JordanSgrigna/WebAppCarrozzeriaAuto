@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <form asp-controller="Admin" asp-action="CreateSpecificheTecniche" method="post">
+            <form asp-controller="Admin" asp-action="CreateSpecificheTecniche" asp-route-id="@Model.AutoId" method="post">
                 @Html.AntiForgeryToken()
                 <div class="mb-3">
                     <label asp-for="Cilindrata" for="SpecificheTecniche">Cilindrata</label>
@@ -20,11 +20,6 @@
                     <label asp-for="Potenza" for="SpecificheTecniche">Potenza</label>
                     <input asp-for="Potenza" type="number" class="form-control" />
                     <span asp-validation-for="Potenza" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Cambio" for="SpecificheTecniche">Cambio</label>
-                    <input asp-for="Cambio" type="text" class="form-control" />
-                    <span asp-validation-for="Cambio" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Trazione" for="SpecificheTecniche">Cambio</label>
