@@ -73,7 +73,7 @@ namespace WebAppCarrozzeriaAuto.Models
 
         }
 
-        public Auto(bool usata, string urlImmagine, string nomeModello, string descrizione, string colore, float prezzo, int annoInizioProduzione, int annoFineProduzione, int annoImmatricolazione, int numeroAutoNelConcessionario, int numeroLikeUtenti, float? kilometraggio, string tipoAuto, string marcaAuto)
+        public Auto(bool usata, string urlImmagine, string nomeModello, string descrizione, string colore, float prezzo, int annoInizioProduzione, int annoFineProduzione, float? kilometraggio, string tipoAuto, string marcaAuto, int annoImmatricolazione, int numeroAutoNelConcessionario)
         {
             Usata = usata;
             UrlImmagine = urlImmagine;
@@ -83,8 +83,8 @@ namespace WebAppCarrozzeriaAuto.Models
             Prezzo = prezzo;
             AnnoInizioProduzione = annoInizioProduzione;
             AnnoFineProduzione = annoFineProduzione;
-            AnnoImmatricolazione = 0;
-            NumeroAutoNelConcessionario = 0;
+            AnnoImmatricolazione = annoImmatricolazione;
+            NumeroAutoNelConcessionario = numeroAutoNelConcessionario;
             NumeroLikeUtenti = 0;
             Kilometraggio = kilometraggio;
             TipoAuto = tipoAuto;

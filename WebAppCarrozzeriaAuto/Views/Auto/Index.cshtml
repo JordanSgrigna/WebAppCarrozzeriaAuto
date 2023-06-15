@@ -1,4 +1,5 @@
-﻿@model List<Auto>
+﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
+@model List<Auto>
 
 
 <div class="container-fluid py-5 mb-4 d-flex justify-content-center" style="  background-image: url('/Assets/img/hans-m-OTnkae1syxk-unsplash.jpg');
@@ -23,7 +24,7 @@
 
         @foreach (Auto auto in Model)
         {
-            <div class="col">
+            <div class="col-6">
 
 
                 <div class="card border rounded-0">
@@ -91,4 +92,47 @@
             </div>
         }
     </div>
-</div>
+
+    <div class="col-4 text-bg-secondary">
+        <form asp-controller="Auto" asp-action="Index" asp-route-id="Id" method="post" class="p-5">
+                <div class="mb-3">
+                    <label  class="form-label">Marca</label>
+                    <input  type="text" class="form-control" />
+                    <span   class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Modello</label>
+                    <input  type="text" class="form-control" />
+                    <span   class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Tipo</label>
+                    <input  type="text" class="form-control" />
+                    <span   class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Anno di Immatricolazione</label>
+                    <input  type="number" class="form-control" />
+                    <span   class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Kilometraggio</label>
+                    <input  type="number" class="form-control" />
+                    <span   class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Alimentazione</label>
+                    <input  type="number" class="form-control" />
+                    <span   class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label   class="form-label">Stato Macchina</label>
+                    <select  class="form-select" aria-label="Usata?">
+                        <option value="True" selected>Usata</option>
+                        <option value="False">Nuova</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+

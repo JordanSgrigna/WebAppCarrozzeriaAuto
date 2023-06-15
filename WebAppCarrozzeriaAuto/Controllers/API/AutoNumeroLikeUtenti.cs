@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAppCarrozzeriaAuto.Database;
 using WebAppCarrozzeriaAuto.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebAppCarrozzeriaAuto.Controllers.API
 {
@@ -18,6 +19,8 @@ namespace WebAppCarrozzeriaAuto.Controllers.API
                 if(autoNumeroDiLikeDaModificare != null)
                 {
                     autoNumeroDiLikeDaModificare.NumeroLikeUtenti += 1;
+                    db.SaveChanges();
+
                     return Ok();
                 }
                 else

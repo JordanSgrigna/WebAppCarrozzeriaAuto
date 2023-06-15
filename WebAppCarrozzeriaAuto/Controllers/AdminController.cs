@@ -32,8 +32,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                List<Auto> auto = db.Auto.ToList();
-                return View(auto);
+                return View();
             }
         }
 
@@ -111,11 +110,8 @@ namespace WebAppCarrozzeriaAuto.Controllers
         public IActionResult CreateAuto(Auto data)
         {
             if (!ModelState.IsValid)
-            {
-                using (ConcessionarioContext db = new ConcessionarioContext())
-                {
-                    return View(data);
-                }
+            {                
+                 return View(data);               
             }
             else
             {
@@ -195,6 +191,26 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 }
             }
 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateSpecificheTecniche(int id, SpecificheTecniche specifiche)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(specifiche);
+            }
+            else
+            {
+                using (ConcessionarioContext db = new ConcessionarioContext())
+                {
+                    specifiche.AutoId = id;
+                    db.SpecificheTecniche.Add(specifiche);
+                    db.SaveChanges();
+                    return View("ListaMacchineAdmin", "Admin");
+                }
+            }
         }
 
 

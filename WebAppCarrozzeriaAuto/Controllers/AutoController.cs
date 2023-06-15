@@ -28,8 +28,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 Auto? autoDettagliata = db.Auto.Where(a => a.Id == id)
-                                               .Include(m => m.MarcaAuto)
-                                               .Include(t => t.TipoAuto)
                                                .Include(t => t.Specifiche)
                                                .FirstOrDefault();
 
@@ -50,8 +48,6 @@ namespace WebAppCarrozzeriaAuto.Controllers
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 Auto? autoDaVendere = db.Auto.Where(a => a.Id == id)
-                                             .Include(m => m.MarcaAuto)
-                                             .Include(a => a.TipoAuto)
                                              .FirstOrDefault();
 
                 if (autoDaVendere == null)
