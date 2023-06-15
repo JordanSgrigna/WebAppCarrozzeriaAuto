@@ -5,12 +5,12 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <form asp-controller="Admin" asp-action="CreateAuto" asp-route-id="Id" method="post" class="p-5">
+            <form asp-controller="Admin" asp-action="CreateAuto" method="post" class="p-5">
                 @Html.AntiForgeryToken()
                 <div class="mb-3">
                     <label asp-for="MarcaAuto" class="form-label">Marca</label>
-                    <input asp-for="MarcaAuto" class="form-control" />
-                    <span asp-validation-for="Kilometraggio" class="text-danger"></span>
+                    <input asp-for="MarcaAuto" class="form-control" required />
+                    <span asp-validation-for="MarcaAuto" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="NomeModello" class="form-label">Nome Modello</label>
@@ -19,8 +19,8 @@
                 </div>
                 <div class="mb-3">
                     <label asp-for="TipoAuto" class="form-label">Tipo</label>
-                    <input asp-for="TipoAuto" type="text" class="form-control" />
-                    <span asp-validation-for="Kilometraggio" class="text-danger"></span>
+                    <input asp-for="TipoAuto" type="text" class="form-control" required />
+                    <span asp-validation-for="TipoAuto" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Descrizione">Descrizione</label>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="mb-3">
                     <label asp-for="AnnoFineProduzione" class="form-label">Anno di Fine Produzione</label>
-                    <input asp-for="AnnoFineProduzione" type="number" class="form-control" required>
+                    <input asp-for="AnnoFineProduzione" type="number" class="form-control">
                     <span asp-validation-for="AnnoFineProduzione" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
@@ -71,8 +71,12 @@
                 </div>
                 <div class="mb-3">
                     <label asp-for="Kilometraggio" class="form-label">Kilometraggio</label>
-                    <input asp-for="Kilometraggio" type="number" class="form-control" required>
+                    <input asp-for="Kilometraggio" type="number" class="form-control">
                     <span asp-validation-for="Kilometraggio" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <input asp-for="NumeroLikeUtenti" type="hidden" class="form-control" value = 0>
+                    <span asp-validation-for="NumeroLikeUtenti" class="text-danger" ></span>
                 </div>
                 <button type="submit" class="btn btn-info">Salva</button>
             </form>
