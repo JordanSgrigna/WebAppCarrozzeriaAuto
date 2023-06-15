@@ -53,27 +53,20 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpGet]
-        public IActionResult VenditaAuto(int id)
+        public IActionResult VenditaAuto()
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
-                Auto? autoDaVendere = db.Auto.Where(a => a.Id == id)
-                                             .FirstOrDefault();
+                List<Auto>? autoDaVendere = db.Auto.ToList();
+                ModelloVenditaAutoUtente data = new ModelloVenditaAutoUtente();
 
-                if (autoDaVendere == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    ModelloVenditaAutoUtente data = new ModelloVenditaAutoUtente();
-                    VenditaAutoUtente venditaAuto = new VenditaAutoUtente();
-                    data.Vendita = venditaAuto;
-                    data.Auto = autoDaVendere;
+                data.Auto = autoDaVendere;
+                data.Vendita = new VenditaAutoUtente();
+                
 
 
-                    return View(data);
-                }
+                return View(data);
+
             }
         }
 
@@ -91,8 +84,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
             {
                 using (ConcessionarioContext db = new ConcessionarioContext())
                 {
-                    data.Vendita.PrezzoTotale = data.Vendita.QuantitaAuto * data.Auto.Prezzo;
-                    db.VenditeAuto.Add(data.Vendita);
+
                     Auto? autoDaVendere = db.Auto.Where(a => a.Id == id).FirstOrDefault();
 
                     if (autoDaVendere == null)
@@ -101,6 +93,8 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     }
                     else
                     {
+                        data.Vendita.PrezzoTotale = data.Vendita.QuantitaAuto * autoDaVendere.Prezzo;
+                        db.VenditeAuto.Add(data.Vendita);
                         autoDaVendere.NumeroAutoNelConcessionario -= data.Vendita.QuantitaAuto;
                         db.SaveChanges();
                         return RedirectToAction("Index", "Auto");
