@@ -6,15 +6,15 @@
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0 img" src="@Model.UrlImmagine" alt="..."></div>
             <div class="col-md-6">
-                <div class="small mb-1">@Model.Id</div>
+                <div class="small mb-1">ID auto: @Model.Id</div>
                 <h1 class="display-5 fw-bolder">@Model.MarcaAuto</h1>
                 <h2>@Model.NomeModello</h2>
-                <div class="fs-5 mb-5">
-                    <span>@Model.Prezzo</span>
+                <div class="fs-5 mb-5 mt-3">
+                    <h2 class="fw-bold">€ @Model.Prezzo</h2>
                 </div>
                 <p class="lead">@Model.TipoAuto</p>
                 <p class="lead"></p>
-                <p class="lead">@Model.Specifiche.NumeroPorte</p>
+                <p class="lead">@Model.Specifiche.NumeroPorte porte</p>
                 @if (Model.Usata)
                 {
                     <p class="lead">Auto usata</p>
@@ -24,6 +24,8 @@
                     <p class="lead">Auto nuova</p>
 
                 }
+                <p class="lead"></p>
+                <p class="lead">Numero auto disponibili: @Model.NumeroAutoNelConcessionario</p>
             </div>
         </div>
 
@@ -35,7 +37,48 @@
         <div class="row gx-4 gx-lg-5 align-items-start mt-5">
             <div class="col-md-8">
                 <h2 class="mb-5" style="font-weight: bold;">Specifiche</h2>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia, voluptatem fugit itaque ipsum sunt dignissimos minus totam enim nostrum delectus eum atque dolorum alias harum quibusdam placeat autem facere aliquid?</p>
+                <div class="row">
+                    <div class="col-6">
+                        <h6 class="my-5 fw-bold">Tipo Auto</h6>
+                        @if (Model.Usata)
+                        {
+                            <h6 class="my-5 fw-bold">Chilometraggio</h6>
+                            <h6 class="my-5 fw-bold">Colore</h6>
+                            <h6 class="my-5 fw-bold">Anno Immatricolazione</h6>
+                        }
+                        <h6 class="my-5 fw-bold">Cilindrata</h6>
+                        <h6 class="my-5 fw-bold">Alimentazione</h6>
+                        <h6 class="my-5 fw-bold">Potenza</h6>
+                        <h6 class="my-5 fw-bold">Cambio</h6>
+                        <h6 class="my-5 fw-bold">Trazione</h6>
+                        <h6 class="my-5 fw-bold">Classe Emissioni</h6>
+                        <h6 class="my-5 fw-bold">Consumo Urbano</h6>
+                        <h6 class="my-5 fw-bold">Consumo Extra Urbano</h6>
+                        <h6 class="my-5 fw-bold">Consumo Misto</h6>
+                        <h6 class="my-5 fw-bold">Numero Porte</h6>
+                        <h6 class="my-5 fw-bold">Numero Posti</h6>
+                    </div>
+                    <div class="col-6">
+                        <h6 class="my-5">@Model.TipoAuto</h6>
+                        @if (Model.Usata)
+                        {
+                            <h6 class="my-5">@Model.Kilometraggio km</h6>
+                            <h6 class="my-5">@Model.Colore</h6>
+                            <h6 class="my-5">@Model.AnnoImmatricolazione</h6>
+                        }
+                        <h6 class="my-5">@Model.Specifiche.Cilindrata cm³</h6>
+                        <h6 class="my-5">@Model.Specifiche.Alimentazione</h6>
+                        <h6 class="my-5">@Model.Specifiche.Potenza kw/h</h6>
+                        <h6 class="my-5">@Model.Specifiche.Cambio</h6>
+                        <h6 class="my-5">@Model.Specifiche.Trazione</h6>
+                        <h6 class="my-5">@Model.Specifiche.ClasseEmissioni</h6>
+                        <h6 class="my-5">@Model.Specifiche.ConsumoUrbano l/100 km</h6>
+                        <h6 class="my-5">@Model.Specifiche.ConsumoExtraUrbano l/100 km</h6>
+                        <h6 class="my-5">@Model.Specifiche.ConsumoMisto l/100 km</h6>
+                        <h6 class="my-5">@Model.Specifiche.NumeroPorte</h6>
+                        <h6 class="my-5">@Model.Specifiche.NumeroPosti</h6>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-4">
@@ -69,10 +112,9 @@
                             <div class="card card-form-2 mb-0 z-depth-0">
                                 <div class="card-body">
                                     <form class="text-center">
-                                        <button class="btn btn-outline-danger btn-rounded btn-block my-4 z-depth-0"
-                                                type="submit">
-                                            Invia
-                                        </button>
+                                        <div class="my-4 z-depth-0">
+                                            <a class="btn btn-outline-danger btn-rounded btn-block" href="@Url.Action("VenditaAuto", "Auto")" role="button">Invia</a>
+                                        </div>
                                         <p>o accedi con:</p>
                                         <i class="fab fa-lg fa-google black-accent-text px-2"></i>
                                         <i class="fab fa-lg fa-facebook-f black-accent-text px-2"></i>
@@ -81,7 +123,7 @@
                                         <i class="fab fa-lg fa-github black-accent-text px-2"></i>
                                         <a style="background-color: #bbbcbe;" class="btn mt-3" style="cursor:pointer">
                                             Paga con
-                                            <img src="./img/paypal-logo.png" class="img-fluid">
+                                            <img src="/Assets/img/paypal-logo.png" class="img-fluid">
                                         </a>
                                         <hr>
                                         <p>
