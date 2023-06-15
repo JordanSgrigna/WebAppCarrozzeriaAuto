@@ -72,7 +72,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 SpecificheTecniche? specificheTecnicheToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.AutoId == id).FirstOrDefault();
                 if (specificheTecnicheToModify != null)
                 {
-                    return View("Update", specificheTecnicheToModify);
+                    return View(specificheTecnicheToModify);
                 }
                 else
                 {
@@ -216,7 +216,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View("Update", modifiedSpecificheTecniche);
+                return View("ModifySpecificheTecniche", modifiedSpecificheTecniche);
             }
 
             using (ConcessionarioContext db = new ConcessionarioContext())
@@ -235,7 +235,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     specificheTecnicheToModify.ConsumoMisto = modifiedSpecificheTecniche.ConsumoMisto;
 
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("ListaMacchineAdmin", "Admin");
                 }
                 else
                 {
