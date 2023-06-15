@@ -9,17 +9,24 @@
             </p>
         </div>
     </div>
-
+ 
     <div class="row d-flex justify-content-center mt-4">
-        <h3 class="text-center mb-3">Aggiungi</h3>
-        <div class="col-12 text-center mb-4">
-            <a type="button" class="btn btn-primary" style="padding-right: 150px; padding-left: 150px;" href="@Url.Action("CreateAuto", "Admin")">Auto</a>
-        </div>
-        <div class="col-12 text-center">
-            <div class="mt-4">
-                <a href="@Url.Action("ListaMacchineAdmin", "Admin")" type="button" class="btn btn-success" style="padding-right: 150px; padding-left: 150px;">Vai alla lista di macchine per admin!</a>
+        <h3 class="text-center mb-3"></h3>
+            <div class="col-4 @*bg-dark bg-opacity-25*@ " @*id="sidebar"*@ @*style=" height: 100vh"*@>
+               <div >
+                   <h1 class="pt-2">Istruzioni</h1>
+                   <p class="pt-2">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                   </p>
+               </div>
+           </div>
+            <div class="col-4 text-center mb-4 d-grid gap-2 mt-4 pt-5" style="height: 10vh">
+                <a type="button" class="btn btn-primary" @*style="padding-right: 150px; padding-left: 150px;"*@ href="@Url.Action("CreateAuto", "Admin")">Clicca qui per aggiungere un'auto</a>
+                <a href="@Url.Action("ListaMacchineAdmin", "Admin")" type="button" class="btn btn-success" @*style="padding-right: 150px; padding-left: 150px;"*@>Vai alla lista di macchine per admin!</a>
             </div>
-        </div>
+       
+
+    
     </div>
-   
+
 </div>

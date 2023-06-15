@@ -1,1 +1,53 @@
-﻿
+﻿@using WebAppCarrozzeriaAuto.Models.ModelsPerViews
+@model ModelloVenditaAutoUtente
+
+<div class="container-fluid py-5 mb-4 d-flex justify-content-center" style="  background-image: url(https://www.sicurauto.it/wp-content/uploads/2022/11/Acquisto-auto-usata.jpg);
+            background-position: center;
+            background-size:cover;
+            background-repeat:no-repeat;
+            background-color:#444;
+            background-blend-mode: overlay;">
+    <div class="p-5 mt-5 lc-block col-xxl-7 col-lg-8 col-12 align-self-center text-center" style="height: 300px;">
+        <div class="lc-block">
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1>Compila il form per concludere l'acquisto:</h1>
+            <form asp-controller="Auto" asp-action="VenditaAuto" method="post" class="p-5">
+                @Html.AntiForgeryToken()
+                <select asp-for="Vendita.AutoId" title="Auto" aria-label=".form-select-lg example">
+                    <option value=""></option>
+                    @foreach(Auto auto in Model.Auto ?? new List<Auto>())
+                    {
+                        <option value="@auto.Id">@auto.MarcaAuto, @auto.NomeModello</option>
+                    }
+                </select>
+                <div class="mb-3">
+                    <label asp-for="@Model.Vendita.NomeUtente" class="form-label">Conferma il tuo nome:</label>
+                    <input type="text" asp-for="@Model.Vendita.NomeUtente" class="form-control" required />
+                    <span asp-validation-for="@Model.Vendita.NomeUtente" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label  asp-for="@Model.Vendita.CognomeUtente" class="form-label">Conferma il tuo cognome:</label>
+                    <input type="text" asp-for="@Model.Vendita.CognomeUtente" class="form-control" required />
+                    <span asp-validation-for="@Model.Vendita.CognomeUtente" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Vendita.EmailUtente" class="form-label">Conferma la tua email</label>
+                    <input type="text" asp-for="@Model.Vendita.EmailUtente" class="form-control" required />
+                    <span asp-validation-for="@Model.Vendita.EmailUtente" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Vendita.QuantitaAuto" class="form-label">Quantità auto</label>
+                    <input type="number" asp-for="@Model.Vendita.QuantitaAuto" class="form-control" required />
+                    <span asp-validation-for="@Model.Vendita.QuantitaAuto" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-info">Invia</button>               
+            </form>
+        </div>
+    </div>
+</div>

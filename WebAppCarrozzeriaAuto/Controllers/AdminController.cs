@@ -39,10 +39,9 @@ namespace WebAppCarrozzeriaAuto.Controllers
         [HttpGet]
         public IActionResult CreateSpecificheTecniche(int id)
         {
-            SpecificheTecniche specificheAuto = new SpecificheTecniche();
-            specificheAuto.AutoId = id;
-
-            return View(specificheAuto);
+            SpecificheTecniche specifiche = new SpecificheTecniche();
+            specifiche.AutoId = id;
+            return View();
         }
 
 
@@ -73,7 +72,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                 SpecificheTecniche? specificheTecnicheToModify = db.SpecificheTecniche.Where(specificheTecniche => specificheTecniche.AutoId == id).FirstOrDefault();
                 if (specificheTecnicheToModify != null)
                 {
-                    return View("Update", specificheTecnicheToModify);
+                    return View(specificheTecnicheToModify);
                 }
                 else
                 {
@@ -133,12 +132,10 @@ namespace WebAppCarrozzeriaAuto.Controllers
             using (ConcessionarioContext db = new ConcessionarioContext())
             {
                 Auto? autoDaEliminare = db.Auto.Where(auto => auto.Id == id).FirstOrDefault();
-                SpecificheTecniche? specificheTecnicheDaEliminare = db.SpecificheTecniche.Where(specifiche => specifiche.AutoId == id).FirstOrDefault();
 
-                if (autoDaEliminare != null && specificheTecnicheDaEliminare != null)
+                if (autoDaEliminare != null)
                 {
                     db.Auto.Remove(autoDaEliminare);
-                    db.SpecificheTecniche.Remove(specificheTecnicheDaEliminare);
                     db.SaveChanges();
                     return RedirectToAction("ListaMacchineAdmin", "Admin");
 
@@ -195,18 +192,17 @@ namespace WebAppCarrozzeriaAuto.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateSpecificheTecniche(int id, SpecificheTecniche specifiche)
+        public IActionResult CreateSpecificheTecniche(SpecificheTecniche data)
         {
             if (!ModelState.IsValid)
             {
-                return View(specifiche);
+                return View(data);
             }
             else
             {
                 using (ConcessionarioContext db = new ConcessionarioContext())
-                {
-                    specifiche.AutoId = id;
-                    db.SpecificheTecniche.Add(specifiche);
+                { 
+                    db.SpecificheTecniche.Add(data);
                     db.SaveChanges();
                     return View("ListaMacchineAdmin", "Admin");
                 }
@@ -220,7 +216,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View("Update", modifiedSpecificheTecniche);
+                return View("ModifySpecificheTecniche", modifiedSpecificheTecniche);
             }
 
             using (ConcessionarioContext db = new ConcessionarioContext())
@@ -239,7 +235,7 @@ namespace WebAppCarrozzeriaAuto.Controllers
                     specificheTecnicheToModify.ConsumoMisto = modifiedSpecificheTecniche.ConsumoMisto;
 
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("ListaMacchineAdmin", "Admin");
                 }
                 else
                 {

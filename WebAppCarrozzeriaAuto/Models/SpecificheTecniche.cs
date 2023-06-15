@@ -6,6 +6,7 @@ namespace WebAppCarrozzeriaAuto.Models
     public class SpecificheTecniche
     {
         //ATTRIBUTI
+        [Key]
         public int Id { get; set; }
 
         [Column(TypeName = "smallint")]
@@ -52,7 +53,7 @@ namespace WebAppCarrozzeriaAuto.Models
         //RELAZIONI
         [ForeignKey("Auto")]
         public int AutoId { get; set; }
-        public Auto Auto { get; set; }
+        public Auto? Auto { get; set; }
 
         //COSTRUTTORI
         public SpecificheTecniche()
@@ -60,7 +61,7 @@ namespace WebAppCarrozzeriaAuto.Models
 
         }
 
-        public SpecificheTecniche(int? cilindrata, int? numeroCilindri, string alimentazione, int potenza, string cambio, string trazione, string classeEmissioni, float? consumoUrbano, float? consumoExtraUrbano, float? consumoMisto, int autoId, Auto auto)
+        public SpecificheTecniche(int? cilindrata, int? numeroCilindri, string alimentazione, int potenza, string cambio, string trazione, string classeEmissioni, float? consumoUrbano, float? consumoExtraUrbano, float? consumoMisto)
         {
             Cilindrata = cilindrata;
             Alimentazione = alimentazione;
@@ -71,8 +72,6 @@ namespace WebAppCarrozzeriaAuto.Models
             ConsumoUrbano = consumoUrbano;
             ConsumoExtraUrbano = consumoExtraUrbano;
             ConsumoMisto = consumoMisto;
-            AutoId = autoId;
-            Auto = auto;
         }
     }
 }
