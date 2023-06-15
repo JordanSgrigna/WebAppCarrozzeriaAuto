@@ -23,8 +23,9 @@
                 </li>
             </ul>
             <partial name="_LoginPartial"/>
-            <form role="search">
-                <input class="form-control ms-2" type="search" placeholder="Ciao Silvio" aria-label="Search">
+            <form asp-controller="Auto" asp-action="TrovaMarcaOModello" method="get">
+                <input class="form-control ms-2" type="text" name="input" placeholder="Ciao Silvio" aria-label="Search">
+                <button type="submit">Cerca</button>
             </form>
         </div>
     </div>

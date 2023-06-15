@@ -43,6 +43,16 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpGet]
+        public IActionResult TrovaMarcaOModello(string input)
+        {
+            using (ConcessionarioContext db = new ConcessionarioContext())
+            {
+                List<Auto>? autoTrovate = db.Auto.Where(a => a.MarcaAuto.Contains(input) || a.NomeModello.Contains(input)).ToList();
+                return View("Index", autoTrovate);
+            }
+        }
+
+        [HttpGet]
         public IActionResult VenditaAuto(int id)
         {
             using (ConcessionarioContext db = new ConcessionarioContext())
