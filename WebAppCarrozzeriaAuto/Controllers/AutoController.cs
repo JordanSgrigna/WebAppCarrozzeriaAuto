@@ -23,6 +23,13 @@ namespace WebAppCarrozzeriaAuto.Controllers
         }
 
         [HttpGet]
+
+        public IActionResult ConfermaVendita()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult DettagliMacchina(int id)
         {
             using (ConcessionarioContext db = new ConcessionarioContext())

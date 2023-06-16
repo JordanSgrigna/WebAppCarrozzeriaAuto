@@ -16,7 +16,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h1>Compila il form per concludere l'acquisto:</h1>
+            <h1>Compila il form per ottenere il preventivo:</h1>
             <form asp-controller="Auto" asp-action="VenditaAuto" method="post" class="p-5">
                 @Html.AntiForgeryToken()
                 <select asp-for="Vendita.AutoId" title="Auto" aria-label=".form-select-lg example">
@@ -46,7 +46,7 @@
                     <input type="number" asp-for="@Model.Vendita.QuantitaAuto" class="form-control" required />
                     <span asp-validation-for="@Model.Vendita.QuantitaAuto" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-info">Invia</button>               
+                <a class="btn btn-outline-danger btn-rounded btn-block" href="@Url.Action("ConfermaVendita", "Auto")" role="button">Invia</a>
             </form>
         </div>
     </div>
